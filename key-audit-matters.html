@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關鍵審計事項分析 - 全球交易所審計研究</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .kam-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kam-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .kam-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .kam-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .kam-stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .kam-stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .kam-stat-label {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .kam-filters {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .kam-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .kam-filter-group label {
+            font-weight: 500;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .kam-filter-group select {
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.9rem;
+            min-width: 150px;
+            transition: border-color 0.2s;
+        }
+
+        .kam-filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .kam-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .kam-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .kam-panel-header {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .kam-panel-header h3 {
+            margin: 0;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .kam-panel-body {
+            padding: 1.5rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .kam-matter-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .kam-matter-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .kam-matter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .kam-matter-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
+            flex: 1;
+        }
+
+        .kam-risk-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kam-risk-high {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .kam-risk-medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .kam-risk-low {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .kam-matter-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .kam-matter-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .kam-matter-description {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .kam-audit-response {
+            background: #f8fafc;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .kam-audit-response-label {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .kam-audit-response-text {
+            color: #6b7280;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .kam-chart-container {
+            height: 400px;
+            padding: 1rem;
+        }
+
+        .back-to-main {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-to-main:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .kam-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .kam-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .kam-filter-group {
+                width: 100%;
+            }
+            
+            .kam-filter-group select {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-main">
+        <i class="fas fa-arrow-left"></i> 返回主頁
+    </a>
+
+    <!-- Hero Section -->
+    <section class="kam-hero">
+        <div class="container">
+            <div class="kam-hero-content">
+                <h1><i class="fas fa-search-dollar"></i> 關鍵審計事項分析</h1>
+                <p>深入分析全球主要交易所年度報告中的關鍵審計事項 (Key Audit Matters / Critical Audit Matters)</p>
+                <div style="margin-top: 2rem;">
+                    <a href="kam_dashboard_actual.html" style="display: inline-block; padding: 1rem 2rem; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.3);">
+                        <i class="fas fa-chart-bar"></i> 查看互動式分析儀表板
+                    </a>
+                </div>
+                
+                <div class="kam-stats">
+                    <div class="kam-stat-card">
+                        <div class="kam-stat-number" id="totalMatters">0</div>
+                        <div class="kam-stat-label">總審計事項</div>
+                    </div>
+                    <div class="kam-stat-card">
+                        <div class="kam-stat-number" id="highRiskMatters">0</div>
+                        <div class="kam-stat-label">高風險事項</div>
+                    </div>
+                    <div class="kam-stat-card">
+                        <div class="kam-stat-number" id="uniqueThemes">0</div>
+                        <div class="kam-stat-label">主要主題</div>
+                    </div>
+                    <div class="kam-stat-card">
+                        <div class="kam-stat-number" id="auditorsCount">0</div>
+                        <div class="kam-stat-label">審計師事務所</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filters -->
+        <div class="kam-filters">
+            <div class="kam-filter-group">
+                <label for="exchangeFilter">交易所</label>
+                <select id="exchangeFilter" onchange="filterMatters()">
+                    <option value="all">所有交易所</option>
+                    <option value="lseg">🇬🇧 LSEG (36 KAMs)</option>
+                    <option value="euronext">🇪🇺 Euronext N.V. (34 KAMs)</option>
+                    <option value="deutsche_borse">🇩🇪 Deutsche Börse AG (19 KAMs)</option>
+                    <option value="hkex">🇭🇰 HKEX (18 KAMs)</option>
+                    <option value="ice">🇺🇸 ICE (9 KAMs)</option>
+                    <option value="tmx">🇨🇦 TMX Group (8 KAMs)</option>
+                    <option value="nasdaq">🇺🇸 Nasdaq Inc. (7 KAMs)</option>
+                </select>
+            </div>
+            
+            <div class="kam-filter-group">
+                <label for="yearFilter">年份</label>
+                <select id="yearFilter" onchange="filterMatters()">
+                    <option value="all">所有年份</option>
+                    <option value="2024">2024 (14 KAMs)</option>
+                    <option value="2023">2023 (17 KAMs)</option>
+                    <option value="2022">2022 (15 KAMs)</option>
+                    <option value="2021">2021 (17 KAMs)</option>
+                    <option value="2020">2020 (15 KAMs)</option>
+                    <option value="2019">2019 (14 KAMs)</option>
+                    <option value="2018">2018 (13 KAMs)</option>
+                    <option value="2017">2017 (12 KAMs)</option>
+                    <option value="2016">2016 (9 KAMs)</option>
+                    <option value="2015">2015 (5 KAMs)</option>
+                </select>
+            </div>
+            
+            <div class="kam-filter-group">
+                <label for="riskFilter">風險等級</label>
+                <select id="riskFilter" onchange="filterMatters()">
+                    <option value="all">所有風險等級</option>
+                    <option value="High">高風險</option>
+                    <option value="Medium">中風險</option>
+                    <option value="Low">低風險</option>
+                </select>
+            </div>
+            
+            <div class="kam-filter-group">
+                <label for="themeFilter">主題</label>
+                <select id="themeFilter" onchange="filterMatters()">
+                    <option value="all">所有主題</option>
+                    <option value="Goodwill">商譽減值測試</option>
+                    <option value="Intangible">無形資產評估</option>
+                    <option value="Financial">金融工具估值</option>
+                    <option value="Revenue">收入確認</option>
+                    <option value="Risk">風險管理</option>
+                    <option value="Technology">IT系統控制</option>
+                    <option value="Tax">稅務條款</option>
+                    <option value="Business">業務合併</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="kam-content">
+            <!-- Matters List -->
+            <div class="kam-panel">
+                <div class="kam-panel-header">
+                    <h3><i class="fas fa-list-ul"></i> 關鍵審計事項列表</h3>
+                </div>
+                <div class="kam-panel-body" id="mattersContainer">
+                    <!-- Matters will be populated here -->
+                </div>
+            </div>
+
+            <!-- Analysis Charts -->
+            <div class="kam-panel">
+                <div class="kam-panel-header">
+                    <h3><i class="fas fa-chart-pie"></i> 風險分布分析</h3>
+                </div>
+                <div class="kam-panel-body">
+                    <div class="kam-chart-container">
+                        <canvas id="riskDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Analysis -->
+        <div class="kam-content">
+            <!-- Trending Themes -->
+            <div class="kam-panel">
+                <div class="kam-panel-header">
+                    <h3><i class="fas fa-trending-up"></i> 熱門主題趨勢</h3>
+                </div>
+                <div class="kam-panel-body">
+                    <div class="kam-chart-container">
+                        <canvas id="themeTrendsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auditor Patterns -->
+            <div class="kam-panel">
+                <div class="kam-panel-header">
+                    <h3><i class="fas fa-users"></i> 審計師事務所模式</h3>
+                </div>
+                <div class="kam-panel-body">
+                    <div class="kam-chart-container">
+                        <canvas id="auditorPatternsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="key-audit-matters-data-actual.js?v=2024-deloitte"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize Key Audit Matters page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeKAM();
+        });
+    </script>
+</body>
+</html>

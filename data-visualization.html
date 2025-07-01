@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>數據可視化 - 全球交易所審計分析</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .visualization-container {
+            padding: 2rem 0;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .chart-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f2937;
+            text-align: center;
+        }
+        
+        .chart-canvas {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-canvas canvas {
+            max-height: 300px !important;
+            max-width: 100% !important;
+        }
+        
+        .mermaid-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+        
+        .controls-panel {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .control-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .control-select, .control-button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-button {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        
+        .control-button:hover {
+            background: #1d4ed8;
+        }
+        
+        .network-graph {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-panel {
+                flex-direction: column;
+            }
+            
+            .back-button {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <button class="back-button" onclick="window.location.href='index.html'" title="返回主頁">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <!-- Header -->
+    <section class="hero" style="min-height: 40vh;">
+        <div class="hero-content">
+            <h1 class="hero-title" style="font-size: 2.5rem;">數據可視化中心</h1>
+            <p class="hero-subtitle">深度探索全球交易所審計數據的交互式可視化</p>
+        </div>
+    </section>
+
+    <!-- Controls Panel -->
+    <div class="container">
+        <div class="controls-panel">
+            <div class="control-group">
+                <label class="control-label">時間範圍</label>
+                <select class="control-select" id="timeRange" onchange="updateCharts()">
+                    <option value="2019-2024">2019-2024</option>
+                    <option value="2021-2024">2021-2024</option>
+                    <option value="2022-2024">2022-2024</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="control-label">地區篩選</label>
+                <select class="control-select" id="regionFilter" onchange="updateCharts()">
+                    <option value="all">全部地區</option>
+                    <option value="americas">美洲</option>
+                    <option value="europe">歐洲</option>
+                    <option value="asia">亞洲</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label class="control-label">圖表類型</label>
+                <select class="control-select" id="chartType" onchange="switchChartType()">
+                    <option value="standard">標準視圖</option>
+                    <option value="comparison">比較視圖</option>
+                    <option value="trend">趨勢視圖</option>
+                </select>
+            </div>
+            <button class="control-button" onclick="exportAllData()">
+                <i class="fas fa-download"></i> 導出數據
+            </button>
+        </div>
+    </div>
+
+    <!-- Visualization Container -->
+    <div class="container visualization-container">
+        <!-- Chart Grid -->
+        <div class="chart-grid">
+            <!-- Auditor Market Share -->
+            <div class="chart-card">
+                <h3 class="chart-title">審計師市場份額</h3>
+                <div class="chart-canvas">
+                    <canvas id="marketShareChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Key Audit Matters Frequency -->
+            <div class="chart-card">
+                <h3 class="chart-title">關鍵審計事項頻率</h3>
+                <div class="chart-canvas">
+                    <canvas id="auditMattersFrequency"></canvas>
+                </div>
+            </div>
+
+            <!-- Regional Distribution -->
+            <div class="chart-card">
+                <h3 class="chart-title">地區分布</h3>
+                <div class="chart-canvas">
+                    <canvas id="regionalChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Risk Assessment Matrix -->
+            <div class="chart-card">
+                <h3 class="chart-title">風險評估矩陣</h3>
+                <div class="chart-canvas">
+                    <canvas id="riskMatrix"></canvas>
+                </div>
+            </div>
+
+            <!-- Trend Analysis -->
+            <div class="chart-card">
+                <h3 class="chart-title">趨勢分析</h3>
+                <div class="chart-canvas">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Auditor Changes Timeline -->
+            <div class="chart-card">
+                <h3 class="chart-title">審計師變更時間線</h3>
+                <div class="chart-canvas">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Graph -->
+        <div class="chart-card" style="grid-column: 1 / -1;">
+            <h3 class="chart-title">交易所-審計師關係網絡圖</h3>
+            <div id="networkGraph" class="network-graph"></div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2563eb;"></div>
+                    <span>交易所</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10b981;"></div>
+                    <span>審計師事務所</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f59e0b;"></div>
+                    <span>強關聯</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #6b7280;"></div>
+                    <span>弱關聯</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mermaid Diagram -->
+        <div class="mermaid-container">
+            <h3 class="chart-title">審計流程關係圖</h3>
+            <div class="mermaid">
+                graph TB
+                    subgraph "交易所"
+                        ICE["ICE (NYSE)"]
+                        NASDAQ["NASDAQ"]
+                        LSEG["LSEG"]
+                        HKEX["HKEX"]
+                    end
+                    
+                    subgraph "審計師事務所"
+                        EY["Ernst & Young"]
+                        Deloitte["Deloitte"]
+                        PwC["PwC"]
+                        KPMG["KPMG"]
+                    end
+                    
+                    subgraph "關鍵審計事項"
+                        GI["商譽減值測試"]
+                        RR["收入確認"]
+                        IA["無形資產評估"]
+                        DA["數字資產持有"]
+                        MA["併購會計處理"]
+                    end
+                    
+                    ICE --> EY
+                    NASDAQ --> EY
+                    LSEG --> Deloitte
+                    HKEX --> PwC
+                    
+                    EY --> GI
+                    EY --> RR
+                    EY --> DA
+                    Deloitte --> GI
+                    Deloitte --> MA
+                    PwC --> GI
+                    PwC --> IA
+                    
+                    style ICE fill:#e1f5fe
+                    style NASDAQ fill:#e1f5fe
+                    style LSEG fill:#f3e5f5
+                    style HKEX fill:#e8f5e8
+                    style EY fill:#fff3e0
+                    style Deloitte fill:#fff3e0
+                    style PwC fill:#fff3e0
+                    style GI fill:#ffebee
+            </div>
+        </div>
+
+        <!-- Interactive Data Table -->
+        <div class="chart-card" style="grid-column: 1 / -1;">
+            <h3 class="chart-title">詳細數據表</h3>
+            <div style="overflow-x: auto;">
+                <table id="dataTable" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f8fafc;">
+                            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">交易所</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">地區</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">審計師</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">合作年限</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">主要關鍵審計事項</th>
+                            <th style="padding: 1rem; text-align: left; border-bottom: 2px solid #e5e7eb;">風險等級</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody">
+                        <!-- Data will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip" style="display: none;"></div>
+
+    <script>
+        // Initialize all visualizations
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAllCharts();
+            initializeNetworkGraph();
+            initializeDataTable();
+            initializeMermaid();
+        });
+
+        // Chart instances
+        let charts = {};
+
+        // Sample data
+        const sampleData = {
+            exchanges: [
+                { name: 'ICE (NYSE)', region: 'Americas', auditor: 'Ernst & Young', years: 4, keyMatters: ['商譽減值', '數字資產'], risk: 'High' },
+                { name: 'NASDAQ', region: 'Americas', auditor: 'Ernst & Young', years: 6, keyMatters: ['商譽減值', '收入確認'], risk: 'High' },
+                { name: 'LSEG', region: 'Europe', auditor: 'Deloitte', years: 2, keyMatters: ['商譽減值', '併購會計'], risk: 'Medium' },
+                { name: 'HKEX', region: 'Asia', auditor: 'PwC', years: 8, keyMatters: ['商譽減值', '無形資產'], risk: 'Medium' },
+                { name: 'JPX', region: 'Asia', auditor: 'KPMG', years: 5, keyMatters: ['收入確認', '無形資產'], risk: 'Low' }
+            ],
+            auditMatters: {
+                '商譽減值測試': 95,
+                '收入確認': 85,
+                '無形資產評估': 80,
+                '數字資產持有': 70,
+                '併購會計處理': 65,
+                '網絡安全': 60,
+                'ESG披露': 55
+            },
+            marketShare: {
+                'Ernst & Young': 40,
+                'Deloitte': 20,
+                'PwC': 25,
+                'KPMG': 10,
+                '其他': 5
+            }
+        };
+
+        function initializeAllCharts() {
+            createMarketShareChart();
+            createAuditMattersFrequencyChart();
+            createRegionalChart();
+            createRiskMatrix();
+            createTrendChart();
+            createTimelineChart();
+        }
+
+        function createMarketShareChart() {
+            const ctx = document.getElementById('marketShareChart');
+            if (!ctx) return;
+
+            // Set explicit size constraints
+            ctx.style.maxHeight = '280px';
+            ctx.style.maxWidth = '100%';
+
+            charts.marketShare = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(sampleData.marketShare),
+                    datasets: [{
+                        data: Object.values(sampleData.marketShare),
+                        backgroundColor: ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+                        borderWidth: 0,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    aspectRatio: 1,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 12,
+                                usePointStyle: true,
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 10
+                        }
+                    }
+                }
+            });
+        }
+
+        function createAuditMattersFrequencyChart() {
+            const ctx = document.getElementById('auditMattersFrequency');
+            if (!ctx) return;
+
+            // Set explicit size constraints
+            ctx.style.maxHeight = '280px';
+            ctx.style.maxWidth = '100%';
+
+            charts.auditMatters = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(sampleData.auditMatters),
+                    datasets: [{
+                        label: '重要性評分',
+                        data: Object.values(sampleData.auditMatters),
+                        backgroundColor: '#2563eb',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    aspectRatio: 1.5,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 35,
+                                font: { size: 10 }
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 5
+                        }
+                    }
+                }
+            });
+        }
+
+        function createRegionalChart() {
+            const regionalData = {};
+            sampleData.exchanges.forEach(ex => {
+                regionalData[ex.region] = (regionalData[ex.region] || 0) + 1;
+            });
+
+            const ctx = document.getElementById('regionalChart');
+            charts.regional = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(regionalData),
+                    datasets: [{
+                        data: Object.values(regionalData),
+                        backgroundColor: ['#2563eb', '#10b981', '#f59e0b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        function createRiskMatrix() {
+            const ctx = document.getElementById('riskMatrix');
+            charts.riskMatrix = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: '風險評估',
+                        data: [
+                            { x: 90, y: 85, label: '商譽減值' },
+                            { x: 75, y: 70, label: '收入確認' },
+                            { x: 80, y: 60, label: '無形資產' },
+                            { x: 65, y: 80, label: '數字資產' }
+                        ],
+                        backgroundColor: '#2563eb',
+                        borderColor: '#1d4ed8',
+                        pointRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { title: { display: true, text: '影響程度' } },
+                        y: { title: { display: true, text: '發生概率' } }
+                    }
+                }
+            });
+        }
+
+        function createTrendChart() {
+            const ctx = document.getElementById('trendChart');
+            charts.trend = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: '數字資產關注度',
+                        data: [10, 25, 45, 65, 75, 85],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        fill: true
+                    }, {
+                        label: 'ESG披露要求',
+                        data: [5, 15, 30, 50, 70, 80],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 100 }
+                    }
+                }
+            });
+        }
+
+        function createTimelineChart() {
+            const ctx = document.getElementById('timelineChart');
+            charts.timeline = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: '審計師變更次數',
+                        data: [0, 0, 0, 1, 0, 0],
+                        backgroundColor: '#ef4444'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 3 }
+                    }
+                }
+            });
+        }
+
+        function initializeNetworkGraph() {
+            const width = document.getElementById('networkGraph').clientWidth;
+            const height = 500;
+
+            const svg = d3.select('#networkGraph')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+            const nodes = [
+                { id: 'ICE', type: 'exchange', group: 1 },
+                { id: 'NASDAQ', type: 'exchange', group: 1 },
+                { id: 'LSEG', type: 'exchange', group: 1 },
+                { id: 'HKEX', type: 'exchange', group: 1 },
+                { id: 'Ernst & Young', type: 'auditor', group: 2 },
+                { id: 'Deloitte', type: 'auditor', group: 2 },
+                { id: 'PwC', type: 'auditor', group: 2 }
+            ];
+
+            const links = [
+                { source: 'ICE', target: 'Ernst & Young', strength: 'strong' },
+                { source: 'NASDAQ', target: 'Ernst & Young', strength: 'strong' },
+                { source: 'LSEG', target: 'Deloitte', strength: 'medium' },
+                { source: 'HKEX', target: 'PwC', strength: 'strong' }
+            ];
+
+            const simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(links).id(d => d.id).distance(100))
+                .force('charge', d3.forceManyBody().strength(-300))
+                .force('center', d3.forceCenter(width / 2, height / 2));
+
+            const link = svg.append('g')
+                .selectAll('line')
+                .data(links)
+                .enter().append('line')
+                .attr('stroke', d => d.strength === 'strong' ? '#f59e0b' : '#6b7280')
+                .attr('stroke-width', d => d.strength === 'strong' ? 3 : 1);
+
+            const node = svg.append('g')
+                .selectAll('circle')
+                .data(nodes)
+                .enter().append('circle')
+                .attr('r', 20)
+                .attr('fill', d => d.type === 'exchange' ? '#2563eb' : '#10b981')
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended));
+
+            const label = svg.append('g')
+                .selectAll('text')
+                .data(nodes)
+                .enter().append('text')
+                .text(d => d.id)
+                .attr('font-size', 12)
+                .attr('text-anchor', 'middle')
+                .attr('dy', 4);
+
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                node
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+
+                label
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y);
+            });
+
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+        }
+
+        function initializeDataTable() {
+            const tbody = document.getElementById('dataTableBody');
+            sampleData.exchanges.forEach(exchange => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">${exchange.name}</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">${exchange.region}</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">${exchange.auditor}</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">${exchange.years}年</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">${exchange.keyMatters.join(', ')}</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid #e5e7eb;">
+                        <span style="padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; 
+                                     background: ${exchange.risk === 'High' ? '#fee2e2' : exchange.risk === 'Medium' ? '#fef3c7' : '#dcfce7'};
+                                     color: ${exchange.risk === 'High' ? '#dc2626' : exchange.risk === 'Medium' ? '#d97706' : '#16a34a'};">
+                            ${exchange.risk}
+                        </span>
+                    </td>
+                `;
+            });
+        }
+
+        function initializeMermaid() {
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: 'default',
+                    securityLevel: 'loose'
+                });
+            }
+        }
+
+        function updateCharts() {
+            // Update charts based on controls
+            console.log('Updating charts...');
+        }
+
+        function switchChartType() {
+            // Switch chart types
+            console.log('Switching chart type...');
+        }
+
+        function exportAllData() {
+            const data = {
+                exchanges: sampleData.exchanges,
+                auditMatters: sampleData.auditMatters,
+                marketShare: sampleData.marketShare,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'exchange-audit-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

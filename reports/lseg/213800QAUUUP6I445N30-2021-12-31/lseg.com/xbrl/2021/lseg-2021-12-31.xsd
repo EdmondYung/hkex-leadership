@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:num="http://www.xbrl.org/dtr/type/numeric" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric" xmlns:lseg="http://lseg.com/xbrl/2021" xmlns:xbrli="http://www.xbrl.org/2003/instance" targetNamespace="http://lseg.com/xbrl/2021" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" namespace="http://www.xbrl.org/2003/instance" />
+  <xs:import schemaLocation="http://www.esma.europa.eu/taxonomy/2020-03-16/esef_cor.xsd" namespace="http://www.esma.europa.eu/taxonomy/2020-03-16/esef_cor" />
+  <xs:import schemaLocation="http://www.xbrl.org/lrr/arcrole/esma-arcrole-2018-11-21.xsd" namespace="http://www.esma.europa.eu/xbrl/esef/arcrole/wider-narrower" />
+  <xs:import schemaLocation="http://www.xbrl.org/dtr/type/nonNumeric-2009-12-16.xsd" namespace="http://www.xbrl.org/dtr/type/non-numeric" />
+  <xs:import schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd" namespace="http://xbrl.org/2005/xbrldt" />
+  <xs:import schemaLocation="http://www.xbrl.org/dtr/type/numeric-2009-12-16.xsd" namespace="http://www.xbrl.org/dtr/type/numeric" />
+  <xs:annotation>
+    <xs:appinfo>
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="lseg-2021-12-31_pre.xml" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="lseg-2021-12-31_def.xml" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="lseg-2021-12-31_lab-en.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="lseg-2021-12-31_cal.xml" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="http://www.esma.europa.eu/taxonomy/2020-03-16/esef_cor-lab-en.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:type="simple" />
+      <link:linkbaseRef xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="http://www.esma.europa.eu/taxonomy/2020-03-16/esef_cor-gen-en.xml" xlink:type="simple" />
+      <link:roleType id="Anchoring" roleURI="http://lseg.com/xbrl/2021/roles/Anchoring">
+        <link:definition>99 - Groups all anchored elements</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+        <link:usedOn>link:labelLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="NotesAndMandatoryItems" roleURI="http://lseg.com/xbrl/2021/roles/NotesAndMandatoryItems">
+        <link:definition>01 - Notes And Mandatory Items</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:labelLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ProfitOrLoss" roleURI="http://lseg.com/xbrl/2021/roles/ProfitOrLoss">
+        <link:definition>02 - Profit or loss</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:labelLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfComprehensiveIncome" roleURI="http://lseg.com/xbrl/2021/roles/StatementOfComprehensiveIncome">
+        <link:definition>03 - Statement of comprehensive income</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:labelLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfFinancialPosition" roleURI="http://lseg.com/xbrl/2021/roles/StatementOfFinancialPosition">
+        <link:definition>04 - Statement of financial position</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:labelLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfCashFlows" roleURI="http://lseg.com/xbrl/2021/roles/StatementOfCashFlows">
+        <link:definition>05 - Statement of cash flows</link:definition>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:labelLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="StatementOfChangesInEquity" roleURI="http://lseg.com/xbrl/2021/roles/StatementOfChangesInEquity">
+        <link:definition>06 - Statement of changes in equity</link:definition>
+        <link:usedOn>link:definitionLink</link:usedOn>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:labelLink</link:usedOn>
+      </link:roleType>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element id="lseg_ConsolidatedIncomeStatementAxis" xbrli:periodType="duration" abstract="true" name="ConsolidatedIncomeStatementAxis" nillable="true" xmlns:q1="http://xbrl.org/2005/xbrldt" substitutionGroup="q1:dimensionItem" type="xbrli:stringItemType" />
+  <xs:element id="lseg_UnderlyingMember" xbrli:periodType="duration" abstract="true" name="UnderlyingMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" />
+  <xs:element id="lseg_NonUnderlyingMember" xbrli:periodType="duration" abstract="true" name="NonUnderlyingMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" />
+  <xs:element id="lseg_TotalMember" xbrli:periodType="duration" abstract="true" name="TotalMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" />
+  <xs:element id="lseg_ProfitOrLossTable" xbrli:periodType="duration" abstract="true" name="ProfitOrLossTable" nillable="true" xmlns:q2="http://xbrl.org/2005/xbrldt" substitutionGroup="q2:hypercubeItem" type="xbrli:stringItemType" />
+  <xs:element id="lseg_ProfitOrLossLineItems" xbrli:periodType="duration" abstract="true" name="ProfitOrLossLineItems" nillable="true" substitutionGroup="xbrli:item" type="xbrli:stringItemType" />
+  <xs:element id="lseg_NetTreasuryIncomeFromCCPClearingBusiness" xbrli:balance="credit" xbrli:periodType="duration" name="NetTreasuryIncomeFromCCPClearingBusiness" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_TotalIncome" xbrli:balance="credit" xbrli:periodType="duration" name="TotalIncome" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_OperatingExpensesBeforeDepreciationAmortisationAndImpairment" xbrli:balance="debit" xbrli:periodType="duration" name="OperatingExpensesBeforeDepreciationAmortisationAndImpairment" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_IncomeFromEquityInvestments" xbrli:balance="credit" xbrli:periodType="duration" name="IncomeFromEquityInvestments" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_EarningsBeforeInterestTaxDepreciationAmortisationAndImpairment" xbrli:balance="credit" xbrli:periodType="duration" name="EarningsBeforeInterestTaxDepreciationAmortisationAndImpairment" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AdjustedBasicEarningsPerShareFromContinuingOperations" xbrli:periodType="duration" name="AdjustedBasicEarningsPerShareFromContinuingOperations" nillable="true" substitutionGroup="xbrli:item" type="num:perShareItemType" />
+  <xs:element id="lseg_AdjustedDilutedEarningsPerShareFromContinuingOperations" xbrli:periodType="duration" name="AdjustedDilutedEarningsPerShareFromContinuingOperations" nillable="true" substitutionGroup="xbrli:item" type="num:perShareItemType" />
+  <xs:element id="lseg_AdjustedBasicEarningsPerShare" xbrli:periodType="duration" name="AdjustedBasicEarningsPerShare" nillable="true" substitutionGroup="xbrli:item" type="num:perShareItemType" />
+  <xs:element id="lseg_AdjustedDilutedEarningsPerShare" xbrli:periodType="duration" name="AdjustedDilutedEarningsPerShare" nillable="true" substitutionGroup="xbrli:item" type="num:perShareItemType" />
+  <xs:element id="lseg_ComprehensiveIncomeFromContinuingOperations" xbrli:balance="credit" xbrli:periodType="duration" name="ComprehensiveIncomeFromContinuingOperations" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ComprehensiveIncomeFromDiscontinuedOperations" xbrli:balance="credit" xbrli:periodType="duration" name="ComprehensiveIncomeFromDiscontinuedOperations" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ComprehensiveIncomeFromContinuingOperationsAttributableToEquityHolders" xbrli:balance="credit" xbrli:periodType="duration" name="ComprehensiveIncomeFromContinuingOperationsAttributableToEquityHolders" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ComprehensiveIncomeFromContinuingOperationsAttributableToNonControllingInterests" xbrli:balance="credit" xbrli:periodType="duration" name="ComprehensiveIncomeFromContinuingOperationsAttributableToNonControllingInterests" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ComprehensiveIncomeFromDiscontinuedOperationsAttributableToEquityHolders" xbrli:balance="credit" xbrli:periodType="duration" name="ComprehensiveIncomeFromDiscontinuedOperationsAttributableToEquityHolders" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ComprehensiveIncomeFromDiscontinuedOperationsAttributableToNonControllingInterests" xbrli:balance="credit" xbrli:periodType="duration" name="ComprehensiveIncomeFromDiscontinuedOperationsAttributableToNonControllingInterests" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ClearingMemberFinancialAssets" xbrli:balance="debit" xbrli:periodType="instant" name="ClearingMemberFinancialAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ClearingMemberCashAndCashEquivalents" xbrli:balance="debit" xbrli:periodType="instant" name="ClearingMemberCashAndCashEquivalents" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ClearingMemberAssets" xbrli:balance="debit" xbrli:periodType="instant" name="ClearingMemberAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_ClearingMemberFinancialLiabilities" xbrli:balance="credit" xbrli:periodType="instant" name="ClearingMemberFinancialLiabilities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AdjustmentsForDepreciationAndImpairmentOfPropertyPlantAndEquipment" xbrli:balance="debit" xbrli:periodType="duration" name="AdjustmentsForDepreciationAndImpairmentOfPropertyPlantAndEquipment" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AdjustmentsForAmortisationAndImpairmentOfIntangibleAssets" xbrli:balance="debit" xbrli:periodType="duration" name="AdjustmentsForAmortisationAndImpairmentOfIntangibleAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AdjustmentsForImpairmentOfInvestmentSubsidiaryCompanies" xbrli:balance="debit" xbrli:periodType="duration" name="AdjustmentsForImpairmentOfInvestmentSubsidiaryCompanies" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AdjustmentsForIncreaseInClearingMemberFinancialAssets" xbrli:balance="debit" xbrli:periodType="duration" name="AdjustmentsForIncreaseInClearingMemberFinancialAssets" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AdjustmentsForIncreaseInClearingMemberFinancialLiabilities" xbrli:balance="debit" xbrli:periodType="duration" name="AdjustmentsForIncreaseInClearingMemberFinancialLiabilities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_RoyaltiesPaidClassifiedAsOperatingActivities" xbrli:balance="credit" xbrli:periodType="duration" name="RoyaltiesPaidClassifiedAsOperatingActivities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_CashAcquiredOnAcquisitionOfSubsidiariesRefinitivClassifiedAsInvestingActivities" xbrli:balance="debit" xbrli:periodType="duration" name="CashAcquiredOnAcquisitionOfSubsidiariesRefinitivClassifiedAsInvestingActivities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AcquisitionOfSubsidiariesNetOfCashAcquiredNFIClassifiedAsInvestingActivities" xbrli:balance="credit" xbrli:periodType="duration" name="AcquisitionOfSubsidiariesNetOfCashAcquiredNFIClassifiedAsInvestingActivities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AcquisitionOfSubsidiariesNetOfCashAcquiredQuorateClassifiedAsInvestingActivities" xbrli:balance="credit" xbrli:periodType="duration" name="AcquisitionOfSubsidiariesNetOfCashAcquiredQuorateClassifiedAsInvestingActivities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_LoansReceivedFromSubsidiaryCompaniesClassifiedAsFinancingActivities" xbrli:balance="credit" xbrli:periodType="duration" name="LoansReceivedFromSubsidiaryCompaniesClassifiedAsFinancingActivities" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+  <xs:element id="lseg_AdjustmentsToNonControllingInterest" xbrli:balance="credit" xbrli:periodType="duration" name="AdjustmentsToNonControllingInterest" nillable="true" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType" />
+</xs:schema>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tp:taxonomyPackage xml:lang="en" xmlns:tp="http://xbrl.org/2016/taxonomy-package" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xbrl.org/2016/taxonomy-package http://www.xbrl.org/2016/taxonomy-package.xsd">
+  <tp:identifier>http://lseg.com/xbrl/2022/20221231 (20663ABB)</tp:identifier>
+  <tp:name>2022-12-31_LSEG_report</tp:name>
+  <tp:description>XBRL Taxonomy prepared for the European Standard Electronic Format</tp:description>
+  <tp:version>2022-12-31</tp:version>
+  <tp:publisher>LSEG</tp:publisher>
+  <tp:publisherURL>http://lseg.com/xbrl/2022</tp:publisherURL>
+  <tp:publisherCountry>UK</tp:publisherCountry>
+  <tp:publicationDate>2023-02-21</tp:publicationDate>
+  <tp:entryPoints>
+    <tp:entryPoint>
+      <tp:name>LSEG XBRL Taxonomy for 2022-12-31</tp:name>
+      <tp:description>LSEG XBRL report for 2022-12-31</tp:description>
+      <tp:entryPointDocument href="http://lseg.com/xbrl/2022/lseg-2022-12-31.xsd" />
+      <tp:entryPointDocument href="http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor-lab-en.xml" />
+      <tp:entryPointDocument href="http://www.esma.europa.eu/taxonomy/2021-03-24/esef_cor-gen-en.xml" />
+      <tp:languages>
+        <tp:language>en</tp:language>
+      </tp:languages>
+    </tp:entryPoint>
+  </tp:entryPoints>
+</tp:taxonomyPackage>
