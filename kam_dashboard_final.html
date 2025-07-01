@@ -630,12 +630,6 @@
         <div class="controls">
             <div class="filter-group">
                 <div class="filter-item">
-                    <label for="yearSelector">📅 Select Year for Statistics:</label>
-                    <select id="yearSelector" onchange="updateYearBasedData()">
-                        <option value="">All Years</option>
-                    </select>
-                </div>
-                <div class="filter-item">
                     <label for="companyFilter">Filter by Company:</label>
                     <select id="companyFilter">
                         <option value="">All Companies</option>
@@ -721,6 +715,12 @@
                         📋 Exchange Auditors for Selected Year
                     </div>
                     <div style="padding: 20px;">
+                        <div class="filter-item" style="margin-bottom: 20px;">
+                            <label for="yearSelector">📅 Select Year for Statistics:</label>
+                            <select id="yearSelector" onchange="updateYearBasedData()">
+                                <option value="">All Years</option>
+                            </select>
+                        </div>
                         <div id="auditorTableContainer">
                             <!-- Dynamic auditor table will be populated here -->
                         </div>
