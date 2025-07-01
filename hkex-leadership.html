@@ -692,5 +692,41 @@
 
     <script src="hkex-leadership-data.js"></script>
     <script src="hkex-leadership-script.js"></script>
+    <script>
+        // Debug script for HKEX leadership
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== HKEX Leadership Debug ===');
+            console.log('1. DOM loaded');
+            console.log('2. hkexLeadershipData available:', typeof hkexLeadershipData !== 'undefined');
+
+            if (typeof hkexLeadershipData !== 'undefined') {
+                console.log('3. Board members count:', hkexLeadershipData.boardMembers ? hkexLeadershipData.boardMembers.length : 'undefined');
+                console.log('4. Management count:', hkexLeadershipData.managementCommittee ? hkexLeadershipData.managementCommittee.length : 'undefined');
+            }
+
+            console.log('5. boardGrid element:', document.getElementById('boardGrid'));
+            console.log('6. managementGrid element:', document.getElementById('managementGrid'));
+
+            // Try manual rendering after 2 seconds
+            setTimeout(() => {
+                const boardGrid = document.getElementById('boardGrid');
+                if (boardGrid && typeof hkexLeadershipData !== 'undefined' && hkexLeadershipData.boardMembers) {
+                    console.log('7. Attempting manual card creation...');
+                    const firstPerson = hkexLeadershipData.boardMembers[0];
+                    if (firstPerson) {
+                        const testCard = document.createElement('div');
+                        testCard.style.cssText = 'background: white; padding: 1rem; margin: 1rem; border: 1px solid #ddd; border-radius: 8px;';
+                        testCard.innerHTML = `
+                            <h3>${firstPerson.name}</h3>
+                            <p>${firstPerson.title}</p>
+                            <p>Manual test card - if you see this, data is loading but rendering has issues</p>
+                        `;
+                        boardGrid.appendChild(testCard);
+                        console.log('8. Manual test card added');
+                    }
+                }
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

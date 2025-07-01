@@ -13,21 +13,36 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadData() {
-    currentData = hkexLeadershipData.boardMembers;
+    if (typeof hkexLeadershipData === 'undefined') {
+        console.error('hkexLeadershipData is not defined');
+        setTimeout(loadData, 500); // Retry after 500ms
+        return;
+    }
+
+    currentData = hkexLeadershipData.boardMembers || [];
     renderLeadership();
     updateStats();
 }
 
 function setupEventListeners() {
-    document.getElementById('roleFilter').addEventListener('change', applyFilters);
-    document.getElementById('committeeFilter').addEventListener('change', applyFilters);
-    document.getElementById('searchFilter').addEventListener('input', applyFilters);
+    const roleFilter = document.getElementById('roleFilter');
+    const committeeFilter = document.getElementById('committeeFilter');
+    const searchFilter = document.getElementById('searchFilter');
+
+    if (roleFilter) roleFilter.addEventListener('change', applyFilters);
+    if (committeeFilter) committeeFilter.addEventListener('change', applyFilters);
+    if (searchFilter) searchFilter.addEventListener('input', applyFilters);
 }
 
 function showSection(section) {
     // Update active tab
     document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+
+    // Find and activate the correct tab button
+    const activeButton = document.querySelector(`[onclick="showSection('${section}')"]`);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
     
     // Show/hide sections
     document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));

@@ -336,5 +336,29 @@
 
     <script src="annual-reports-data.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Debug script to check if everything is loading
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== Global Audit Analysis Debug ===');
+            console.log('1. DOM loaded');
+            console.log('2. annualReportsData available:', typeof annualReportsData !== 'undefined');
+            console.log('3. auditorChart canvas:', document.getElementById('auditorChart'));
+            console.log('4. auditorYearSelector:', document.getElementById('auditorYearSelector'));
+
+            // Test if chart canvas exists and try to render something
+            const canvas = document.getElementById('auditorChart');
+            if (canvas) {
+                console.log('5. Canvas found, testing Chart.js...');
+                try {
+                    const ctx = canvas.getContext('2d');
+                    console.log('6. Canvas context:', ctx);
+                } catch (e) {
+                    console.error('7. Canvas error:', e);
+                }
+            } else {
+                console.error('5. Canvas not found!');
+            }
+        });
+    </script>
 </body>
 </html>
