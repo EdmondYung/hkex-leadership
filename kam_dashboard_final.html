@@ -1659,8 +1659,12 @@
 
         // Year-based data update function
         function updateYearBasedData() {
+            console.log('updateYearBasedData called');
             const selectedYear = document.getElementById('yearSelector').value;
             const headerElement = document.getElementById('auditorSectionHeader');
+
+            console.log('Selected year:', selectedYear);
+            console.log('Header element:', headerElement);
 
             if (selectedYear) {
                 // Update section header with selected year
@@ -1668,6 +1672,7 @@
 
                 // Show auditor table section
                 document.getElementById('auditorTableSection').style.display = 'block';
+                console.log('Calling createAuditorTable with year:', selectedYear);
                 createAuditorTable(selectedYear);
             } else {
                 // Reset header to default text
@@ -1680,7 +1685,12 @@
 
         // Create dynamic auditor table for selected year
         function createAuditorTable(year) {
+            console.log('createAuditorTable called with year:', year);
+            console.log('kamData length:', kamData.length);
+
             const yearData = kamData.filter(item => item.year.toString() === year);
+            console.log('yearData length:', yearData.length);
+
             const exchangeAuditorMap = {};
 
             // Group by company (exchange) and count KAMs per auditor
@@ -1741,7 +1751,9 @@
                 </table>
             `;
 
+            console.log('Setting table HTML, length:', tableHTML.length);
             document.getElementById('auditorTableContainer').innerHTML = tableHTML;
+            console.log('Table HTML set successfully');
         }
 
         // Export functionality
