@@ -13,36 +13,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadData() {
-    if (typeof hkexLeadershipData === 'undefined') {
-        console.error('hkexLeadershipData is not defined');
-        setTimeout(loadData, 500); // Retry after 500ms
-        return;
-    }
-
-    currentData = hkexLeadershipData.boardMembers || [];
+    currentData = hkexLeadershipData.boardMembers;
     renderLeadership();
     updateStats();
 }
 
 function setupEventListeners() {
-    const roleFilter = document.getElementById('roleFilter');
-    const committeeFilter = document.getElementById('committeeFilter');
-    const searchFilter = document.getElementById('searchFilter');
-
-    if (roleFilter) roleFilter.addEventListener('change', applyFilters);
-    if (committeeFilter) committeeFilter.addEventListener('change', applyFilters);
-    if (searchFilter) searchFilter.addEventListener('input', applyFilters);
+    document.getElementById('roleFilter').addEventListener('change', applyFilters);
+    document.getElementById('committeeFilter').addEventListener('change', applyFilters);
+    document.getElementById('searchFilter').addEventListener('input', applyFilters);
 }
 
 function showSection(section) {
     // Update active tab
     document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-
-    // Find and activate the correct tab button
-    const activeButton = document.querySelector(`[onclick="showSection('${section}')"]`);
-    if (activeButton) {
-        activeButton.classList.add('active');
-    }
+    event.target.classList.add('active');
     
     // Show/hide sections
     document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
@@ -98,37 +83,17 @@ function applyFilters() {
 }
 
 function renderLeadership() {
-    console.log('=== renderLeadership called ===');
-    console.log('currentSection:', currentSection);
-    console.log('currentData length:', currentData ? currentData.length : 'undefined');
-
     const gridId = currentSection === 'board' ? 'boardGrid' : 'managementGrid';
     const grid = document.getElementById(gridId);
-
-    console.log('gridId:', gridId);
-    console.log('grid element:', grid);
-
-    if (!grid) {
-        console.error('Grid not found:', gridId);
-        return;
-    }
-
+    
+    if (!grid) return;
+    
     grid.innerHTML = '';
-
-    if (!currentData || currentData.length === 0) {
-        console.log('No data available, showing message');
-        grid.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">No data available</p>';
-        return;
-    }
-
-    console.log('Rendering', currentData.length, 'cards');
-    currentData.forEach((person, index) => {
-        console.log(`Creating card ${index + 1} for:`, person.name);
+    
+    currentData.forEach(person => {
         const card = createPersonCard(person);
         grid.appendChild(card);
     });
-
-    console.log('renderLeadership complete');
 }
 
 function createPersonCard(person) {
@@ -204,26 +169,15 @@ function createPersonCard(person) {
 }
 
 function updateStats() {
-    if (!hkexLeadershipData || !hkexLeadershipData.boardMembers || !hkexLeadershipData.managementCommittee) {
-        console.error('Missing data for stats update');
-        return;
-    }
-
     const boardMembers = hkexLeadershipData.boardMembers.length;
     const managementMembers = hkexLeadershipData.managementCommittee.length;
-    const independentDirectors = hkexLeadershipData.boardMembers.filter(member =>
+    const independentDirectors = hkexLeadershipData.boardMembers.filter(member => 
         member.role === 'independent'
     ).length;
-
-    const totalBoardEl = document.getElementById('totalBoard');
-    const totalManagementEl = document.getElementById('totalManagement');
-    const independentDirectorsEl = document.getElementById('independentDirectors');
-
-    if (totalBoardEl) totalBoardEl.textContent = boardMembers;
-    if (totalManagementEl) totalManagementEl.textContent = managementMembers;
-    if (independentDirectorsEl) independentDirectorsEl.textContent = independentDirectors;
-
-    console.log('Stats updated:', { boardMembers, managementMembers, independentDirectors });
+    
+    document.getElementById('totalBoard').textContent = boardMembers;
+    document.getElementById('totalManagement').textContent = managementMembers;
+    document.getElementById('independentDirectors').textContent = independentDirectors;
 }
 
 // Search functionality

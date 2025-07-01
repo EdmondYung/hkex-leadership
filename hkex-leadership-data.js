@@ -603,10 +603,7 @@ const hkexLeadershipData = {
         {
             id: 'matt-chamberlain',
             name: 'Matt CHAMBERLAIN',
-<<<<<<< HEAD
-=======
             chineseName: '張柏廉',
->>>>>>> a633c168305891535cb2ca0f1c726bd7a54b7391
             title: 'Chief Executive, LME',
             role: 'management',
             department: 'Commodities',
@@ -638,10 +635,7 @@ const hkexLeadershipData = {
         {
             id: 'sharon-cheng',
             name: 'Sharon CHENG',
-<<<<<<< HEAD
-=======
             chineseName: '鄭趣趣',
->>>>>>> a633c168305891535cb2ca0f1c726bd7a54b7391
             title: 'Group Chief People Officer',
             role: 'management',
             department: 'Human Resources',
@@ -922,36 +916,6 @@ const hkexLeadershipData = {
             title: 'Group Chief Risk Officer',
             role: 'management',
             department: 'Risk Management',
-<<<<<<< HEAD
-            joinedDate: 'June 2018',
-            education: [
-                'Bachelor of Arts, Economics, University of Cambridge, UK',
-                'Master of Science, Risk Management, London School of Economics, UK',
-                'Advanced Risk Management Certificate, GARP'
-            ],
-            professionalQualifications: [
-                'Financial Risk Manager (FRM)',
-                'Professional Risk Manager (PRM)',
-                'Chartered Financial Analyst (CFA)',
-                'Fellow, Institute of Risk Management'
-            ],
-            workExperience: [
-                'Group Chief Risk Officer, HKEX (June 2018 - present)',
-                'Chief Risk Officer, Various investment banks (2012-2018)',
-                'Senior Risk Manager, Deutsche Bank (2008-2012)',
-                'Risk Analyst, Barclays Capital (2005-2008)',
-                'Junior Risk Associate, Credit Suisse (2003-2005)'
-            ],
-            responsibilities: [
-                'Enterprise risk management framework',
-                'Market risk and credit risk oversight',
-                'Regulatory compliance and reporting',
-                'Operational risk management',
-                'Risk governance and policy development'
-            ],
-            background: 'Oversees enterprise risk management and regulatory compliance across HKEX Group. Over 20 years of experience in financial risk management across global markets.',
-            avatar: 'RW'
-=======
             joinedDate: 'November 2020',
             education: [
                 'Bachelor of Arts (Mathematics), Cambridge University, UK'
@@ -982,7 +946,6 @@ const hkexLeadershipData = {
             background: 'Oversees enterprise risk management and regulatory compliance across HKEX Group. Over 25 years of experience in financial risk management across global markets, with extensive background at JP Morgan and Credit Suisse.',
             avatar: 'RW',
             photoUrl: 'https://www.hkexgroup.com/-/media/HKEX_Common/Group/Board-of-Directors/Director-Image/Richard_2333.jpg'
->>>>>>> a633c168305891535cb2ca0f1c726bd7a54b7391
         },
         {
             id: 'gregory-yu',
@@ -991,28 +954,6 @@ const hkexLeadershipData = {
             title: 'Head of Markets',
             role: 'management',
             department: 'Markets',
-<<<<<<< HEAD
-            joinedDate: 'May 2014',
-            education: [
-                'Bachelor of Business Administration, Chinese University of Hong Kong',
-                'Master of Finance, Hong Kong University of Science and Technology',
-                'CFA Program, CFA Institute'
-            ],
-            professionalQualifications: [
-                'Chartered Financial Analyst (CFA)',
-                'Fellow, Hong Kong Securities and Investment Institute',
-                'Member, Hong Kong Institute of Directors'
-            ],
-            workExperience: [
-                'Head of Markets, HKEX (May 2014 - present)',
-                'Senior Manager, Market Operations, HKEX (2011-2014)',
-                'Manager, Trading Systems, HKEX (2008-2011)',
-                'Senior Analyst, Various brokerages (2005-2008)',
-                'Market Analyst, Investment banks (2003-2005)'
-            ],
-            background: 'Leads market operations, trading systems, and market development. Over 20 years of experience in securities markets and trading operations.',
-            avatar: 'GY'
-=======
             joinedDate: 'March 2025',
             education: [
                 'Bachelor of Science (Business Management and Applied Economics), Cornell University, US'
@@ -1039,7 +980,6 @@ const hkexLeadershipData = {
             background: 'Leads market operations and development at HKEX. Over 25 years of experience in equity derivatives, structured products, and institutional marketing across major global investment banks.',
             avatar: 'GY',
             photoUrl: 'https://www.hkexgroup.com/-/media/HKEX-Group-Site/Hr/Gregory-Yu.jpg'
->>>>>>> a633c168305891535cb2ca0f1c726bd7a54b7391
         },
         {
             id: 'zhou-jiannan',
@@ -1048,28 +988,6 @@ const hkexLeadershipData = {
             title: 'Head of Mainland Business',
             role: 'management',
             department: 'Mainland Business',
-<<<<<<< HEAD
-            joinedDate: 'September 2018',
-            education: [
-                'Bachelor of Economics, Peking University, China',
-                'Master of Business Administration, CEIBS (China Europe International Business School)',
-                'Executive Program, Harvard Business School'
-            ],
-            professionalQualifications: [
-                'Chartered Financial Analyst (CFA)',
-                'Certified Public Accountant (China)',
-                'Member, China Securities Association'
-            ],
-            workExperience: [
-                'Head of Mainland Business, HKEX (September 2018 - present)',
-                'Senior Manager, China Business Development, HKEX (2015-2018)',
-                'Director, Various mainland financial institutions (2010-2015)',
-                'Senior Manager, China Securities Regulatory Commission (2007-2010)',
-                'Analyst, Investment banks in mainland China (2005-2007)'
-            ],
-            background: 'Oversees mainland China business development and regulatory relationships. Extensive experience in China\'s capital markets and cross-border financial services.',
-            avatar: 'ZJ'
-=======
             joinedDate: 'July 2023',
             education: [
                 'Bachelor in Economics, Shandong University, China',
@@ -1093,7 +1011,6 @@ const hkexLeadershipData = {
             background: 'Oversees mainland China business development and regulatory relationships. Extensive experience in China\'s capital markets, asset management, and regulatory affairs with senior roles at major Chinese financial institutions.',
             avatar: 'ZJ',
             photoUrl: 'https://www.hkexgroup.com/-/media/HKEX-Group-Site/Hr/Zhou-Jiannan.jpg'
->>>>>>> a633c168305891535cb2ca0f1c726bd7a54b7391
         }
     ]
 };
