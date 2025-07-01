@@ -1513,8 +1513,24 @@ function addDownloadLog(message, type = 'info') {
 
 // Auditor Analysis Functions
 function initializeAuditorAnalysis() {
+    console.log('=== initializeAuditorAnalysis called ===');
+
+    // Check if required elements exist
+    const yearSelector = document.getElementById('auditorYearSelector');
+    const chartCanvas = document.getElementById('auditorChart');
+
+    console.log('Year selector found:', !!yearSelector);
+    console.log('Chart canvas found:', !!chartCanvas);
+
+    if (!yearSelector || !chartCanvas) {
+        console.log('Required elements not found, retrying in 500ms...');
+        setTimeout(initializeAuditorAnalysis, 500);
+        return;
+    }
+
     // Initialize with 2024 data
     updateAuditorDistribution();
+    console.log('Auditor analysis initialized');
 }
 
 // Auditor distribution data based on actual KAM analysis (2015-2024)
@@ -1573,8 +1589,20 @@ const auditorDataByYear = {
 };
 
 function updateAuditorDistribution() {
-    const selectedYear = document.getElementById('auditorYearSelector').value;
+    console.log('=== updateAuditorDistribution called ===');
+
+    const yearSelector = document.getElementById('auditorYearSelector');
+    if (!yearSelector) {
+        console.error('auditorYearSelector not found');
+        return;
+    }
+
+    const selectedYear = yearSelector.value;
+    console.log('Selected year:', selectedYear);
+
     const data = auditorDataByYear[selectedYear] || auditorDataByYear['2024'];
+    console.log('Data for year:', data);
+
     const title = `市場集中度分析 (${selectedYear})`;
     const tableTitle = `${selectedYear}年交易所-審計師關係`;
 
@@ -1588,15 +1616,30 @@ function updateAuditorDistribution() {
     updateAuditorTable(data, tableTitle);
 
     // Update titles
-    document.getElementById('concentrationAnalysisTitle').textContent = title;
-    document.getElementById('auditorTableTitle').textContent = tableTitle;
+    const titleEl = document.getElementById('concentrationAnalysisTitle');
+    const tableTitleEl = document.getElementById('auditorTableTitle');
+
+    if (titleEl) titleEl.textContent = title;
+    if (tableTitleEl) tableTitleEl.textContent = tableTitle;
+
+    console.log('updateAuditorDistribution complete');
 }
 
 function updateAuditorChart(data, year) {
-    const ctx = document.getElementById('auditorChart').getContext('2d');
+    console.log('=== updateAuditorChart called ===');
+
+    const chartElement = document.getElementById('auditorChart');
+    if (!chartElement) {
+        console.error('auditorChart canvas not found');
+        return;
+    }
+
+    const ctx = chartElement.getContext('2d');
+    console.log('Chart context:', ctx);
 
     if (auditorChart) {
         auditorChart.destroy();
+        console.log('Previous chart destroyed');
     }
 
     const labels = Object.keys(data);
