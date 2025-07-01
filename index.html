@@ -1,387 +1,147 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全球主要股票交易所審計分析報告</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <title>Global Exchange Analysis - KAM Dashboard & HKEX Leadership</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+        
+        .nav-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .nav-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .nav-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .nav-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .redirect-info {
+            margin-top: 3rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-chart-line"></i>
-                <span>全球交易所審計分析</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#overview" class="nav-link">概覽</a></li>
-                <li><a href="#findings" class="nav-link">核心發現</a></li>
-                <li><a href="#analysis" class="nav-link">深度分析</a></li>
-                <li><a href="#trends" class="nav-link">趨勢預測</a></li>
-                <li><a href="#recommendations" class="nav-link">建議</a></li>
-                <li><a href="hkex-leadership.html" class="nav-link">HKEX Leadership</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">全球主要股票交易所審計師與關鍵審計事項綜合分析</h1>
-            <p class="hero-subtitle">深入分析全球十大股票交易所的審計市場結構、關鍵風險和發展趨勢</p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">7</div>
-                    <div class="stat-label">主要交易所</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">131</div>
-                    <div class="stat-label">關鍵審計事項</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">主要審計師</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">10</div>
-                    <div class="stat-label">年度分析</div>
-                </div>
-            </div>
-            <div class="hero-actions">
-                <a href="#analysis" class="btn btn-primary">
-                    <i class="fas fa-chart-bar"></i>
-                    開始分析
-                </a>
-                <a href="annual-reports-demo.html" class="btn btn-secondary">
-                    <i class="fas fa-download"></i>
-                    查看報告
-                </a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="floating-card">
-                <i class="fas fa-building"></i>
-                <span>7大交易所</span>
-            </div>
-            <div class="floating-card">
-                <i class="fas fa-user-tie"></i>
-                <span>Big 4審計師</span>
-            </div>
-            <div class="floating-card">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>131項KAM</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Overview Section -->
-    <section id="overview" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>分析概覽</h2>
-                <p>基於2015-2024年實際數據的綜合審計市場分析</p>
-            </div>
-            <div class="overview-grid">
-                <div class="overview-card">
-                    <div class="card-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>全球覆蓋</h3>
-                    <p>涵蓋全球7大主要股票交易所，包括NYSE、NASDAQ、LSEG、Deutsche Börse、Euronext、HKEX、TMX Group等</p>
-                </div>
-                <div class="overview-card">
-                    <div class="card-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>趨勢分析</h3>
-                    <p>10年歷史數據分析，識別審計師市場份額變化和關鍵審計事項演變趨勢</p>
-                </div>
-                <div class="overview-card">
-                    <div class="card-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>風險評估</h3>
-                    <p>基於131項關鍵審計事項的風險分類和影響評估，提供前瞻性風險預警</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Links Section -->
-    <section class="section bg-light">
-        <div class="container">
-            <div class="section-header">
-                <h2>快速導航</h2>
-                <p>選擇您感興趣的分析模塊</p>
-            </div>
-            <div class="quick-links">
-                <a href="kam_dashboard_final.html" class="quick-link-card">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h3>關鍵審計事項分析</h3>
-                    <p>深入分析131項KAM，按風險類別和影響程度分類</p>
-                    <div class="quick-link-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-                <a href="hkex-leadership.html" class="quick-link-card">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>HKEX 領導層分析</h3>
-                    <p>香港交易所董事會成員和管理層詳細資料</p>
-                    <div class="quick-link-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-                <a href="annual-reports-demo.html" class="quick-link-card">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>年報資料庫</h3>
-                    <p>完整的交易所年報收集和下載功能</p>
-                    <div class="quick-link-arrow">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Analysis Section -->
-    <section id="analysis" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>深度分析</h2>
-                <p>基於實際數據的審計師分布和關鍵審計事項分析</p>
-            </div>
-
-            <!-- Test Element -->
-            <div style="background: #f0f0f0; padding: 1rem; margin: 1rem 0; border-radius: 8px; border: 2px solid #007bff;">
-                <h3>🔧 測試區域</h3>
-                <p>如果您看到這個區域，說明HTML和CSS正常加載。</p>
-                <p id="jsTest">JavaScript測試：<span style="color: red;">未加載</span></p>
-            </div>
+    <div class="container">
+        <div class="logo">📊</div>
+        <h1>Global Exchange Analysis</h1>
+        <p class="subtitle">Key Audit Matters Dashboard & HKEX Leadership Analysis</p>
+        
+        <div class="nav-cards">
+            <a href="kam_dashboard_final.html" class="nav-card">
+                <div class="nav-card-icon">⚠️</div>
+                <h2>Key Audit Matters Dashboard</h2>
+                <p>Comprehensive analysis of Key Audit Matters (KAM) across global stock exchanges. Interactive dashboard with risk categorization, filtering, and detailed insights.</p>
+            </a>
             
-            <!-- Tab Navigation -->
-            <div class="tab-nav">
-                <button class="tab-btn active" onclick="showTab('auditor-distribution')">
-                    <i class="fas fa-chart-pie"></i>
-                    審計師分布
-                </button>
-                <button class="tab-btn" onclick="showTab('audit-matters')">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    關鍵審計事項
-                </button>
-                <button class="tab-btn" onclick="showTab('risk-assessment')">
-                    <i class="fas fa-shield-alt"></i>
-                    風險評估
-                </button>
-            </div>
-
-            <div class="tab-content">
-                <!-- Auditor Distribution Tab -->
-                <div id="auditor-distribution" class="tab-pane active">
-                    <div class="analysis-grid">
-                        <div class="chart-container">
-                            <h3>全球交易所審計師分布</h3>
-                            <div class="year-selector-container" style="margin-bottom: 1rem;">
-                                <label for="auditorYearSelector" style="font-weight: 600; margin-right: 10px;">選擇年份:</label>
-                                <select id="auditorYearSelector" onchange="updateAuditorDistribution()" style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 0.9em;">
-                                    <option value="2024">2024年</option>
-                                    <option value="2023">2023年</option>
-                                    <option value="2022">2022年</option>
-                                    <option value="2021">2021年</option>
-                                    <option value="2020">2020年</option>
-                                    <option value="2019">2019年</option>
-                                    <option value="2018">2018年</option>
-                                    <option value="2017">2017年</option>
-                                    <option value="2016">2016年</option>
-                                    <option value="2015">2015年</option>
-                                </select>
-                            </div>
-                            <canvas id="auditorChart"></canvas>
-                        </div>
-                        <div class="info-panel">
-                            <h4 id="concentrationAnalysisTitle">市場集中度分析 (2024)</h4>
-                            <div class="metric-item">
-                                <span class="metric-label">領先審計師市場份額</span>
-                                <span class="metric-value" id="leadingAuditorShare">計算中...</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">市場集中度指數</span>
-                                <span class="metric-value" id="concentrationIndex">計算中...</span>
-                            </div>
-                            <div class="metric-item">
-                                <span class="metric-label">審計師數量</span>
-                                <span class="metric-value" id="auditorCount">計算中...</span>
-                            </div>
-                            <div class="insights">
-                                <h5>關鍵洞察</h5>
-                                <ul id="keyInsights">
-                                    <li>數據加載中...</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Auditor-Exchange Relationship Table -->
-                    <div class="table-container" style="margin-top: 2rem;">
-                        <h4 id="auditorTableTitle">2024年交易所-審計師關係</h4>
-                        <div class="table-wrapper">
-                            <table id="auditorTable" class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>審計師</th>
-                                        <th>服務交易所</th>
-                                        <th>市場份額</th>
-                                        <th>KAM數量</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="auditorTableBody">
-                                    <!-- Data will be populated by JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Audit Matters Tab -->
-                <div id="audit-matters" class="tab-pane">
-                    <div class="analysis-grid">
-                        <div class="chart-container">
-                            <h3>關鍵審計事項分布</h3>
-                            <canvas id="auditMattersChart"></canvas>
-                        </div>
-                        <div class="matters-list">
-                            <h4>主要關鍵審計事項</h4>
-                            <div class="matters-items" id="mattersItems">
-                                <!-- Items will be populated by JavaScript -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Risk Assessment Tab -->
-                <div id="risk-assessment" class="tab-pane">
-                    <div class="risk-matrix">
-                        <h3>風險評估矩陣</h3>
-                        <div class="matrix-container">
-                            <div class="risk-item high-impact high-probability">
-                                <h4>高影響 - 高概率</h4>
-                                <p>收入確認、商譽減值</p>
-                            </div>
-                            <div class="risk-item high-impact low-probability">
-                                <h4>高影響 - 低概率</h4>
-                                <p>重大併購、監管變化</p>
-                            </div>
-                            <div class="risk-item low-impact high-probability">
-                                <h4>低影響 - 高概率</h4>
-                                <p>IT系統、內控評估</p>
-                            </div>
-                            <div class="risk-item low-impact low-probability">
-                                <h4>低影響 - 低概率</h4>
-                                <p>其他運營風險</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a href="hkex-leadership.html" class="nav-card">
+                <div class="nav-card-icon">👥</div>
+                <h2>HKEX Leadership</h2>
+                <p>Hong Kong Exchange leadership profiles including Board of Directors and Management Committee members with detailed backgrounds and responsibilities.</p>
+            </a>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>關於項目</h4>
-                    <p>基於實際數據的全球股票交易所審計分析，提供深入的市場洞察和風險評估。</p>
-                </div>
-                <div class="footer-section">
-                    <h4>數據來源</h4>
-                    <ul>
-                        <li>交易所年報 (2015-2024)</li>
-                        <li>審計師報告</li>
-                        <li>關鍵審計事項</li>
-                        <li>監管文件</li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>快速鏈接</h4>
-                    <ul>
-                        <li><a href="kam_dashboard_final.html">KAM分析</a></li>
-                        <li><a href="hkex-leadership.html">HKEX領導層</a></li>
-                        <li><a href="annual-reports-demo.html">年報庫</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 全球交易所審計分析. 僅供學術研究使用.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal for detailed information -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modalContent"></div>
+        
+        <div class="redirect-info">
+            <p><strong>Note:</strong> This page will automatically redirect to the KAM Dashboard in 5 seconds.</p>
+            <p>You can also navigate directly using the cards above.</p>
         </div>
     </div>
 
-    <script src="annual-reports-data.js"></script>
-    <script src="script.js"></script>
     <script>
-        // Debug script to check if everything is loading
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('=== Global Audit Analysis Debug ===');
-            console.log('1. DOM loaded');
-            console.log('2. annualReportsData available:', typeof annualReportsData !== 'undefined');
-            console.log('3. auditorChart canvas:', document.getElementById('auditorChart'));
-            console.log('4. auditorYearSelector:', document.getElementById('auditorYearSelector'));
-
-            // Update test element
-            const jsTest = document.getElementById('jsTest');
-            if (jsTest) {
-                jsTest.innerHTML = 'JavaScript測試：<span style="color: green;">✅ 正常加載</span>';
-            }
-
-            // Force chart initialization after a delay
-            setTimeout(() => {
-                console.log('Forcing chart initialization...');
-                if (typeof updateAuditorDistribution === 'function') {
-                    updateAuditorDistribution();
-                    console.log('updateAuditorDistribution called');
-                } else {
-                    console.error('updateAuditorDistribution function not found');
-                }
-            }, 1000);
-
-            // Test if chart canvas exists and try to render something
-            const canvas = document.getElementById('auditorChart');
-            if (canvas) {
-                console.log('5. Canvas found, testing Chart.js...');
-                try {
-                    const ctx = canvas.getContext('2d');
-                    console.log('6. Canvas context:', ctx);
-                } catch (e) {
-                    console.error('7. Canvas error:', e);
-                }
-            } else {
-                console.error('5. Canvas not found!');
-            }
+        // Auto-redirect to KAM dashboard after 5 seconds
+        setTimeout(() => {
+            window.location.href = 'kam_dashboard_final.html';
+        }, 5000);
+        
+        // Add click tracking
+        document.querySelectorAll('.nav-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                console.log('Navigating to:', e.currentTarget.href);
+            });
         });
     </script>
 </body>
