@@ -711,7 +711,7 @@
 
                 <!-- Year-based Auditor Table -->
                 <div class="data-section" id="auditorTableSection" style="display: none;">
-                    <div class="section-header">
+                    <div class="section-header" id="auditorSectionHeader">
                         📋 Exchange Auditors for Selected Year
                     </div>
                     <div style="padding: 20px;">
@@ -1660,12 +1660,19 @@
         // Year-based data update function
         function updateYearBasedData() {
             const selectedYear = document.getElementById('yearSelector').value;
+            const headerElement = document.getElementById('auditorSectionHeader');
 
             if (selectedYear) {
+                // Update section header with selected year
+                headerElement.textContent = `📋 Exchange Auditors for ${selectedYear}`;
+
                 // Show auditor table section
                 document.getElementById('auditorTableSection').style.display = 'block';
                 createAuditorTable(selectedYear);
             } else {
+                // Reset header to default text
+                headerElement.textContent = '📋 Exchange Auditors for Selected Year';
+
                 // Hide auditor table section
                 document.getElementById('auditorTableSection').style.display = 'none';
             }
