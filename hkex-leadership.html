@@ -720,6 +720,56 @@
                 hkexJsTest.innerHTML = 'JavaScript測試：<span style="color: green;">✅ 正常加載</span>';
             }
 
+            // Force rendering after a delay
+            setTimeout(() => {
+                console.log('Forcing HKEX leadership rendering...');
+                if (typeof hkexLeadershipData !== 'undefined' && hkexLeadershipData.boardMembers) {
+                    const boardGrid = document.getElementById('boardGrid');
+                    if (boardGrid) {
+                        // Clear any existing content
+                        boardGrid.innerHTML = '';
+
+                        // Render first few board members manually
+                        hkexLeadershipData.boardMembers.slice(0, 6).forEach((person, index) => {
+                            const card = document.createElement('div');
+                            card.style.cssText = `
+                                background: white;
+                                border: 1px solid #ddd;
+                                border-radius: 8px;
+                                padding: 1rem;
+                                margin-bottom: 1rem;
+                                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                                cursor: pointer;
+                            `;
+
+                            card.innerHTML = `
+                                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                                        ${person.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
+                                    </div>
+                                    <div>
+                                        <h3 style="margin: 0; font-size: 1.1rem; color: #1f2937;">${person.name}</h3>
+                                        ${person.chineseName ? `<div style="font-size: 0.9em; color: #666;">${person.chineseName}</div>` : ''}
+                                        <div style="color: #2563eb; font-weight: 500;">${person.title}</div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 0.85rem; color: #6b7280;">
+                                    ${person.joinedDate ? `<div>📅 Joined: ${person.joinedDate}</div>` : ''}
+                                    ${person.type ? `<div>👤 ${person.type}</div>` : ''}
+                                </div>
+                            `;
+
+                            boardGrid.appendChild(card);
+                        });
+
+                        console.log('Manual HKEX cards rendered:', hkexLeadershipData.boardMembers.length);
+                    }
+                } else {
+                    console.error('HKEX data not available for manual rendering');
+                }
+            }, 1500);
+        });
+
             // Try manual rendering after 2 seconds
             setTimeout(() => {
                 const boardGrid = document.getElementById('boardGrid');

@@ -358,6 +358,17 @@
                 jsTest.innerHTML = 'JavaScript測試：<span style="color: green;">✅ 正常加載</span>';
             }
 
+            // Force chart initialization after a delay
+            setTimeout(() => {
+                console.log('Forcing chart initialization...');
+                if (typeof updateAuditorDistribution === 'function') {
+                    updateAuditorDistribution();
+                    console.log('updateAuditorDistribution called');
+                } else {
+                    console.error('updateAuditorDistribution function not found');
+                }
+            }, 1000);
+
             // Test if chart canvas exists and try to render something
             const canvas = document.getElementById('auditorChart');
             if (canvas) {
