@@ -166,6 +166,13 @@
                 <h2>深度分析</h2>
                 <p>基於實際數據的審計師分布和關鍵審計事項分析</p>
             </div>
+
+            <!-- Test Element -->
+            <div style="background: #f0f0f0; padding: 1rem; margin: 1rem 0; border-radius: 8px; border: 2px solid #007bff;">
+                <h3>🔧 測試區域</h3>
+                <p>如果您看到這個區域，說明HTML和CSS正常加載。</p>
+                <p id="jsTest">JavaScript測試：<span style="color: red;">未加載</span></p>
+            </div>
             
             <!-- Tab Navigation -->
             <div class="tab-nav">
@@ -344,6 +351,12 @@
             console.log('2. annualReportsData available:', typeof annualReportsData !== 'undefined');
             console.log('3. auditorChart canvas:', document.getElementById('auditorChart'));
             console.log('4. auditorYearSelector:', document.getElementById('auditorYearSelector'));
+
+            // Update test element
+            const jsTest = document.getElementById('jsTest');
+            if (jsTest) {
+                jsTest.innerHTML = 'JavaScript測試：<span style="color: green;">✅ 正常加載</span>';
+            }
 
             // Test if chart canvas exists and try to render something
             const canvas = document.getElementById('auditorChart');

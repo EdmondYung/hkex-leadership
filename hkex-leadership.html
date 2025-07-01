@@ -608,6 +608,13 @@
         </div>
 
         <div id="board" class="section active">
+            <!-- Test Element -->
+            <div style="background: #f0f0f0; padding: 1rem; margin: 1rem 0; border-radius: 8px; border: 2px solid #007bff;">
+                <h3>🔧 HKEX 測試區域</h3>
+                <p>如果您看到這個區域，說明HTML和CSS正常加載。</p>
+                <p id="hkexJsTest">JavaScript測試：<span style="color: red;">未加載</span></p>
+            </div>
+
             <div class="leadership-grid" id="boardGrid">
                 <!-- Board members will be populated by JavaScript -->
             </div>
@@ -706,6 +713,12 @@
 
             console.log('5. boardGrid element:', document.getElementById('boardGrid'));
             console.log('6. managementGrid element:', document.getElementById('managementGrid'));
+
+            // Update test element
+            const hkexJsTest = document.getElementById('hkexJsTest');
+            if (hkexJsTest) {
+                hkexJsTest.innerHTML = 'JavaScript測試：<span style="color: green;">✅ 正常加載</span>';
+            }
 
             // Try manual rendering after 2 seconds
             setTimeout(() => {
