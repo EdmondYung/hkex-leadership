@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            border: 3px solid #007bff;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        <h1>🔧 GitHub Pages Deployment Test</h1>
+        <p>If you can see this page, GitHub Pages is working correctly.</p>
+        
+        <h2>File Tests:</h2>
+        <ul>
+            <li>✅ HTML loading: <span class="success">SUCCESS</span></li>
+            <li>✅ CSS loading: <span class="success">SUCCESS</span></li>
+            <li id="js-test">❌ JavaScript loading: <span class="error">FAILED</span></li>
+        </ul>
+        
+        <h2>Navigation Tests:</h2>
+        <ul>
+            <li><a href="index.html">Test Main Page (index.html)</a></li>
+            <li><a href="hkex-leadership.html">Test HKEX Leadership Page</a></li>
+            <li><a href="styles.css" target="_blank">Test CSS File</a></li>
+            <li><a href="script.js" target="_blank">Test JavaScript File</a></li>
+        </ul>
+        
+        <div id="js-result" style="margin-top: 20px; padding: 10px; background: #ffe6e6; border: 1px solid #ff0000; border-radius: 5px;">
+            JavaScript test result will appear here...
+        </div>
+    </div>
+
+    <script>
+        // Test JavaScript execution
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test page JavaScript is working!');
+            
+            // Update JS test status
+            const jsTest = document.getElementById('js-test');
+            if (jsTest) {
+                jsTest.innerHTML = '✅ JavaScript loading: <span class="success">SUCCESS</span>';
+            }
+            
+            // Show detailed test results
+            const jsResult = document.getElementById('js-result');
+            if (jsResult) {
+                jsResult.style.background = '#e6ffe6';
+                jsResult.style.borderColor = '#00aa00';
+                jsResult.innerHTML = `
+                    <strong>✅ JavaScript Test Results:</strong><br>
+                    • DOM loaded successfully<br>
+                    • Console logging works<br>
+                    • Element manipulation works<br>
+                    • Current time: ${new Date().toLocaleString()}<br>
+                    • User agent: ${navigator.userAgent.substring(0, 50)}...
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
