@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +24,7 @@
                 <li><a href="#analysis" class="nav-link">深度分析</a></li>
                 <li><a href="#trends" class="nav-link">趨勢預測</a></li>
                 <li><a href="#recommendations" class="nav-link">建議</a></li>
+                <li><a href="hkex-leadership.html" class="nav-link">HKEX Leadership</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -49,27 +49,37 @@
                     <div class="stat-label">關鍵審計事項</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">2015-2024</div>
-                    <div class="stat-label">研究時間範圍</div>
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">主要審計師</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">年度分析</div>
                 </div>
             </div>
-            <button class="cta-button" onclick="scrollToSection('overview')">
-                <i class="fas fa-arrow-down"></i>
-                開始探索
-            </button>
+            <div class="hero-actions">
+                <a href="#analysis" class="btn btn-primary">
+                    <i class="fas fa-chart-bar"></i>
+                    開始分析
+                </a>
+                <a href="annual-reports-demo.html" class="btn btn-secondary">
+                    <i class="fas fa-download"></i>
+                    查看報告
+                </a>
+            </div>
         </div>
         <div class="hero-visual">
             <div class="floating-card">
                 <i class="fas fa-building"></i>
-                <span>NYSE</span>
+                <span>7大交易所</span>
             </div>
             <div class="floating-card">
-                <i class="fas fa-chart-bar"></i>
-                <span>NASDAQ</span>
+                <i class="fas fa-user-tie"></i>
+                <span>Big 4審計師</span>
             </div>
             <div class="floating-card">
-                <i class="fas fa-globe"></i>
-                <span>LSEG</span>
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>131項KAM</span>
             </div>
         </div>
     </section>
@@ -77,89 +87,102 @@
     <!-- Overview Section -->
     <section id="overview" class="section">
         <div class="container">
-            <h2 class="section-title">研究概覽</h2>
+            <div class="section-header">
+                <h2>分析概覽</h2>
+                <p>基於2015-2024年實際數據的綜合審計市場分析</p>
+            </div>
             <div class="overview-grid">
                 <div class="overview-card">
                     <div class="card-icon">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-globe"></i>
                     </div>
-                    <h3>研究目標</h3>
-                    <p>分析全球主要股票交易所的審計師配置模式，識別關鍵審計事項的共同趨勢和差異</p>
-                </div>
-                <div class="overview-card">
-                    <div class="card-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>數據來源</h3>
-                    <p>基於SEC EDGAR、年度報告、審計報告等權威數據源，確保分析的準確性和可靠性</p>
+                    <h3>全球覆蓋</h3>
+                    <p>涵蓋全球7大主要股票交易所，包括NYSE、NASDAQ、LSEG、Deutsche Börse、Euronext、HKEX、TMX Group等</p>
                 </div>
                 <div class="overview-card">
                     <div class="card-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>分析方法</h3>
-                    <p>結合定性和定量分析方法，採用內容分析、比較分析和趨勢分析等多種技術</p>
+                    <h3>趨勢分析</h3>
+                    <p>10年歷史數據分析，識別審計師市場份額變化和關鍵審計事項演變趨勢</p>
+                </div>
+                <div class="overview-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>風險評估</h3>
+                    <p>基於131項關鍵審計事項的風險分類和影響評估，提供前瞻性風險預警</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Key Findings Section -->
-    <section id="findings" class="section bg-light">
+    <!-- Quick Links Section -->
+    <section class="section bg-light">
         <div class="container">
-            <h2 class="section-title">核心發現</h2>
-            <div class="findings-container">
-                <div class="finding-item" data-finding="concentration">
-                    <div class="finding-icon">
-                        <i class="fas fa-compress-alt"></i>
+            <div class="section-header">
+                <h2>快速導航</h2>
+                <p>選擇您感興趣的分析模塊</p>
+            </div>
+            <div class="quick-links">
+                <a href="kam_dashboard_final.html" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <h3>審計師市場高度集中</h3>
-                    <p>四大會計師事務所完全主導全球主要交易所審計市場，2024年市場分布更趨均衡：PwC、KPMG、Ernst & Young各佔28.6%市場份額，Deloitte佔14.3%</p>
-                    <button class="detail-btn" onclick="showFindingDetail('concentration')">查看詳情</button>
-                </div>
-                <div class="finding-item" data-finding="consistency">
-                    <div class="finding-icon">
-                        <i class="fas fa-sync-alt"></i>
+                    <h3>關鍵審計事項分析</h3>
+                    <p>深入分析131項KAM，按風險類別和影響程度分類</p>
+                    <div class="quick-link-arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
-                    <h3>關鍵審計事項高度一致</h3>
-                    <p>商譽減值測試佔31.3%為最主要KAM，收入確認佔25.2%次之，金融工具估值(13.0%)和風險管理(9.2%)也是重要關注領域</p>
-                    <button class="detail-btn" onclick="showFindingDetail('consistency')">查看詳情</button>
-                </div>
-                <div class="finding-item" data-finding="stability">
-                    <div class="finding-icon">
-                        <i class="fas fa-handshake"></i>
+                </a>
+                <a href="hkex-leadership.html" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3>審計師關係相對穩定但有重要變更</h3>
-                    <p>多數交易所保持長期審計師關係，但2024年出現重要變更：LSEG轉至Deloitte，Euronext轉至KPMG，Deutsche Börse於2021年已轉至PwC</p>
-                    <button class="detail-btn" onclick="showFindingDetail('stability')">查看詳情</button>
-                </div>
-                <div class="finding-item" data-finding="emerging">
-                    <div class="finding-icon">
-                        <i class="fas fa-rocket"></i>
+                    <h3>HKEX 領導層分析</h3>
+                    <p>香港交易所董事會成員和管理層詳細資料</p>
+                    <div class="quick-link-arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
-                    <h3>新興風險快速增長</h3>
-                    <p>數字資產、ESG披露、網絡安全等新興領域成為關鍵審計事項的重要組成部分</p>
-                    <button class="detail-btn" onclick="showFindingDetail('emerging')">查看詳情</button>
-                </div>
+                </a>
+                <a href="annual-reports-demo.html" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>年報資料庫</h3>
+                    <p>完整的交易所年報收集和下載功能</p>
+                    <div class="quick-link-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Interactive Analysis Section -->
+    <!-- Analysis Section -->
     <section id="analysis" class="section">
         <div class="container">
-            <h2 class="section-title">交互式分析</h2>
+            <div class="section-header">
+                <h2>深度分析</h2>
+                <p>基於實際數據的審計師分布和關鍵審計事項分析</p>
+            </div>
             
             <!-- Tab Navigation -->
-            <div class="tab-navigation">
-                <button class="tab-btn active" onclick="showTab('auditor-distribution')">審計師分布</button>
-                <button class="tab-btn" onclick="showTab('audit-matters')">關鍵審計事項</button>
-                <button class="tab-btn" onclick="showTab('market-trends')">市場趨勢</button>
-                <button class="tab-btn" onclick="showTab('risk-analysis')">風險分析</button>
-                <button class="tab-btn" onclick="showTab('annual-reports')">年度報告庫</button>
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="showTab('auditor-distribution')">
+                    <i class="fas fa-chart-pie"></i>
+                    審計師分布
+                </button>
+                <button class="tab-btn" onclick="showTab('audit-matters')">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    關鍵審計事項
+                </button>
+                <button class="tab-btn" onclick="showTab('risk-assessment')">
+                    <i class="fas fa-shield-alt"></i>
+                    風險評估
+                </button>
             </div>
 
-            <!-- Tab Content -->
             <div class="tab-content">
                 <!-- Auditor Distribution Tab -->
                 <div id="auditor-distribution" class="tab-pane active">
@@ -190,21 +213,39 @@
                                 <span class="metric-value" id="leadingAuditorShare">計算中...</span>
                             </div>
                             <div class="metric-item">
-                                <span class="metric-label">四大事務所總份額</span>
-                                <span class="metric-value" id="bigFourShare">計算中...</span>
+                                <span class="metric-label">市場集中度指數</span>
+                                <span class="metric-value" id="concentrationIndex">計算中...</span>
                             </div>
                             <div class="metric-item">
-                                <span class="metric-label">交易所數量</span>
-                                <span class="metric-value" id="totalExchanges">計算中...</span>
+                                <span class="metric-label">審計師數量</span>
+                                <span class="metric-value" id="auditorCount">計算中...</span>
+                            </div>
+                            <div class="insights">
+                                <h5>關鍵洞察</h5>
+                                <ul id="keyInsights">
+                                    <li>數據加載中...</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Dynamic Auditor Table -->
-                    <div class="auditor-table-section" id="auditorTableSection" style="margin-top: 2rem;">
+                    
+                    <!-- Auditor-Exchange Relationship Table -->
+                    <div class="table-container" style="margin-top: 2rem;">
                         <h4 id="auditorTableTitle">2024年交易所-審計師關係</h4>
-                        <div id="auditorTableContainer">
-                            <!-- Dynamic table will be populated here -->
+                        <div class="table-wrapper">
+                            <table id="auditorTable" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>審計師</th>
+                                        <th>服務交易所</th>
+                                        <th>市場份額</th>
+                                        <th>KAM數量</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="auditorTableBody">
+                                    <!-- Data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -213,981 +254,38 @@
                 <div id="audit-matters" class="tab-pane">
                     <div class="analysis-grid">
                         <div class="chart-container">
-                            <h3>關鍵審計事項分布 (基於131項實際記錄)</h3>
+                            <h3>關鍵審計事項分布</h3>
                             <canvas id="auditMattersChart"></canvas>
-                            <p style="margin-top: 1rem; font-size: 0.9em; color: #666; text-align: center;">
-                                數據來源：7大交易所2015-2024年度報告實際KAM分析
-                            </p>
                         </div>
                         <div class="matters-list">
-                            <h4>詳細分析 (前5大類別)</h4>
-                            <div class="matter-item">
-                                <div class="matter-rank">1</div>
-                                <div class="matter-content">
-                                    <h5>商譽減值測試</h5>
-                                    <p>41項記錄 (31.3%) - 收購相關商譽的年度減值測試和評估</p>
-                                </div>
-                            </div>
-                            <div class="matter-item">
-                                <div class="matter-rank">2</div>
-                                <div class="matter-content">
-                                    <h5>收入確認</h5>
-                                    <p>33項記錄 (25.2%) - 複雜收入來源的會計處理和確認</p>
-                                </div>
-                            </div>
-                            <div class="matter-item">
-                                <div class="matter-rank">3</div>
-                                <div class="matter-content">
-                                    <h5>金融工具估值</h5>
-                                    <p>17項記錄 (13.0%) - 公允價值計量的金融資產評估</p>
-                                </div>
-                            </div>
-                            <div class="matter-item">
-                                <div class="matter-rank">4</div>
-                                <div class="matter-content">
-                                    <h5>風險管理</h5>
-                                    <p>12項記錄 (9.2%) - 信用風險、市場風險和操作風險管理</p>
-                                </div>
-                            </div>
-                            <div class="matter-item">
-                                <div class="matter-rank">5</div>
-                                <div class="matter-content">
-                                    <h5>業務合併</h5>
-                                    <p>11項記錄 (8.4%) - 收購會計處理和業務合併評估</p>
-                                </div>
-                            </div>
-
-                            <div style="margin-top: 2rem; text-align: center;">
-                                <a href="kam_dashboard_actual.html" class="cta-button" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s ease; margin-right: 1rem;">
-                                    <i class="fas fa-chart-bar"></i> 互動式KAM分析儀表板
-                                </a>
-                                <a href="key-audit-matters.html" class="cta-button" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
-                                    <i class="fas fa-search-dollar"></i> 查看完整關鍵審計事項分析
-                                </a>
+                            <h4>主要關鍵審計事項</h4>
+                            <div class="matters-items" id="mattersItems">
+                                <!-- Items will be populated by JavaScript -->
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Market Trends Tab -->
-                <div id="market-trends" class="tab-pane">
-                    <div class="trends-container">
-                        <h3>市場發展趨勢</h3>
-                        <div class="trend-timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-year">2019-2020</div>
-                                <div class="timeline-content">
-                                    <h4>數字化轉型加速</h4>
-                                    <p>COVID-19推動交易所數字化，新的審計挑戰出現</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-year">2021-2022</div>
-                                <div class="timeline-content">
-                                    <h4>數字資產興起</h4>
-                                    <p>加密貨幣和數字資產成為新的關鍵審計事項</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-year">2023-2024</div>
-                                <div class="timeline-content">
-                                    <h4>ESG和可持續發展</h4>
-                                    <p>環境、社會和治理因素成為審計重點</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Risk Analysis Tab -->
-                <div id="risk-analysis" class="tab-pane">
+                <!-- Risk Assessment Tab -->
+                <div id="risk-assessment" class="tab-pane">
                     <div class="risk-matrix">
-                        <h3>風險評估矩陣 (基於131項實際KAM分析)</h3>
-                        <div class="risk-analysis-note" style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9em; color: #1976d2;">
-                            <strong>📊 數據基礎:</strong> 基於7大交易所2015-2024年實際關鍵審計事項分析，風險權重已根據實際頻率和影響程度調整
-                        </div>
+                        <h3>風險評估矩陣</h3>
                         <div class="matrix-container">
-                            <div class="risk-item high-impact high-probability" style="background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);">
-                                <h4>估值與減值風險</h4>
-                                <p>極高影響 | 極高頻率 (45%)</p>
-                                <small>商譽減值、無形資產評估、業務合併會計</small>
+                            <div class="risk-item high-impact high-probability">
+                                <h4>高影響 - 高概率</h4>
+                                <p>收入確認、商譽減值</p>
                             </div>
-                            <div class="risk-item high-impact high-probability" style="background: linear-gradient(135deg, #f57c00 0%, #ff9800 100%);">
-                                <h4>收入確認風險</h4>
-                                <p>高影響 | 高頻率 (25%)</p>
-                                <small>複雜合約、市場技術收入、多重履約義務</small>
+                            <div class="risk-item high-impact low-probability">
+                                <h4>高影響 - 低概率</h4>
+                                <p>重大併購、監管變化</p>
                             </div>
-                            <div class="risk-item medium-impact high-probability" style="background: linear-gradient(135deg, #388e3c 0%, #4caf50 100%);">
-                                <h4>合規與法律風險</h4>
-                                <p>中高影響 | 中高頻率 (20%)</p>
-                                <small>稅務風險準備、法律爭議、監管合規</small>
+                            <div class="risk-item low-impact high-probability">
+                                <h4>低影響 - 高概率</h4>
+                                <p>IT系統、內控評估</p>
                             </div>
-                            <div class="risk-item medium-impact medium-probability" style="background: linear-gradient(135deg, #1976d2 0%, #2196f3 100%);">
-                                <h4>營運風險</h4>
-                                <p>中影響 | 中頻率 (8%)</p>
-                                <small>IT系統實施、重組準備、流程控制</small>
-                            </div>
-                            <div class="risk-item high-impact low-probability" style="background: linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%);">
-                                <h4>金融風險</h4>
-                                <p>高影響 | 低頻率 (2%)</p>
-                                <small>金融工具估值、投資組合評估</small>
-                            </div>
-                        </div>
-
-                        <div class="risk-evolution-section" style="margin-top: 2rem;">
-                            <h4>風險演變趨勢 (2015-2024)</h4>
-                            <div class="trend-insights" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 15px;">
-                                <div class="trend-card" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #d32f2f;">
-                                    <h5>估值風險主導</h5>
-                                    <p>商譽減值測試持續為最主要KAM，收購活動高峰期(2017-2018, 2021-2023)風險激增</p>
-                                </div>
-                                <div class="trend-card" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
-                                    <h5>收入確認複雜化</h5>
-                                    <p>IFRS 15實施後(2018年)收入確認複雜度顯著提升，市場技術合約成為重點</p>
-                                </div>
-                                <div class="trend-card" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #388e3c;">
-                                    <h5>合規風險波動</h5>
-                                    <p>法律爭議和稅務風險因監管環境變化而波動，近年來有所增加</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 2rem; text-align: center;">
-                            <a href="kam_dashboard_final.html" class="cta-button" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
-                                <i class="fas fa-chart-line"></i> 查看完整風險分析儀表板
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Annual Reports Tab -->
-                <div id="annual-reports" class="tab-pane">
-                    <div class="reports-container">
-                        <div class="reports-header">
-                            <h3>全球主要交易所年度報告庫 (2015-2024)</h3>
-                            <div class="reports-controls">
-                                <select id="exchangeFilter" onchange="filterReports()">
-                                    <option value="all">所有交易所</option>
-                                    <option value="ice">ICE (NYSE)</option>
-                                    <option value="nasdaq">NASDAQ</option>
-                                    <option value="lseg">LSEG</option>
-                                    <option value="hkex">HKEX</option>
-                                    <option value="jpx">JPX</option>
-                                    <option value="sse">上海證券交易所</option>
-                                    <option value="szse">深圳證券交易所</option>
-                                    <option value="tmx">TMX Group</option>
-                                    <option value="deutsche">Deutsche Börse</option>
-                                    <option value="euronext">Euronext</option>
-                                </select>
-                                <select id="yearFilter" onchange="filterReports()">
-                                    <option value="all">所有年份</option>
-                                    <option value="2024">2024</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                </select>
-                                <button class="control-button" onclick="downloadAllReports()">
-                                    <i class="fas fa-download"></i> 批量下載
-                                </button>
-                                <button class="control-button" onclick="exportReportsList()">
-                                    <i class="fas fa-file-export"></i> 導出清單
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="reports-grid" id="reportsGrid">
-                            <!-- Reports will be populated by JavaScript -->
-                        </div>
-
-                        <div class="download-status" id="downloadStatus" style="display: none;">
-                            <div class="status-header">
-                                <h4>下載進度</h4>
-                                <button onclick="hideDownloadStatus()" class="close-btn">&times;</button>
-                            </div>
-                            <div class="progress-container">
-                                <div class="progress-bar">
-                                    <div class="progress-fill" id="progressFill"></div>
-                                </div>
-                                <div class="progress-text" id="progressText">準備中...</div>
-                            </div>
-                            <div class="download-log" id="downloadLog"></div>
-=======
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKEX Leadership - Board Members & Key Management</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .controls {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-
-        .filter-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .filter-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .filter-item label {
-            font-weight: 600;
-            color: #555;
-            font-size: 0.9rem;
-        }
-
-        select, input {
-            padding: 8px 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            transition: border-color 0.3s;
-        }
-
-        select:focus, input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .section-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            justify-content: center;
-        }
-
-        .tab-button {
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            color: #667eea;
-        }
-
-        .tab-button.active {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .leadership-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .person-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .person-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-
-        .person-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .person-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-
-        .person-info h3 {
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-
-        .person-title {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .person-details {
-            margin-top: 15px;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .detail-item i {
-            color: #667eea;
-            width: 16px;
-        }
-
-        .committees {
-            margin-top: 15px;
-        }
-
-        .committee-tag {
-            display: inline-block;
-            background: #f0f3ff;
-            color: #667eea;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin: 2px;
-            border: 1px solid #e1e8ff;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .details-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .details-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .person-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .person-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 2% auto;
-            padding: 0;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalSlideIn 0.3s ease-out;
-            position: relative;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 20px 20px 0 0;
-            position: sticky;
-            top: 0;
-            z-index: 1001;
-        }
-
-        .modal-close {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s ease;
-            z-index: 1002;
-        }
-
-        .modal-close:hover {
-            background-color: rgba(255,255,255,0.2);
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .modal-person-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .modal-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .modal-person-details h2 {
-            margin: 0 0 5px 0;
-            font-size: 1.8rem;
-        }
-
-        .modal-person-details .chinese-name {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
-
-        .modal-person-details .title {
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-
-        .modal-section {
-            margin-bottom: 25px;
-        }
-
-        .modal-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            border-bottom: 2px solid #f0f3ff;
-            padding-bottom: 8px;
-        }
-
-        .modal-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .modal-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f5f5f5;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .modal-list li:last-child {
-            border-bottom: none;
-        }
-
-        .modal-list li i {
-            color: #667eea;
-            margin-top: 2px;
-            width: 16px;
-        }
-
-        .portrait-photo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-
-        .org-chart {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .chart-level {
-            margin-bottom: 30px;
-        }
-
-        .chart-title {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 20px;
-        }
-
-        .chart-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .chart-person {
-            background: #f8f9ff;
-            border: 2px solid #e1e8ff;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            min-width: 200px;
-            transition: all 0.3s;
-        }
-
-        .chart-person:hover {
-            border-color: #667eea;
-            transform: translateY(-2px);
-        }
-
-        .chart-person h4 {
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .chart-person p {
-            color: #667eea;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .leadership-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .filter-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .section-tabs {
-                flex-direction: column;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-building"></i> HKEX Leadership</h1>
-            <p>Board of Directors & Key Management Team</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="totalBoard">13</div>
-                <div class="stat-label">Board Members</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalManagement">13</div>
-                <div class="stat-label">Management Committee</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalCommittees">9</div>
-                <div class="stat-label">Board Committees</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="independentDirectors">11</div>
-                <div class="stat-label">Independent Directors</div>
-            </div>
-        </div>
-
-        <div class="controls">
-            <div class="filter-group">
-                <div class="filter-item">
-                    <label for="roleFilter">Filter by Role:</label>
-                    <select id="roleFilter">
-                        <option value="">All Roles</option>
-                        <option value="chairman">Chairman</option>
-                        <option value="executive">Executive Director</option>
-                        <option value="independent">Independent Director</option>
-                        <option value="management">Management</option>
-                    </select>
-                </div>
-                <div class="filter-item">
-                    <label for="committeeFilter">Filter by Committee:</label>
-                    <select id="committeeFilter">
-                        <option value="">All Committees</option>
-                        <option value="audit">Audit Committee</option>
-                        <option value="risk">Risk Committee</option>
-                        <option value="remuneration">Remuneration Committee</option>
-                        <option value="nomination">Nomination & Governance</option>
-                    </select>
-                </div>
-                <div class="filter-item">
-                    <label for="searchFilter">Search:</label>
-                    <input type="text" id="searchFilter" placeholder="Search by name or title...">
-                </div>
-            </div>
-        </div>
-
-        <div class="section-tabs">
-            <button class="tab-button active" onclick="showSection('board')">
-                <i class="fas fa-users"></i> Board of Directors
-            </button>
-            <button class="tab-button" onclick="showSection('management')">
-                <i class="fas fa-user-tie"></i> Management Committee
-            </button>
-            <button class="tab-button" onclick="showSection('structure')">
-                <i class="fas fa-sitemap"></i> Organization Structure
-            </button>
-        </div>
-
-        <div id="board" class="section active">
-            <div class="leadership-grid" id="boardGrid">
-                <!-- Board members will be populated by JavaScript -->
-            </div>
-        </div>
-
-        <div id="management" class="section">
-            <div class="leadership-grid" id="managementGrid">
-                <!-- Management team will be populated by JavaScript -->
-            </div>
-        </div>
-
-        <div id="structure" class="section">
-            <div class="org-chart">
-                <div class="chart-level">
-                    <div class="chart-title">Board Level</div>
-                    <div class="chart-row">
-                        <div class="chart-person">
-                            <h4>Carlson TONG<br><span style="font-size: 0.8em; color: #666;">唐家成</span></h4>
-                            <p>Chairman</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="chart-level">
-                    <div class="chart-title">Executive Level</div>
-                    <div class="chart-row">
-                        <div class="chart-person">
-                            <h4>Bonnie Y CHAN<br><span style="font-size: 0.8em; color: #666;">陈翊庭</span></h4>
-                            <p>CEO & Executive Director</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="chart-level">
-                    <div class="chart-title">Senior Management</div>
-                    <div class="chart-row">
-                        <div class="chart-person">
-                            <h4>Vanessa LAU<br><span style="font-size: 0.8em; color: #666;">刘碧筠</span></h4>
-                            <p>Chief Operating Officer</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>Herbert HUI<br><span style="font-size: 0.8em; color: #666;">许正宇</span></h4>
-                            <p>Group CFO</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>Paul CHOW<br><span style="font-size: 0.8em; color: #666;">周保昌</span></h4>
-                            <p>Group General Counsel</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>John HSU<br><span style="font-size: 0.8em; color: #666;">徐志华</span></h4>
-                            <p>Group CTO</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>Richard WISE<br><span style="font-size: 0.8em; color: #666;">韦志明</span></h4>
-                            <p>Group CRO</p>
->>>>>>> a633c168305891535cb2ca0f1c726bd7a54b7391
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-<<<<<<< HEAD
-    </section>
-
-    <!-- Trends Section -->
-    <section id="trends" class="section bg-dark">
-        <div class="container">
-            <h2 class="section-title text-white">未來趨勢預測</h2>
-            <div class="trends-grid">
-                <div class="trend-card">
-                    <div class="trend-period">短期 (1-2年)</div>
-                    <h3>技術標準化</h3>
-                    <ul>
-                        <li>數字資產審計標準制定</li>
-                        <li>AI輔助審計工具普及</li>
-                        <li>ESG披露要求標準化</li>
-                    </ul>
-                </div>
-                <div class="trend-card">
-                    <div class="trend-period">中期 (3-5年)</div>
-                    <h3>市場重構</h3>
-                    <ul>
-                        <li>審計師市場可能重新洗牌</li>
-                        <li>新興市場交易所崛起</li>
-                        <li>跨境監管協調加強</li>
-                    </ul>
-                </div>
-                <div class="trend-card">
-                    <div class="trend-period">長期 (5-10年)</div>
-                    <h3>根本變革</h3>
-                    <ul>
-                        <li>全面數字化審計</li>
-                        <li>全球審計標準統一</li>
-                        <li>新型交易所模式出現</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Recommendations Section -->
-    <section id="recommendations" class="section">
-        <div class="container">
-            <h2 class="section-title">戰略建議</h2>
-            <div class="recommendations-container">
-                <div class="stakeholder-tabs">
-                    <button class="stakeholder-btn active" onclick="showStakeholder('investors')">
-                        <i class="fas fa-chart-pie"></i>
-                        投資者
-                    </button>
-                    <button class="stakeholder-btn" onclick="showStakeholder('regulators')">
-                        <i class="fas fa-gavel"></i>
-                        監管機構
-                    </button>
-                    <button class="stakeholder-btn" onclick="showStakeholder('auditors')">
-                        <i class="fas fa-user-tie"></i>
-                        審計師
-                    </button>
-                    <button class="stakeholder-btn" onclick="showStakeholder('exchanges')">
-                        <i class="fas fa-building"></i>
-                        交易所
-                    </button>
-                </div>
-
-                <div class="stakeholder-content">
-                    <div id="investors" class="stakeholder-pane active">
-                        <h3>對投資者的建議</h3>
-                        <div class="recommendation-list">
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>將審計質量納入投資評估框架</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>關注商譽減值測試的關鍵假設變化</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>評估審計師專業能力和行業經驗</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>監控新興業務領域的風險披露</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="regulators" class="stakeholder-pane">
-                        <h3>對監管機構的建議</h3>
-                        <div class="recommendation-list">
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>平衡審計師市場集中度與專業化需求</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>制定數字資產等新興領域的審計標準</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>加強跨境審計監管協調</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>關注系統重要性交易所的審計質量</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="auditors" class="stakeholder-pane">
-                        <h3>對審計師的建議</h3>
-                        <div class="recommendation-list">
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>加強數字資產、ESG等新興領域專業能力</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>投資審計技術和數據分析工具</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>培養跨文化和跨境審計能力</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>建立行業專業化團隊和知識管理體系</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="exchanges" class="stakeholder-pane">
-                        <h3>對交易所的建議</h3>
-                        <div class="recommendation-list">
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>建立健全的內部控制體系</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>加強對關鍵審計事項的內部管理</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>提升財務報告質量和透明度</span>
-                            </div>
-                            <div class="recommendation-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>建立長期穩定的審計師合作關係</span>
+                            <div class="risk-item low-impact low-probability">
+                                <h4>低影響 - 低概率</h4>
+                                <p>其他運營風險</p>
                             </div>
                         </div>
                     </div>
@@ -1201,31 +299,35 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>報告信息</h4>
-                    <p>編制日期：2025年7月</p>
-                    <p>數據截止：2024年12月</p>
-                    <p>報告版本：2.0</p>
+                    <h4>關於項目</h4>
+                    <p>基於實際數據的全球股票交易所審計分析，提供深入的市場洞察和風險評估。</p>
                 </div>
                 <div class="footer-section">
                     <h4>數據來源</h4>
-                    <p>131項關鍵審計事項</p>
-                    <p>7大主要交易所年度報告</p>
-                    <p>2015-2024年審計師報告</p>
+                    <ul>
+                        <li>交易所年報 (2015-2024)</li>
+                        <li>審計師報告</li>
+                        <li>關鍵審計事項</li>
+                        <li>監管文件</li>
+                    </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>聯繫方式</h4>
-                    <p><i class="fas fa-envelope"></i> research@example.com</p>
-                    <p><i class="fas fa-phone"></i> +1-234-567-8900</p>
+                    <h4>快速鏈接</h4>
+                    <ul>
+                        <li><a href="kam_dashboard_final.html">KAM分析</a></li>
+                        <li><a href="hkex-leadership.html">HKEX領導層</a></li>
+                        <li><a href="annual-reports-demo.html">年報庫</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 全球交易所審計分析報告. 保留所有權利.</p>
+                <p>&copy; 2024 全球交易所審計分析. 僅供學術研究使用.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Modal for Finding Details -->
-    <div id="findingModal" class="modal">
+    <!-- Modal for detailed information -->
+    <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <div id="modalContent"></div>
@@ -1234,31 +336,5 @@
 
     <script src="annual-reports-data.js"></script>
     <script src="script.js"></script>
-=======
-    </div>
-
-    <!-- Modal for person details -->
-    <div id="personModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-close">&times;</span>
-                <div class="modal-person-info">
-                    <div class="modal-avatar" id="modalAvatar"></div>
-                    <div class="modal-person-details">
-                        <h2 id="modalName"></h2>
-                        <div class="chinese-name" id="modalChineseName"></div>
-                        <div class="title" id="modalTitle"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Content will be populated by JavaScript -->
-            </div>
-        </div>
-    </div>
-
-    <script src="hkex-leadership-data.js"></script>
-    <script src="hkex-leadership-script.js"></script>
->>>>>>> a633c168305891535cb2ca0f1c726bd7a54b7391
 </body>
 </html>
