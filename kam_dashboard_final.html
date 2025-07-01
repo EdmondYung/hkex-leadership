@@ -648,6 +648,18 @@
                     </select>
                 </div>
                 <div class="filter-item">
+                    <label for="yearSelector">📅 Select Year for Statistics:</label>
+                    <select id="yearSelector" onchange="updateYearBasedData()">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="riskCategoryFilter">Filter by Risk Category:</label>
+                    <select id="riskCategoryFilter">
+                        <option value="">All Risk Categories</option>
+                    </select>
+                </div>
+                <div class="filter-item">
                     <label for="searchFilter">🔍 Enhanced Search:</label>
                     <div class="enhanced-search">
                         <input type="text" id="searchFilter" class="search-input"
@@ -981,15 +993,23 @@
             const auditors = [...new Set(kamData.map(item => item.auditor))].sort();
             const years = [...new Set(kamData.map(item => item.year))].sort((a, b) => b - a);
 
+            // Get unique risk categories from the data
+            const riskCategories = [...new Set(kamData.map(item => {
+                const risk = categorizeRisk(item.kamTitle, item.description);
+                return risk.label;
+            }))].sort();
+
             populateSelect('companyFilter', companies);
             populateSelect('auditorFilter', auditors);
             populateSelect('yearFilter', years);
             populateSelect('yearSelector', years);
+            populateSelect('riskCategoryFilter', riskCategories);
 
             // Add event listeners
             document.getElementById('companyFilter').addEventListener('change', applyFilters);
             document.getElementById('auditorFilter').addEventListener('change', applyFilters);
             document.getElementById('yearFilter').addEventListener('change', applyFilters);
+            document.getElementById('riskCategoryFilter').addEventListener('change', applyFilters);
             document.getElementById('searchFilter').addEventListener('input', applyFilters);
         }
 
@@ -1077,6 +1097,7 @@
             const companyFilter = document.getElementById('companyFilter').value;
             const auditorFilter = document.getElementById('auditorFilter').value;
             const yearFilter = document.getElementById('yearFilter').value;
+            const riskCategoryFilter = document.getElementById('riskCategoryFilter').value;
             const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
 
             filteredData = kamData.filter(item => {
@@ -1087,9 +1108,14 @@
                     item.company.toLowerCase().includes(searchFilter) ||
                     item.auditor.toLowerCase().includes(searchFilter);
 
+                // Check risk category match
+                const riskInfo = categorizeRisk(item.kamTitle, item.description);
+                const riskCategoryMatch = !riskCategoryFilter || riskInfo.label === riskCategoryFilter;
+
                 return (!companyFilter || item.company === companyFilter) &&
                        (!auditorFilter || item.auditor === auditorFilter) &&
                        (!yearFilter || item.year.toString() === yearFilter) &&
+                       riskCategoryMatch &&
                        searchMatch;
             });
 
