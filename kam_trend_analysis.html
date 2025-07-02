@@ -560,6 +560,10 @@
                 <canvas id="riskEvolutionChart"></canvas>
             </div>
 
+            <div class="chart-container">
+                <canvas id="acquisitionImpactChart"></canvas>
+            </div>
+
             <div class="highlight-box">
                 <h3>🎯 Critical Insights</h3>
                 <h4>1. Consolidation Impact</h4>
@@ -886,14 +890,30 @@
                 .sort(([,a], [,b]) => b - a);
 
             new Chart(ctx, {
-                type: 'horizontalBar',
+                type: 'bar',
                 data: {
                     labels: sortedExchanges.map(([name]) => name),
                     datasets: [{
                         label: 'Total KAMs',
                         data: sortedExchanges.map(([,count]) => count),
-                        backgroundColor: 'rgba(52, 152, 219, 0.8)',
-                        borderColor: 'rgba(52, 152, 219, 1)',
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.8)',   // LSEG - Blue
+                            'rgba(231, 76, 60, 0.8)',    // Euronext - Red
+                            'rgba(46, 204, 113, 0.8)',   // Deutsche Börse - Green
+                            'rgba(243, 156, 18, 0.8)',   // HKEX - Orange
+                            'rgba(155, 89, 182, 0.8)',   // ICE - Purple
+                            'rgba(26, 188, 156, 0.8)',   // TMX - Teal
+                            'rgba(52, 73, 94, 0.8)'      // Nasdaq - Dark
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(243, 156, 18, 1)',
+                            'rgba(155, 89, 182, 1)',
+                            'rgba(26, 188, 156, 1)',
+                            'rgba(52, 73, 94, 1)'
+                        ],
                         borderWidth: 2
                     }]
                 },
@@ -904,7 +924,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'KAM Count by Exchange',
+                            text: 'KAM Count by Exchange (2015-2024)',
                             font: { size: 16, weight: 'bold' }
                         },
                         legend: {
@@ -917,6 +937,12 @@
                             title: {
                                 display: true,
                                 text: 'Number of KAMs'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Stock Exchanges'
                             }
                         }
                     }
@@ -1049,6 +1075,83 @@
             });
         }
 
+        // Create acquisition impact chart
+        function createAcquisitionImpactChart() {
+            const ctx = document.getElementById('acquisitionImpactChart').getContext('2d');
+
+            // Major acquisitions and their impact on KAM complexity
+            const acquisitionData = {
+                2019: { kams: 14, acquisitions: ['LSEG-Refinitiv Announced ($27B)'] },
+                2020: { kams: 15, acquisitions: ['Euronext-Borsa Italiana Announced (€4.3B)'] },
+                2021: { kams: 17, acquisitions: ['LSEG-Refinitiv Completed', 'Euronext-Borsa Italiana Completed'] },
+                2022: { kams: 15, acquisitions: ['Integration Phase'] },
+                2023: { kams: 17, acquisitions: ['Deutsche Börse-SimCorp Completed ($3.9B)'] }
+            };
+
+            const years = Object.keys(acquisitionData);
+            const kamCounts = years.map(year => acquisitionData[year].kams);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'KAMs',
+                        data: kamCounts,
+                        backgroundColor: years.map(year => {
+                            if (year === '2021' || year === '2023') return 'rgba(231, 76, 60, 0.8)'; // Peak years - Red
+                            if (year === '2019' || year === '2020') return 'rgba(243, 156, 18, 0.8)'; // Announcement years - Orange
+                            return 'rgba(52, 152, 219, 0.8)'; // Integration - Blue
+                        }),
+                        borderColor: years.map(year => {
+                            if (year === '2021' || year === '2023') return 'rgba(231, 76, 60, 1)';
+                            if (year === '2019' || year === '2020') return 'rgba(243, 156, 18, 1)';
+                            return 'rgba(52, 152, 219, 1)';
+                        }),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Major Acquisitions Impact on KAM Complexity',
+                            font: { size: 16, weight: 'bold' }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const year = context.label;
+                                    const acquisitions = acquisitionData[year].acquisitions;
+                                    return acquisitions.map(acq => `• ${acq}`);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of KAMs'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year (Major Acquisition Activity)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         // Initialize all charts when page loads
         document.addEventListener('DOMContentLoaded', function() {
             createOverviewChart();
@@ -1058,6 +1161,7 @@
             createExchangeKAMChart();
             createRiskSeverityChart();
             createRiskEvolutionChart();
+            createAcquisitionImpactChart();
         });
     </script>
 </body>
