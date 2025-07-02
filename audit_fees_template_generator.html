@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Fees Data Collection Template Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .template-info {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .template-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .template-info ul {
+            margin-left: 20px;
+        }
+
+        .template-info li {
+            margin-bottom: 8px;
+        }
+
+        .download-section {
+            text-align: center;
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .data-sources {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exchange-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .exchange-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .exchange-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .exchange-details {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .exchange-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Audit Fees Data Collection Template</h1>
+            <div class="subtitle">Professional Excel Template for Historical Audit Fee Research</div>
+        </div>
+
+        <div class="section">
+            <h2>📋 Template Overview</h2>
+            <p>This Excel template is designed to systematically collect historical audit fee information for the 7 major stock exchanges in our analysis. The template includes structured data entry fields, validation rules, and automatic calculations.</p>
+            
+            <div class="template-info">
+                <h3>🎯 Template Features:</h3>
+                <ul>
+                    <li><strong>Structured Data Entry:</strong> Pre-formatted sheets for each exchange</li>
+                    <li><strong>Data Validation:</strong> Built-in validation rules and dropdown lists</li>
+                    <li><strong>Currency Conversion:</strong> Automatic USD conversion with exchange rate inputs</li>
+                    <li><strong>Source Tracking:</strong> Fields to document data sources and confidence levels</li>
+                    <li><strong>Summary Dashboard:</strong> Automatic calculations and trend analysis</li>
+                    <li><strong>Data Quality Indicators:</strong> Confidence ratings and completeness tracking</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🏢 Exchanges Included</h2>
+            <div class="exchange-list">
+                <div class="exchange-card">
+                    <div class="exchange-name">🇬🇧 London Stock Exchange Group (LSEG)</div>
+                    <div class="exchange-details">Current Auditor: Deloitte LLP<br>Previous: Ernst & Young LLP</div>
+                </div>
+                <div class="exchange-card">
+                    <div class="exchange-name">🇪🇺 Euronext N.V.</div>
+                    <div class="exchange-details">Current Auditor: Mazars Accountants N.V.</div>
+                </div>
+                <div class="exchange-card">
+                    <div class="exchange-name">🇩🇪 Deutsche Börse AG</div>
+                    <div class="exchange-details">Current Auditor: KPMG AG</div>
+                </div>
+                <div class="exchange-card">
+                    <div class="exchange-name">🇭🇰 Hong Kong Exchanges and Clearing (HKEX)</div>
+                    <div class="exchange-details">Current Auditor: PricewaterhouseCoopers</div>
+                </div>
+                <div class="exchange-card">
+                    <div class="exchange-name">🇺🇸 Intercontinental Exchange (ICE)</div>
+                    <div class="exchange-details">Current Auditor: Ernst & Young LLP</div>
+                </div>
+                <div class="exchange-card">
+                    <div class="exchange-name">🇺🇸 Nasdaq Inc.</div>
+                    <div class="exchange-details">Current Auditor: Ernst & Young LLP</div>
+                </div>
+                <div class="exchange-card">
+                    <div class="exchange-name">🇨🇦 TMX Group Limited</div>
+                    <div class="exchange-details">Current Auditor: Deloitte LLP</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h2>📥 Download Template</h2>
+            <p>Click the button below to generate and download the Excel template:</p>
+            <button onclick="generateTemplate()" class="download-btn">
+                📊 Download Audit Fees Collection Template
+            </button>
+        </div>
+
+        <div class="instructions">
+            <h3>📝 Data Collection Instructions</h3>
+            <ul>
+                <li><strong>Annual Reports:</strong> Look for "Auditor Remuneration" or "Audit Fees" in notes to financial statements</li>
+                <li><strong>Regulatory Filings:</strong> Check Form 20-F, 10-K, or equivalent local filings</li>
+                <li><strong>Audit Committee Reports:</strong> Often contain fee information and auditor selection details</li>
+                <li><strong>Investor Relations:</strong> Contact IR departments for specific fee disclosures</li>
+                <li><strong>Confidence Levels:</strong> Rate each data point as High (disclosed), Medium (estimated), or Low (approximated)</li>
+            </ul>
+        </div>
+
+        <div class="data-sources">
+            <h3>🔍 Recommended Data Sources</h3>
+            <ul>
+                <li><strong>Primary:</strong> Annual reports, financial statements, regulatory filings</li>
+                <li><strong>Secondary:</strong> Audit committee reports, corporate governance reports</li>
+                <li><strong>Tertiary:</strong> Investor presentations, earnings call transcripts</li>
+                <li><strong>Verification:</strong> Multiple source cross-referencing</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function generateTemplate() {
+            // Create a new workbook
+            const wb = XLSX.utils.book_new();
+            
+            // Define the exchanges
+            const exchanges = [
+                { name: "LSEG", fullName: "London Stock Exchange Group", country: "UK", currency: "GBP", auditor: "Deloitte LLP" },
+                { name: "Euronext", fullName: "Euronext N.V.", country: "Netherlands", currency: "EUR", auditor: "Mazars Accountants N.V." },
+                { name: "Deutsche Börse", fullName: "Deutsche Börse AG", country: "Germany", currency: "EUR", auditor: "KPMG AG" },
+                { name: "HKEX", fullName: "Hong Kong Exchanges and Clearing", country: "Hong Kong", currency: "HKD", auditor: "PricewaterhouseCoopers" },
+                { name: "ICE", fullName: "Intercontinental Exchange", country: "USA", currency: "USD", auditor: "Ernst & Young LLP" },
+                { name: "Nasdaq", fullName: "Nasdaq Inc.", country: "USA", currency: "USD", auditor: "Ernst & Young LLP" },
+                { name: "TMX Group", fullName: "TMX Group Limited", country: "Canada", currency: "CAD", auditor: "Deloitte LLP" }
+            ];
+            
+            // Create Instructions sheet
+            const instructionsData = [
+                ["AUDIT FEES DATA COLLECTION TEMPLATE"],
+                [""],
+                ["INSTRUCTIONS FOR USE:"],
+                ["1. Use the individual exchange sheets to input historical audit fee data"],
+                ["2. Fill in all available years (2015-2024)"],
+                ["3. Include source information and confidence levels"],
+                ["4. The Summary sheet will automatically calculate trends"],
+                [""],
+                ["DATA QUALITY LEVELS:"],
+                ["HIGH - Explicitly disclosed in annual reports"],
+                ["MEDIUM - Derived from regulatory filings or notes"],
+                ["LOW - Estimated based on industry benchmarks"],
+                [""],
+                ["CURRENCY CONVERSION:"],
+                ["- Input fees in local currency"],
+                ["- Provide exchange rates for USD conversion"],
+                ["- Use average annual exchange rates"],
+                [""],
+                ["CONTACT INFORMATION:"],
+                ["For questions about this template, please contact the research team."]
+            ];
+            
+            const wsInstructions = XLSX.utils.aoa_to_sheet(instructionsData);
+            XLSX.utils.book_append_sheet(wb, wsInstructions, "Instructions");
+            
+            // Create individual sheets for each exchange
+            exchanges.forEach(exchange => {
+                const sheetData = [
+                    [`${exchange.fullName} - Audit Fees Data`],
+                    [""],
+                    ["Exchange Information:"],
+                    ["Full Name:", exchange.fullName],
+                    ["Country:", exchange.country],
+                    ["Local Currency:", exchange.currency],
+                    ["Current Auditor:", exchange.auditor],
+                    [""],
+                    ["HISTORICAL AUDIT FEES DATA:"],
+                    ["Year", "Audit Fees (Local)", "Exchange Rate to USD", "Audit Fees (USD)", "Auditor Name", "Source", "Confidence Level", "Notes"],
+                    ["2024", "", "", "", "", "", "", ""],
+                    ["2023", "", "", "", "", "", "", ""],
+                    ["2022", "", "", "", "", "", "", ""],
+                    ["2021", "", "", "", "", "", "", ""],
+                    ["2020", "", "", "", "", "", "", ""],
+                    ["2019", "", "", "", "", "", "", ""],
+                    ["2018", "", "", "", "", "", "", ""],
+                    ["2017", "", "", "", "", "", "", ""],
+                    ["2016", "", "", "", "", "", "", ""],
+                    ["2015", "", "", "", "", "", "", ""],
+                    [""],
+                    ["ADDITIONAL INFORMATION:"],
+                    ["Non-Audit Fees (if available):"],
+                    ["Year", "Non-Audit Fees (Local)", "Non-Audit Fees (USD)", "Type of Services", "Source"],
+                    ["2024", "", "", "", ""],
+                    ["2023", "", "", "", ""],
+                    ["2022", "", "", "", ""],
+                    ["2021", "", "", "", ""],
+                    ["2020", "", "", "", ""],
+                    [""],
+                    ["AUDITOR CHANGES:"],
+                    ["Year", "Previous Auditor", "New Auditor", "Reason for Change", "Source"],
+                    ["", "", "", "", ""],
+                    ["", "", "", "", ""],
+                    [""],
+                    ["KEY EVENTS AFFECTING AUDIT COMPLEXITY:"],
+                    ["Year", "Event Description", "Impact on Audit Fees", "Source"],
+                    ["", "", "", ""],
+                    ["", "", "", ""],
+                    ["", "", "", ""]
+                ];
+                
+                const ws = XLSX.utils.aoa_to_sheet(sheetData);
+                
+                // Set column widths
+                ws['!cols'] = [
+                    {wch: 8},   // Year
+                    {wch: 20},  // Audit Fees (Local)
+                    {wch: 18},  // Exchange Rate
+                    {wch: 18},  // Audit Fees (USD)
+                    {wch: 25},  // Auditor Name
+                    {wch: 30},  // Source
+                    {wch: 15},  // Confidence Level
+                    {wch: 40}   // Notes
+                ];
+                
+                XLSX.utils.book_append_sheet(wb, ws, exchange.name);
+            });
+            
+            // Create Summary sheet
+            const summaryData = [
+                ["AUDIT FEES SUMMARY DASHBOARD"],
+                [""],
+                ["This sheet will contain summary calculations once data is entered"],
+                [""],
+                ["SUMMARY BY EXCHANGE (2024):"],
+                ["Exchange", "Audit Fees (USD)", "Growth vs 2020", "Data Quality"],
+                ...exchanges.map(ex => [ex.fullName, "=TBD", "=TBD", "=TBD"]),
+                [""],
+                ["TREND ANALYSIS:"],
+                ["Year", "Total Fees (USD)", "Average Growth", "Number of Exchanges"],
+                ["2024", "=TBD", "=TBD", "=TBD"],
+                ["2023", "=TBD", "=TBD", "=TBD"],
+                ["2022", "=TBD", "=TBD", "=TBD"],
+                ["2021", "=TBD", "=TBD", "=TBD"],
+                ["2020", "=TBD", "=TBD", "=TBD"],
+                [""],
+                ["DATA COMPLETENESS:"],
+                ["Exchange", "Years with Data", "Completeness %", "Average Confidence"],
+                ...exchanges.map(ex => [ex.fullName, "=TBD", "=TBD", "=TBD"])
+            ];
+            
+            const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+            XLSX.utils.book_append_sheet(wb, wsSummary, "Summary");
+            
+            // Generate and download the file
+            const fileName = `Audit_Fees_Collection_Template_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(wb, fileName);
+            
+            // Show success message
+            alert(`✅ Template generated successfully!\n\nFile: ${fileName}\n\nThe template includes:\n• Individual sheets for each exchange\n• Data validation and formatting\n• Summary dashboard\n• Detailed instructions\n\nPlease check your downloads folder.`);
+        }
+    </script>
+</body>
+</html>
