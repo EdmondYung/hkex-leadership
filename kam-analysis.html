@@ -166,18 +166,24 @@
             max-height: 800px;
             overflow-y: auto;
             padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            align-items: start;
+            transition: all 0.3s ease;
         }
 
         .kam-card {
             background: #fff;
             border: 1px solid #e9ecef;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 0; /* Remove margin since grid handles spacing */
             padding: 20px;
             padding-top: 45px; /* Extra padding to accommodate risk indicator */
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
             position: relative;
+            height: fit-content; /* Ensure cards don't stretch unnecessarily */
         }
 
         .kam-card:hover {
@@ -435,8 +441,20 @@
             color: white;
         }
 
+        /* Tablet and smaller desktop adjustments */
+        @media (max-width: 1200px) {
+            .cards-container {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+                gap: 15px;
+            }
+        }
+
         /* Mobile Responsive Improvements */
         @media (max-width: 768px) {
+            .cards-container {
+                padding: 15px;
+                gap: 15px;
+            }
             .container {
                 padding: 10px;
             }
@@ -938,6 +956,7 @@
                         <button onclick="exportToPDF()" class="compare-btn" style="background: #dc3545;">📄 Export PDF Report</button>
                         <button onclick="exportToExcel()" class="compare-btn" style="background: #28a745;">📊 Export Excel (Enhanced)</button>
                         <button onclick="window.open('kam_trend_analysis.html', '_blank')" class="compare-btn" style="background: #9b59b6;">📈 Trend Analysis</button>
+                        <button onclick="toggleLayout()" class="compare-btn" style="background: #17a2b8;" id="layoutToggle">📱 Single Column</button>
                     </div>
                 </div>
                 <div class="filter-item">
@@ -2431,6 +2450,28 @@
             }));
 
             return [...categoryStats, { 'Risk Category': '', 'Count': '', 'Percentage': '' }, ...severityStatsArray];
+        }
+
+        // Toggle layout between single and two columns
+        let isDoubleColumn = true; // Start with two-column layout
+
+        function toggleLayout() {
+            const container = document.getElementById('kamCardsContainer');
+            const toggleBtn = document.getElementById('layoutToggle');
+
+            if (isDoubleColumn) {
+                // Switch to single column
+                container.style.gridTemplateColumns = '1fr';
+                toggleBtn.textContent = '📋 Two Columns';
+                toggleBtn.style.background = '#6f42c1';
+                isDoubleColumn = false;
+            } else {
+                // Switch to two columns
+                container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(500px, 1fr))';
+                toggleBtn.textContent = '📱 Single Column';
+                toggleBtn.style.background = '#17a2b8';
+                isDoubleColumn = true;
+            }
         }
 
         // Initialize the dashboard
