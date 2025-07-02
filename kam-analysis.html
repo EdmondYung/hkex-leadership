@@ -173,6 +173,7 @@
             border-radius: 8px;
             margin-bottom: 15px;
             padding: 20px;
+            padding-top: 45px; /* Extra padding to accommodate risk indicator */
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             transition: all 0.3s ease;
             position: relative;
@@ -405,14 +406,17 @@
 
         .risk-indicator {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 12px;
+            right: 12px;
             padding: 4px 8px;
             border-radius: 12px;
             font-size: 0.75em;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            z-index: 10;
+            min-width: 45px;
+            text-align: center;
         }
 
         .risk-indicator.high {
@@ -491,6 +495,7 @@
             .kam-card {
                 margin-bottom: 15px;
                 padding: 15px;
+                padding-top: 40px; /* Adjusted for mobile */
             }
 
             .card-header {
@@ -515,10 +520,11 @@
             }
 
             .risk-indicator {
-                top: 10px;
-                right: 10px;
+                top: 8px;
+                right: 8px;
                 font-size: 0.7em;
                 padding: 3px 6px;
+                min-width: 40px;
             }
 
             .show-more-btn {
@@ -569,6 +575,7 @@
 
             .kam-card {
                 padding: 12px;
+                padding-top: 35px; /* Adjusted for small mobile */
             }
 
             .card-title {
@@ -584,6 +591,9 @@
             .risk-indicator {
                 font-size: 0.65em;
                 padding: 2px 5px;
+                min-width: 35px;
+                top: 6px;
+                right: 6px;
             }
         }
 
