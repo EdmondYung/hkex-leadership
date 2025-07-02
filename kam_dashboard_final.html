@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Key Audit Matters (KAM) Analysis - Actual Data</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -2224,12 +2225,29 @@
         }
 
         function exportToExcel() {
-            const exportData = selectedKAMs.size > 0 ?
-                kamData.filter(item => selectedKAMs.has(item.id)) :
-                filteredData;
+            // Show loading state
+            const exportBtn = document.querySelector('button[onclick*="exportToExcel"]');
+            const originalText = exportBtn ? exportBtn.textContent : '📊 Export Excel (Enhanced)';
+            if (exportBtn) {
+                exportBtn.textContent = '⏳ Generating Excel...';
+                exportBtn.disabled = true;
+            }
 
-            // Create workbook with multiple sheets
-            const wb = XLSX.utils.book_new();
+            setTimeout(() => {
+                try {
+                    const exportData = selectedKAMs.size > 0 ?
+                        kamData.filter(item => selectedKAMs.has(item.id)) :
+                        filteredData;
+
+                    // Check if XLSX library is loaded
+                    if (typeof XLSX === 'undefined') {
+                        console.error('XLSX library not loaded, falling back to CSV export');
+                        exportToCSV();
+                        return;
+                    }
+
+                    // Create workbook with multiple sheets
+                    const wb = XLSX.utils.book_new();
 
             // Main data sheet
             const mainData = exportData.map(item => {
@@ -2282,9 +2300,56 @@
             const ws4 = XLSX.utils.json_to_sheet(riskStats);
             XLSX.utils.book_append_sheet(wb, ws4, "Risk Analysis");
 
-            // Export the file
-            const fileName = `kam_analysis_enhanced_${new Date().toISOString().split('T')[0]}.xlsx`;
-            XLSX.writeFile(wb, fileName);
+                    // Export the file
+                    const fileName = `kam_analysis_enhanced_${new Date().toISOString().split('T')[0]}.xlsx`;
+                    XLSX.writeFile(wb, fileName);
+
+                } catch (error) {
+                    console.error('Error creating Excel file:', error);
+                    alert('Error creating Excel file. Falling back to CSV export.');
+                    exportToCSV();
+                } finally {
+                    // Restore button state
+                    if (exportBtn) {
+                        exportBtn.textContent = originalText;
+                        exportBtn.disabled = false;
+                    }
+                }
+            }, 100); // Small delay to show loading state
+        }
+
+        function exportToCSV() {
+            const exportData = selectedKAMs.size > 0 ?
+                kamData.filter(item => selectedKAMs.has(item.id)) :
+                filteredData;
+
+            let csvContent = "Company,Year,Auditor,KAM Title,Risk Category,Risk Severity,Description,Auditor Response\n";
+
+            exportData.forEach(item => {
+                const riskInfo = categorizeRisk(item.kamTitle, item.description);
+                const riskSeverity = assessRiskSeverity(item.kamTitle, item.description);
+                const row = [
+                    `"${item.company}"`,
+                    item.year,
+                    `"${item.auditor}"`,
+                    `"${item.kamTitle}"`,
+                    `"${riskInfo.label}"`,
+                    `"${riskSeverity.toUpperCase()}"`,
+                    `"${item.description.replace(/"/g, '""')}"`,
+                    `"${item.auditResponse.replace(/"/g, '""')}"`
+                ].join(',');
+                csvContent += row + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `kam_analysis_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         function generateSummaryStats(data) {
@@ -2368,7 +2433,16 @@
         }
 
         // Initialize the dashboard
-        document.addEventListener('DOMContentLoaded', loadKAMData);
+        document.addEventListener('DOMContentLoaded', function() {
+            loadKAMData();
+
+            // Check if XLSX library is loaded
+            if (typeof XLSX !== 'undefined') {
+                console.log('✅ XLSX library loaded successfully');
+            } else {
+                console.warn('⚠️ XLSX library not loaded - Excel export will fall back to CSV');
+            }
+        });
     </script>
 </body>
 </html>
