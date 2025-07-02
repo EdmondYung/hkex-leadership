@@ -348,9 +348,243 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 1000;
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
             display: none;
+        }
+
+        .suggestion-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f8f9fa;
+            transition: background-color 0.2s ease;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-category {
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .suggestion-text {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 2px;
+        }
+
+        .suggestion-highlight {
+            background-color: #fff3cd;
+            font-weight: 600;
+        }
+
+        /* Risk Severity Color Coding */
+        .risk-high {
+            border-left: 5px solid #dc3545;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+        }
+
+        .risk-medium {
+            border-left: 5px solid #fd7e14;
+            background: linear-gradient(135deg, #fff8f0 0%, #ffffff 100%);
+        }
+
+        .risk-low {
+            border-left: 5px solid #28a745;
+            background: linear-gradient(135deg, #f8fff8 0%, #ffffff 100%);
+        }
+
+        .risk-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .risk-indicator.high {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .risk-indicator.medium {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        .risk-indicator.low {
+            background-color: #28a745;
+            color: white;
+        }
+
+        /* Mobile Responsive Improvements */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 15px;
+                text-align: center;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+                margin-bottom: 10px;
+            }
+
+            .controls {
+                padding: 15px;
+            }
+
+            .filter-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .filter-item {
+                width: 100%;
+            }
+
+            .filter-item label {
+                font-size: 0.9em;
+            }
+
+            .filter-item select,
+            .filter-item input {
+                font-size: 16px; /* Prevents zoom on iOS */
+                padding: 12px;
+            }
+
+            .search-container {
+                position: relative;
+            }
+
+            .search-suggestions {
+                position: fixed;
+                top: auto;
+                left: 10px;
+                right: 10px;
+                max-height: 250px;
+                z-index: 9999;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .kam-card {
+                margin-bottom: 15px;
+                padding: 15px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .card-title {
+                font-size: 1.1em;
+                line-height: 1.4;
+            }
+
+            .card-meta {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .card-meta span {
+                font-size: 0.8em;
+                padding: 4px 8px;
+            }
+
+            .risk-indicator {
+                top: 10px;
+                right: 10px;
+                font-size: 0.7em;
+                padding: 3px 6px;
+            }
+
+            .show-more-btn {
+                font-size: 0.85em;
+                margin-top: 10px;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .export-buttons button {
+                width: 100%;
+                padding: 12px;
+                font-size: 0.9em;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .stat-item {
+                text-align: center;
+                padding: 15px;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+                padding: 15px;
+            }
+
+            .pagination button {
+                min-width: 40px;
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .kam-card {
+                padding: 12px;
+            }
+
+            .card-title {
+                font-size: 1em;
+            }
+
+            .card-description,
+            .audit-response-content {
+                font-size: 0.9em;
+                line-height: 1.5;
+            }
+
+            .risk-indicator {
+                font-size: 0.65em;
+                padding: 2px 5px;
+            }
         }
 
         .suggestion-item {
@@ -690,8 +924,8 @@
                 <div class="filter-item">
                     <label>📄 Export Options:</label>
                     <div style="display: flex; gap: 10px; margin-top: 5px;">
-                        <button onclick="exportToPDF()" class="compare-btn" style="background: #dc3545;">Export PDF</button>
-                        <button onclick="exportToExcel()" class="compare-btn" style="background: #28a745;">Export Excel</button>
+                        <button onclick="exportToPDF()" class="compare-btn" style="background: #dc3545;">📄 Export PDF Report</button>
+                        <button onclick="exportToExcel()" class="compare-btn" style="background: #28a745;">📊 Export Excel (Enhanced)</button>
                     </div>
                 </div>
                 <div class="filter-item">
@@ -1085,9 +1319,27 @@
         }
 
         function showSearchSuggestions() {
-            const searchTerm = document.getElementById('searchFilter').value;
-            if (searchTerm.length >= 2) {
-                updateSearchSuggestions(searchTerm);
+            const searchTerm = document.getElementById('searchFilter').value.toLowerCase().trim();
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+
+            if (searchTerm.length < 2) {
+                suggestionsDiv.style.display = 'none';
+                return;
+            }
+
+            // Generate intelligent suggestions from actual data
+            const suggestions = generateSmartSuggestions(searchTerm);
+
+            if (suggestions.length > 0) {
+                suggestionsDiv.innerHTML = suggestions.map(suggestion =>
+                    `<div class="suggestion-item" onclick="selectSuggestion('${suggestion.text}')">
+                        <div class="suggestion-category">${suggestion.category}</div>
+                        <div class="suggestion-text">${highlightSuggestion(suggestion.text, searchTerm)}</div>
+                    </div>`
+                ).join('');
+                suggestionsDiv.style.display = 'block';
+            } else {
+                suggestionsDiv.style.display = 'none';
             }
         }
 
@@ -1095,6 +1347,94 @@
             setTimeout(() => {
                 document.getElementById('searchSuggestions').style.display = 'none';
             }, 200);
+        }
+
+        function generateSmartSuggestions(searchTerm) {
+            const suggestions = [];
+            const maxSuggestions = 8;
+
+            // Extract unique terms from KAM data
+            const companies = [...new Set(kamData.map(item => item.company))];
+            const auditors = [...new Set(kamData.map(item => item.auditor))];
+            const kamTitles = [...new Set(kamData.map(item => item.kamTitle))];
+
+            // Common risk keywords from descriptions
+            const riskKeywords = ['impairment', 'valuation', 'revenue', 'goodwill', 'intangible',
+                                'provisions', 'tax', 'acquisition', 'fair value', 'credit risk',
+                                'market risk', 'operational risk', 'compliance', 'regulatory'];
+
+            // Company suggestions
+            companies.forEach(company => {
+                if (company.toLowerCase().includes(searchTerm) && suggestions.length < maxSuggestions) {
+                    suggestions.push({
+                        category: 'Company',
+                        text: company
+                    });
+                }
+            });
+
+            // Auditor suggestions
+            auditors.forEach(auditor => {
+                if (auditor.toLowerCase().includes(searchTerm) && suggestions.length < maxSuggestions) {
+                    suggestions.push({
+                        category: 'Auditor',
+                        text: auditor
+                    });
+                }
+            });
+
+            // KAM title suggestions
+            kamTitles.forEach(title => {
+                if (title.toLowerCase().includes(searchTerm) && suggestions.length < maxSuggestions) {
+                    suggestions.push({
+                        category: 'KAM Topic',
+                        text: title
+                    });
+                }
+            });
+
+            // Risk keyword suggestions
+            riskKeywords.forEach(keyword => {
+                if (keyword.includes(searchTerm) && suggestions.length < maxSuggestions) {
+                    suggestions.push({
+                        category: 'Risk Area',
+                        text: keyword.charAt(0).toUpperCase() + keyword.slice(1)
+                    });
+                }
+            });
+
+            return suggestions;
+        }
+
+        function highlightSuggestion(text, searchTerm) {
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
+        }
+
+        function assessRiskSeverity(kamTitle, description) {
+            const highRiskKeywords = ['impairment', 'goodwill', 'significant judgment', 'material uncertainty',
+                                    'going concern', 'fraud', 'litigation', 'regulatory', 'compliance',
+                                    'material weakness', 'significant deficiency'];
+
+            const mediumRiskKeywords = ['valuation', 'estimate', 'fair value', 'provision', 'tax',
+                                      'acquisition', 'restructuring', 'credit risk', 'market risk'];
+
+            const lowRiskKeywords = ['disclosure', 'presentation', 'classification', 'routine', 'standard'];
+
+            const text = (kamTitle + ' ' + description).toLowerCase();
+
+            // Check for high risk indicators
+            if (highRiskKeywords.some(keyword => text.includes(keyword))) {
+                return 'high';
+            }
+
+            // Check for medium risk indicators
+            if (mediumRiskKeywords.some(keyword => text.includes(keyword))) {
+                return 'medium';
+            }
+
+            // Default to low risk
+            return 'low';
         }
 
         function highlightSearchTerms(text, searchTerm) {
@@ -1446,11 +1786,16 @@
                     highlightSearchTerms(auditResponse.substring(0, 200), searchTerm) + '...' :
                     highlightSearchTerms(auditResponse, searchTerm);
 
+                // Assess risk severity
+                const riskSeverity = assessRiskSeverity(item.kamTitle, description);
+
                 const card = document.createElement('div');
-                card.className = 'kam-card';
+                card.className = `kam-card risk-${riskSeverity}`;
                 card.setAttribute('data-kam-id', item.id);
+                card.setAttribute('data-risk-severity', riskSeverity);
                 card.innerHTML = `
                     <input type="checkbox" class="card-checkbox" onchange="toggleKAMSelection(${item.id}, this.checked)">
+                    <div class="risk-indicator ${riskSeverity}">${riskSeverity.toUpperCase()}</div>
                     <div class="card-header">
                         <h3 class="card-title">${highlightedTitle}
                             <span class="risk-category risk-${riskInfo.category}">${riskInfo.label}</span>
@@ -1873,31 +2218,143 @@
                 kamData.filter(item => selectedKAMs.has(item.id)) :
                 filteredData;
 
-            let csvContent = "Company,Year,Auditor,KAM Title,Risk Category,Description,Auditor Response\n";
+            // Create workbook with multiple sheets
+            const wb = XLSX.utils.book_new();
 
-            exportData.forEach(item => {
+            // Main data sheet
+            const mainData = exportData.map(item => {
                 const riskInfo = categorizeRisk(item.kamTitle, item.description);
-                const row = [
-                    `"${item.company}"`,
-                    item.year,
-                    `"${item.auditor}"`,
-                    `"${item.kamTitle}"`,
-                    `"${riskInfo.label}"`,
-                    `"${item.description.replace(/"/g, '""')}"`,
-                    `"${item.auditResponse.replace(/"/g, '""')}"`
-                ].join(',');
-                csvContent += row + "\n";
+                const riskSeverity = assessRiskSeverity(item.kamTitle, item.description);
+                return {
+                    'Company': item.company,
+                    'Year': item.year,
+                    'Auditor': item.auditor,
+                    'KAM Title': item.kamTitle,
+                    'Risk Category': riskInfo.label,
+                    'Risk Severity': riskSeverity.toUpperCase(),
+                    'Description': item.description,
+                    'Auditor Response': item.auditResponse,
+                    'Description Length': item.description.length,
+                    'Response Length': item.auditResponse.length
+                };
             });
 
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
-            const url = URL.createObjectURL(blob);
-            link.setAttribute("href", url);
-            link.setAttribute("download", `kam_analysis_${new Date().toISOString().split('T')[0]}.csv`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const ws1 = XLSX.utils.json_to_sheet(mainData);
+
+            // Set column widths
+            ws1['!cols'] = [
+                {wch: 25}, // Company
+                {wch: 8},  // Year
+                {wch: 20}, // Auditor
+                {wch: 40}, // KAM Title
+                {wch: 15}, // Risk Category
+                {wch: 12}, // Risk Severity
+                {wch: 80}, // Description
+                {wch: 80}, // Auditor Response
+                {wch: 12}, // Description Length
+                {wch: 12}  // Response Length
+            ];
+
+            XLSX.utils.book_append_sheet(wb, ws1, "KAM Data");
+
+            // Summary statistics sheet
+            const summaryData = generateSummaryStats(exportData);
+            const ws2 = XLSX.utils.json_to_sheet(summaryData);
+            XLSX.utils.book_append_sheet(wb, ws2, "Summary Statistics");
+
+            // Company analysis sheet
+            const companyStats = generateCompanyStats(exportData);
+            const ws3 = XLSX.utils.json_to_sheet(companyStats);
+            XLSX.utils.book_append_sheet(wb, ws3, "Company Analysis");
+
+            // Risk analysis sheet
+            const riskStats = generateRiskStats(exportData);
+            const ws4 = XLSX.utils.json_to_sheet(riskStats);
+            XLSX.utils.book_append_sheet(wb, ws4, "Risk Analysis");
+
+            // Export the file
+            const fileName = `kam_analysis_enhanced_${new Date().toISOString().split('T')[0]}.xlsx`;
+            XLSX.writeFile(wb, fileName);
+        }
+
+        function generateSummaryStats(data) {
+            const totalKAMs = data.length;
+            const companies = [...new Set(data.map(item => item.company))];
+            const auditors = [...new Set(data.map(item => item.auditor))];
+            const years = [...new Set(data.map(item => item.year))];
+
+            const avgDescLength = Math.round(data.reduce((sum, item) => sum + item.description.length, 0) / totalKAMs);
+            const avgRespLength = Math.round(data.reduce((sum, item) => sum + item.auditResponse.length, 0) / totalKAMs);
+
+            return [
+                { 'Metric': 'Total KAMs', 'Value': totalKAMs },
+                { 'Metric': 'Unique Companies', 'Value': companies.length },
+                { 'Metric': 'Unique Auditors', 'Value': auditors.length },
+                { 'Metric': 'Year Range', 'Value': `${Math.min(...years)} - ${Math.max(...years)}` },
+                { 'Metric': 'Average Description Length', 'Value': avgDescLength },
+                { 'Metric': 'Average Response Length', 'Value': avgRespLength },
+                { 'Metric': 'Export Date', 'Value': new Date().toLocaleDateString() }
+            ];
+        }
+
+        function generateCompanyStats(data) {
+            const companyStats = {};
+
+            data.forEach(item => {
+                if (!companyStats[item.company]) {
+                    companyStats[item.company] = {
+                        'Company': item.company,
+                        'Total KAMs': 0,
+                        'High Risk': 0,
+                        'Medium Risk': 0,
+                        'Low Risk': 0,
+                        'Primary Auditor': '',
+                        'Years Covered': new Set()
+                    };
+                }
+
+                companyStats[item.company]['Total KAMs']++;
+                companyStats[item.company]['Years Covered'].add(item.year);
+                companyStats[item.company]['Primary Auditor'] = item.auditor;
+
+                const riskLevel = assessRiskSeverity(item.kamTitle, item.description);
+                companyStats[item.company][riskLevel.charAt(0).toUpperCase() + riskLevel.slice(1) + ' Risk']++;
+            });
+
+            return Object.values(companyStats).map(stat => ({
+                ...stat,
+                'Years Covered': Array.from(stat['Years Covered']).sort().join(', ')
+            }));
+        }
+
+        function generateRiskStats(data) {
+            const riskCategories = {};
+            const severityStats = { high: 0, medium: 0, low: 0 };
+
+            data.forEach(item => {
+                const riskInfo = categorizeRisk(item.kamTitle, item.description);
+                const severity = assessRiskSeverity(item.kamTitle, item.description);
+
+                if (!riskCategories[riskInfo.label]) {
+                    riskCategories[riskInfo.label] = 0;
+                }
+                riskCategories[riskInfo.label]++;
+                severityStats[severity]++;
+            });
+
+            const categoryStats = Object.entries(riskCategories).map(([category, count]) => ({
+                'Risk Category': category,
+                'Count': count,
+                'Percentage': ((count / data.length) * 100).toFixed(1) + '%'
+            }));
+
+            const severityStatsArray = Object.entries(severityStats).map(([severity, count]) => ({
+                'Risk Severity': severity.toUpperCase(),
+                'Count': count,
+                'Percentage': ((count / data.length) * 100).toFixed(1) + '%'
+            }));
+
+            return [...categoryStats, { 'Risk Category': '', 'Count': '', 'Percentage': '' }, ...severityStatsArray];
         }
 
         // Initialize the dashboard
