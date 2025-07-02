@@ -162,9 +162,106 @@
             font-weight: 600;
         }
 
+        .pagination-controls {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .bottom-pagination {
+            margin-top: 20px;
+        }
+
+        .pagination-info {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .pagination-settings {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pagination-settings label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .pagination-settings select {
+            padding: 5px 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background: white;
+            font-size: 0.9em;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pagination-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .pagination-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .page-numbers {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .page-number {
+            background: #e9ecef;
+            color: #495057;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s ease;
+        }
+
+        .page-number:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .page-number.active {
+            background: #007bff;
+            color: white;
+            font-weight: 600;
+        }
+
         .cards-container {
-            max-height: 800px;
-            overflow-y: auto;
+            max-height: none; /* Remove height limit for pagination */
+            overflow-y: visible;
             padding: 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -454,6 +551,29 @@
             .cards-container {
                 padding: 15px;
                 gap: 15px;
+            }
+
+            .pagination-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .pagination-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .pagination-btn {
+                padding: 10px 8px;
+                font-size: 0.8em;
+            }
+
+            .page-numbers {
+                justify-content: center;
+                flex-wrap: wrap;
             }
             .container {
                 padding: 10px;
@@ -1018,8 +1138,47 @@
                     <div class="section-header">
                         🎯 Complete KAM Analysis - Key Audit Matters & Auditor Responses
                     </div>
+
+                    <!-- Pagination Controls -->
+                    <div class="pagination-controls">
+                        <div class="pagination-info">
+                            <span id="paginationInfo">Showing 1-20 of 131 KAMs</span>
+                        </div>
+                        <div class="pagination-settings">
+                            <label for="pageSize">Show:</label>
+                            <select id="pageSize" onchange="changePageSize()">
+                                <option value="10">10 per page</option>
+                                <option value="20" selected>20 per page</option>
+                                <option value="50">50 per page</option>
+                                <option value="100">100 per page</option>
+                                <option value="all">Show All</option>
+                            </select>
+                        </div>
+                        <div class="pagination-buttons">
+                            <button onclick="goToPage(1)" id="firstBtn" class="pagination-btn">⏮️ First</button>
+                            <button onclick="previousPage()" id="prevBtn" class="pagination-btn">⬅️ Previous</button>
+                            <span class="page-numbers" id="pageNumbers"></span>
+                            <button onclick="nextPage()" id="nextBtn" class="pagination-btn">Next ➡️</button>
+                            <button onclick="goToPage(totalPages)" id="lastBtn" class="pagination-btn">Last ⏭️</button>
+                        </div>
+                    </div>
+
                     <div class="cards-container" id="kamCardsContainer">
                         <!-- KAM cards will be populated here -->
+                    </div>
+
+                    <!-- Bottom Pagination -->
+                    <div class="pagination-controls bottom-pagination">
+                        <div class="pagination-info">
+                            <span id="bottomPaginationInfo">Showing 1-20 of 131 KAMs</span>
+                        </div>
+                        <div class="pagination-buttons">
+                            <button onclick="goToPage(1)" id="bottomFirstBtn" class="pagination-btn">⏮️ First</button>
+                            <button onclick="previousPage()" id="bottomPrevBtn" class="pagination-btn">⬅️ Previous</button>
+                            <span class="page-numbers" id="bottomPageNumbers"></span>
+                            <button onclick="nextPage()" id="bottomNextBtn" class="pagination-btn">Next ➡️</button>
+                            <button onclick="goToPage(totalPages)" id="bottomLastBtn" class="pagination-btn">Last ⏭️</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1481,6 +1640,9 @@
             const riskCategoryFilter = document.getElementById('riskCategoryFilter').value;
             const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
 
+            // Reset to first page when filters change
+            currentPage = 1;
+
             filteredData = kamData.filter(item => {
                 const searchMatch = !searchFilter ||
                     item.kamTitle.toLowerCase().includes(searchFilter) ||
@@ -1801,7 +1963,23 @@
             container.innerHTML = '';
             const searchTerm = document.getElementById('searchFilter').value.toLowerCase();
 
-            const displayData = filteredData.slice(0, 100); // Show 100 cards to include more records
+            // Calculate pagination
+            totalKAMs = filteredData.length;
+            totalPages = pageSize === 'all' ? 1 : Math.ceil(totalKAMs / parseInt(pageSize));
+
+            // Ensure current page is valid
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            // Get data for current page
+            let displayData;
+            if (pageSize === 'all') {
+                displayData = filteredData;
+            } else {
+                const startIndex = (currentPage - 1) * parseInt(pageSize);
+                const endIndex = startIndex + parseInt(pageSize);
+                displayData = filteredData.slice(startIndex, endIndex);
+            }
 
             displayData.forEach((item, index) => {
                 const description = (item.description || 'No description available').trim();
@@ -1875,15 +2053,8 @@
                 setTimeout(() => findRelatedKAMs(item.id), 100);
             });
 
-            if (filteredData.length > 100) {
-                const paginationInfo = document.createElement('div');
-                paginationInfo.className = 'pagination-info';
-                paginationInfo.innerHTML = `
-                    Showing first 100 of ${filteredData.length} records. Use filters to narrow down results.
-                `;
-                container.appendChild(paginationInfo);
-            }
-
+            // Update pagination controls
+            updatePaginationControls();
             updateComparisonControls();
         }
 
@@ -2452,8 +2623,135 @@
             return [...categoryStats, { 'Risk Category': '', 'Count': '', 'Percentage': '' }, ...severityStatsArray];
         }
 
+        // Pagination variables
+        let currentPage = 1;
+        let pageSize = 20;
+        let totalPages = 1;
+        let totalKAMs = 0;
+
         // Toggle layout between single and two columns
         let isDoubleColumn = true; // Start with two-column layout
+
+        // Pagination functions
+        function updatePaginationControls() {
+            const startIndex = pageSize === 'all' ? 1 : (currentPage - 1) * parseInt(pageSize) + 1;
+            const endIndex = pageSize === 'all' ? totalKAMs : Math.min(currentPage * parseInt(pageSize), totalKAMs);
+
+            // Update info displays
+            const infoText = `Showing ${startIndex}-${endIndex} of ${totalKAMs} KAMs`;
+            document.getElementById('paginationInfo').textContent = infoText;
+            document.getElementById('bottomPaginationInfo').textContent = infoText;
+
+            // Update button states
+            updatePaginationButtons();
+            updatePageNumbers();
+        }
+
+        function updatePaginationButtons() {
+            const isFirstPage = currentPage === 1;
+            const isLastPage = currentPage === totalPages || pageSize === 'all';
+
+            // Update all pagination buttons
+            ['firstBtn', 'bottomFirstBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = isFirstPage || pageSize === 'all';
+            });
+
+            ['prevBtn', 'bottomPrevBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = isFirstPage || pageSize === 'all';
+            });
+
+            ['nextBtn', 'bottomNextBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = isLastPage || pageSize === 'all';
+            });
+
+            ['lastBtn', 'bottomLastBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = isLastPage || pageSize === 'all';
+            });
+        }
+
+        function updatePageNumbers() {
+            const pageNumbersContainers = ['pageNumbers', 'bottomPageNumbers'];
+
+            pageNumbersContainers.forEach(containerId => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                container.innerHTML = '';
+
+                if (pageSize === 'all' || totalPages <= 1) {
+                    return;
+                }
+
+                // Calculate page range to show
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+
+                // Adjust range if we're near the beginning or end
+                if (endPage - startPage < 4) {
+                    if (startPage === 1) {
+                        endPage = Math.min(totalPages, startPage + 4);
+                    } else if (endPage === totalPages) {
+                        startPage = Math.max(1, endPage - 4);
+                    }
+                }
+
+                // Add page numbers
+                for (let i = startPage; i <= endPage; i++) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = `page-number ${i === currentPage ? 'active' : ''}`;
+                    pageBtn.textContent = i;
+                    pageBtn.onclick = () => goToPage(i);
+                    container.appendChild(pageBtn);
+                }
+
+                // Add ellipsis and last page if needed
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                        const ellipsis = document.createElement('span');
+                        ellipsis.textContent = '...';
+                        ellipsis.style.padding = '6px';
+                        container.appendChild(ellipsis);
+                    }
+
+                    const lastPageBtn = document.createElement('button');
+                    lastPageBtn.className = 'page-number';
+                    lastPageBtn.textContent = totalPages;
+                    lastPageBtn.onclick = () => goToPage(totalPages);
+                    container.appendChild(lastPageBtn);
+                }
+            });
+        }
+
+        function changePageSize() {
+            pageSize = document.getElementById('pageSize').value;
+            currentPage = 1; // Reset to first page
+            updateCards();
+        }
+
+        function goToPage(page) {
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                updateCards();
+                // Scroll to top of cards container
+                document.getElementById('kamCardsContainer').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        }
 
         function toggleLayout() {
             const container = document.getElementById('kamCardsContainer');
@@ -2477,6 +2775,10 @@
         // Initialize the dashboard
         document.addEventListener('DOMContentLoaded', function() {
             loadKAMData();
+
+            // Initialize pagination
+            currentPage = 1;
+            pageSize = 20;
 
             // Check if XLSX library is loaded
             if (typeof XLSX !== 'undefined') {
