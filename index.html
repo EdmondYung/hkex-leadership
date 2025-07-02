@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKEX Leadership - Board Members & Key Management</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" rel="stylesheet">
+    <title>Key Audit Matters (KAM) Analysis - Actual Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
             margin: 0;
@@ -15,107 +14,83 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 40px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             color: white;
+            padding: 30px;
+            text-align: center;
         }
 
         .header h1 {
-            font-size: 3rem;
+            font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 300;
         }
 
         .header p {
-            font-size: 1.2rem;
+            font-size: 1.1em;
             opacity: 0.9;
-            margin-bottom: 20px;
         }
 
-        .navigation-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px;
+            border: 1px solid #c3e6cb;
         }
 
-        .nav-link {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .nav-link i {
-            margin-right: 8px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.95);
+        .stats-bar {
+            background: #f8f9fa;
             padding: 20px;
-            border-radius: 15px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .stat-item {
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px;
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2em;
             font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
+            color: #2c3e50;
         }
 
         .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 5px;
         }
 
         .controls {
-            background: rgba(255, 255, 255, 0.95);
             padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
         }
 
         .filter-group {
             display: flex;
+            gap: 20px;
             flex-wrap: wrap;
-            gap: 15px;
             align-items: center;
         }
 
@@ -127,397 +102,468 @@
 
         .filter-item label {
             font-weight: 600;
-            color: #555;
-            font-size: 0.9rem;
+            color: #495057;
+            font-size: 0.9em;
         }
 
-        select, input {
+        .filter-item select, .filter-item input {
             padding: 8px 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            transition: border-color 0.3s;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 0.9em;
         }
 
-        select:focus, input:focus {
-            outline: none;
-            border-color: #667eea;
+        .content {
+            padding: 30px;
         }
 
-        .section-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            justify-content: center;
-        }
-
-        .tab-button {
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            color: #667eea;
-        }
-
-        .tab-button.active {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .leadership-grid {
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .person-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .person-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-
-        .person-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .person-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-
-        .person-info h3 {
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-
-        .person-title {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .person-details {
-            margin-top: 15px;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .detail-item i {
-            color: #667eea;
-            width: 16px;
-        }
-
-        .committees {
-            margin-top: 15px;
-        }
-
-        .committee-tag {
-            display: inline-block;
-            background: #f0f3ff;
-            color: #667eea;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin: 2px;
-            border: 1px solid #e1e8ff;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .details-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .details-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .person-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .person-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 2% auto;
-            padding: 0;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalSlideIn 0.3s ease-out;
-            position: relative;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 20px 20px 0 0;
-            position: sticky;
-            top: 0;
-            z-index: 1001;
-        }
-
-        .modal-close {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s ease;
-            z-index: 1002;
-        }
-
-        .modal-close:hover {
-            background-color: rgba(255,255,255,0.2);
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .modal-person-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .modal-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .modal-person-details h2 {
-            margin: 0 0 5px 0;
-            font-size: 1.8rem;
-        }
-
-        .modal-person-details .chinese-name {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
-
-        .modal-person-details .title {
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-
-        .modal-section {
-            margin-bottom: 25px;
-        }
-
-        .modal-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            border-bottom: 2px solid #f0f3ff;
-            padding-bottom: 8px;
-        }
-
-        .modal-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .modal-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #f5f5f5;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .modal-list li:last-child {
-            border-bottom: none;
-        }
-
-        .modal-list li i {
-            color: #667eea;
-            margin-top: 2px;
-            width: 16px;
-        }
-
-        .portrait-photo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-
-        .org-chart {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
-        .chart-level {
-            margin-bottom: 30px;
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e9ecef;
         }
 
         .chart-title {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
             margin-bottom: 20px;
-        }
-
-        .chart-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .chart-person {
-            background: #f8f9ff;
-            border: 2px solid #e1e8ff;
-            border-radius: 12px;
-            padding: 15px;
             text-align: center;
-            min-width: 200px;
-            transition: all 0.3s;
         }
 
-        .chart-person:hover {
-            border-color: #667eea;
-            transform: translateY(-2px);
+        .chart-canvas {
+            max-height: 400px;
         }
 
-        .chart-person h4 {
-            color: #333;
-            margin-bottom: 5px;
+        .data-section {
+            width: 100%;
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
 
-        .chart-person p {
-            color: #667eea;
-            font-size: 0.85rem;
+        .section-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            font-size: 1.2em;
             font-weight: 600;
         }
 
+        .cards-container {
+            max-height: 800px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .kam-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .kam-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .company-tag {
+            background: #007bff;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .year-tag {
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .auditor-tag {
+            background: #6f42c1;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .card-description {
+            color: #495057;
+            line-height: 1.5;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f1f3f4;
+        }
+
+        .audit-response {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .audit-response-header {
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .audit-response-content {
+            color: #495057;
+            line-height: 1.5;
+        }
+
+        .description-preview {
+            display: block;
+        }
+
+        .description-full {
+            display: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .show-more-btn {
+            color: #007bff;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: underline;
+            margin-top: 8px;
+            margin-left: 8px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .show-more-btn:hover {
+            color: #0056b3;
+            text-decoration: none;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .pagination-info {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-style: italic;
+            background: #f8f9fa;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        /* Enhanced Search Styles */
+        .enhanced-search {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .suggestion-item:hover {
+            background: #f8f9fa;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-highlight {
+            background: #fff3cd;
+            padding: 1px 3px;
+            border-radius: 3px;
+        }
+
+        /* Risk Category Styles */
+        .risk-category {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .risk-revenue { background: #e3f2fd; color: #1976d2; }
+        .risk-valuation { background: #f3e5f5; color: #7b1fa2; }
+        .risk-compliance { background: #e8f5e8; color: #388e3c; }
+        .risk-operational { background: #fff3e0; color: #f57c00; }
+        .risk-financial { background: #ffebee; color: #d32f2f; }
+        .risk-other { background: #f5f5f5; color: #616161; }
+
+        /* Comparison Tool Styles */
+        .comparison-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+        }
+
+        .compare-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin: 2px;
+        }
+
+        .compare-btn:hover {
+            background: #218838;
+        }
+
+        .card-checkbox {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            transform: scale(1.2);
+        }
+
+        .comparison-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
+
+        .comparison-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            height: 80%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comparison-body {
+            display: flex;
+            height: calc(100% - 80px);
+            overflow: hidden;
+        }
+
+        .comparison-card {
+            flex: 1;
+            padding: 20px;
+            border-right: 1px solid #e9ecef;
+            overflow-y: auto;
+        }
+
+        .comparison-card:last-child {
+            border-right: none;
+        }
+
+        .kam-description:hover {
+            white-space: normal;
+            overflow: visible;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        /* Auditor Table Styles */
+        .auditor-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .auditor-table th,
+        .auditor-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .auditor-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9em;
+        }
+
+        .auditor-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .auditor-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .exchange-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .auditor-name {
+            color: #6f42c1;
+            font-weight: 500;
+        }
+
+        .kam-count {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Risk Matrix Styles */
+        .risk-matrix-legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85em;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .navigation-links {
-                flex-direction: column;
-                gap: 10px;
-                align-items: center;
-            }
-
-            .nav-link {
-                width: 80%;
-                text-align: center;
-            }
-
-            .leadership-grid {
+            .dashboard-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -526,8 +572,17 @@
                 align-items: stretch;
             }
 
-            .section-tabs {
+            .stats-bar {
                 flex-direction: column;
+            }
+
+            .auditor-table {
+                font-size: 0.9em;
+            }
+
+            .auditor-table th,
+            .auditor-table td {
+                padding: 8px 10px;
             }
         }
     </style>
@@ -535,159 +590,1311 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-building"></i> HKEX Leadership</h1>
-            <p>Board of Directors & Key Management Team</p>
-            <div class="navigation-links">
-                <a href="kam_dashboard_final.html" class="nav-link" style="background: rgba(255, 215, 0, 0.3); border-color: rgba(255, 215, 0, 0.5);">
-                    <i class="fas fa-chart-bar"></i> Key Audit Matters Analysis
-                </a>
-            </div>
+            <h1>🔍 Key Audit Matters Analysis</h1>
+            <p>Interactive Dashboard - Actual Tidied Data (2015-2024)</p>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number" id="totalBoard">13</div>
-                <div class="stat-label">Board Members</div>
+        <div class="success-message" id="dataSourceMessage">
+            ✅ <strong>Complete KAM Dataset Loaded!</strong> Displaying all 131 verified KAM records with auditor responses as interactive cards.
+            Each card includes both the Key Audit Matter and the corresponding Auditor's Response from your tidied dataset.
+        </div>
+
+        <div class="data-source-info" id="dataSourceInfo" style="
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9em;
+            color: #1976d2;
+            display: none;
+        ">
+            <strong>📁 Data Source:</strong> <code>actual_kam_data.js</code> |
+            <strong>📊 Records:</strong> <span id="recordCount">-</span> |
+            <strong>🏢 Companies:</strong> <span id="companyCount">-</span> |
+            <strong>👥 Auditors:</strong> <span id="auditorCount">-</span> |
+            <strong>📅 Years:</strong> <span id="yearRange">-</span> |
+            <strong>🕒 Loaded:</strong> <span id="loadTime">-</span>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalKAMs">131</div>
+                <div class="stat-label">Total KAMs</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalManagement">13</div>
-                <div class="stat-label">Management Committee</div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalCompanies">7</div>
+                <div class="stat-label">Companies</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="totalCommittees">9</div>
-                <div class="stat-label">Board Committees</div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalAuditors">4</div>
+                <div class="stat-label">Auditors</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number" id="independentDirectors">11</div>
-                <div class="stat-label">Independent Directors</div>
+            <div class="stat-item">
+                <div class="stat-number" id="yearRange">2015-2024</div>
+                <div class="stat-label">Year Range</div>
             </div>
         </div>
 
         <div class="controls">
             <div class="filter-group">
-                <div class="filter-item">
-                    <label for="roleFilter">Filter by Role:</label>
-                    <select id="roleFilter">
-                        <option value="">All Roles</option>
-                        <option value="chairman">Chairman</option>
-                        <option value="executive">Executive Director</option>
-                        <option value="independent">Independent Director</option>
-                        <option value="management">Management</option>
+                <div class="filter-item" style="background: #e3f2fd; border: 2px solid #2196f3; padding: 10px; border-radius: 5px;">
+                    <label for="yearSelector">📅 Select Year for Statistics:</label>
+                    <select id="yearSelector" onchange="updateYearBasedData()">
+                        <option value="">All Years</option>
                     </select>
                 </div>
                 <div class="filter-item">
-                    <label for="committeeFilter">Filter by Committee:</label>
-                    <select id="committeeFilter">
-                        <option value="">All Committees</option>
-                        <option value="audit">Audit Committee</option>
-                        <option value="risk">Risk Committee</option>
-                        <option value="remuneration">Remuneration Committee</option>
-                        <option value="nomination">Nomination & Governance</option>
+                    <label for="companyFilter">Filter by Company:</label>
+                    <select id="companyFilter">
+                        <option value="">All Companies</option>
                     </select>
                 </div>
                 <div class="filter-item">
-                    <label for="searchFilter">Search:</label>
-                    <input type="text" id="searchFilter" placeholder="Search by name or title...">
+                    <label for="auditorFilter">Filter by Auditor:</label>
+                    <select id="auditorFilter">
+                        <option value="">All Auditors</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="yearFilter">Filter by Year:</label>
+                    <select id="yearFilter">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+                <div class="filter-item" style="background: #f3e5f5; border: 2px solid #9c27b0; padding: 10px; border-radius: 5px;">
+                    <label for="riskCategoryFilter">🎯 Filter by Risk Category:</label>
+                    <select id="riskCategoryFilter">
+                        <option value="">All Risk Categories</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="searchFilter">🔍 Enhanced Search:</label>
+                    <div class="enhanced-search">
+                        <input type="text" id="searchFilter" class="search-input"
+                               placeholder="Search KAMs, auditor responses, companies..."
+                               onkeyup="handleSearch()"
+                               onfocus="showSearchSuggestions()"
+                               onblur="hideSearchSuggestions()">
+                        <span class="search-icon">🔍</span>
+                        <div id="searchSuggestions" class="search-suggestions"></div>
+                    </div>
+                </div>
+                <div class="filter-item">
+                    <label>📄 Export Options:</label>
+                    <div style="display: flex; gap: 10px; margin-top: 5px;">
+                        <button onclick="exportToPDF()" class="compare-btn" style="background: #dc3545;">Export PDF</button>
+                        <button onclick="exportToExcel()" class="compare-btn" style="background: #28a745;">Export Excel</button>
+                    </div>
+                </div>
+                <div class="filter-item">
+                    <label>🔄 Data Management:</label>
+                    <div style="display: flex; gap: 10px; margin-top: 5px;">
+                        <button onclick="refreshData()" class="compare-btn" style="background: #17a2b8;">Refresh Data</button>
+                        <button onclick="showDataInfo()" class="compare-btn" style="background: #6c757d;">Data Info</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="section-tabs">
-            <button class="tab-button active" onclick="showSection('board')">
-                <i class="fas fa-users"></i> Board of Directors
-            </button>
-            <button class="tab-button" onclick="showSection('management')">
-                <i class="fas fa-user-tie"></i> Management Committee
-            </button>
-            <button class="tab-button" onclick="showSection('structure')">
-                <i class="fas fa-sitemap"></i> Organization Structure
-            </button>
-        </div>
-
-        <div id="board" class="section active">
-            <div class="leadership-grid" id="boardGrid">
-                <!-- Board members will be populated by JavaScript -->
+        <div class="content">
+            <div class="loading" id="loadingMessage">
+                📊 Loading actual KAM data...
             </div>
-        </div>
 
-        <div id="management" class="section">
-            <div class="leadership-grid" id="managementGrid">
-                <!-- Management team will be populated by JavaScript -->
-            </div>
-        </div>
+            <div id="dashboardContent" style="display: none;">
+                <div class="dashboard-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">KAMs by Company</div>
+                        <canvas id="companyChart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">KAMs by Year</div>
+                        <canvas id="yearChart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">KAMs by Auditor</div>
+                        <canvas id="auditorChart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">KAM Trends Over Time</div>
+                        <canvas id="trendChart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">🎯 Risk Assessment Matrix</div>
+                        <canvas id="riskMatrixChart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">📊 Risk Category Evolution</div>
+                        <canvas id="riskEvolutionChart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
 
-        <div id="structure" class="section">
-            <div class="org-chart">
-                <div class="chart-level">
-                    <div class="chart-title">Board Level</div>
-                    <div class="chart-row">
-                        <div class="chart-person">
-                            <h4>Carlson TONG<br><span style="font-size: 0.8em; color: #666;">唐家成</span></h4>
-                            <p>Chairman</p>
+                <!-- Year-based Auditor Table -->
+                <div class="data-section" id="auditorTableSection" style="display: none;">
+                    <div class="section-header" id="auditorSectionHeader">
+                        📋 Exchange Auditors for Selected Year
+                    </div>
+                    <div style="padding: 20px;">
+                        <div id="auditorTableContainer">
+                            <!-- Dynamic auditor table will be populated here -->
                         </div>
                     </div>
                 </div>
-                
-                <div class="chart-level">
-                    <div class="chart-title">Executive Level</div>
-                    <div class="chart-row">
-                        <div class="chart-person">
-                            <h4>Bonnie Y CHAN<br><span style="font-size: 0.8em; color: #666;">陈翊庭</span></h4>
-                            <p>CEO & Executive Director</p>
-                        </div>
+
+                <div class="data-section">
+                    <div class="section-header">
+                        🎯 Complete KAM Analysis - Key Audit Matters & Auditor Responses
                     </div>
-                </div>
-                
-                <div class="chart-level">
-                    <div class="chart-title">Senior Management</div>
-                    <div class="chart-row">
-                        <div class="chart-person">
-                            <h4>Vanessa LAU<br><span style="font-size: 0.8em; color: #666;">刘碧筠</span></h4>
-                            <p>Chief Operating Officer</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>Herbert HUI<br><span style="font-size: 0.8em; color: #666;">许正宇</span></h4>
-                            <p>Group CFO</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>Paul CHOW<br><span style="font-size: 0.8em; color: #666;">周保昌</span></h4>
-                            <p>Group General Counsel</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>John HSU<br><span style="font-size: 0.8em; color: #666;">徐志华</span></h4>
-                            <p>Group CTO</p>
-                        </div>
-                        <div class="chart-person">
-                            <h4>Richard WISE<br><span style="font-size: 0.8em; color: #666;">韦志明</span></h4>
-                            <p>Group CRO</p>
-                        </div>
+                    <div class="cards-container" id="kamCardsContainer">
+                        <!-- KAM cards will be populated here -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal for person details -->
-    <div id="personModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-close">&times;</span>
-                <div class="modal-person-info">
-                    <div class="modal-avatar" id="modalAvatar"></div>
-                    <div class="modal-person-details">
-                        <h2 id="modalName"></h2>
-                        <div class="chinese-name" id="modalChineseName"></div>
-                        <div class="title" id="modalTitle"></div>
-                    </div>
-                </div>
+    <!-- Comparison Controls -->
+    <div id="comparisonControls" class="comparison-controls">
+        <div style="margin-bottom: 10px; font-weight: 600;">Compare Selected KAMs:</div>
+        <div id="selectedCount">0 selected</div>
+        <button class="compare-btn" onclick="openComparison()">Compare</button>
+        <button class="compare-btn" onclick="clearSelection()" style="background: #dc3545;">Clear</button>
+    </div>
+
+    <!-- Comparison Modal -->
+    <div id="comparisonModal" class="comparison-modal">
+        <div class="comparison-content">
+            <div class="comparison-header">
+                <h3>KAM Comparison</h3>
+                <button onclick="closeComparison()" style="background: none; border: none; color: white; font-size: 1.5em; cursor: pointer;">&times;</button>
             </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Content will be populated by JavaScript -->
+            <div class="comparison-body" id="comparisonBody">
+                <!-- Comparison cards will be populated here -->
             </div>
         </div>
     </div>
 
-    <script src="hkex-leadership-data.js"></script>
-    <script src="hkex-leadership-script.js"></script>
+    <!-- Load external KAM data file -->
+    <script src="actual_kam_data.js"></script>
+
+    <script>
+
+        let kamData = [];
+        let filteredData = [];
+        let charts = {};
+        let selectedKAMs = new Set();
+        let searchSuggestions = [];
+
+        // Enhanced Risk categorization function based on actual KAM data analysis
+        function categorizeRisk(kamTitle, description) {
+            const text = (kamTitle + ' ' + description).toLowerCase();
+
+            // Revenue Recognition (including market technology, subscription revenue)
+            if (text.includes('revenue') || text.includes('income') || text.includes('sales') ||
+                text.includes('market technology') || text.includes('subscription') ||
+                text.includes('transaction price') || text.includes('performance obligation')) {
+                return { category: 'revenue', label: 'Revenue' };
+            }
+            // Valuation & Impairment (most common in exchange KAMs)
+            else if (text.includes('valuation') || text.includes('impairment') || text.includes('goodwill') ||
+                     text.includes('fair value') || text.includes('intangible') || text.includes('recoverable') ||
+                     text.includes('cash-generating') || text.includes('discount rate') || text.includes('acquisition') ||
+                     text.includes('business combination') || text.includes('purchase price') || text.includes('customer relationship')) {
+                return { category: 'valuation', label: 'Valuation' };
+            }
+            // Compliance & Legal (including tax risks, regulatory matters)
+            else if (text.includes('compliance') || text.includes('regulation') || text.includes('tax') ||
+                     text.includes('legal') || text.includes('provision') || text.includes('dispute') ||
+                     text.includes('investigation') || text.includes('regulatory') || text.includes('cum/ex') ||
+                     text.includes('insolvency') || text.includes('litigation')) {
+                return { category: 'compliance', label: 'Compliance' };
+            }
+            // Operational (including IT systems, controls, restructuring)
+            else if (text.includes('operational') || text.includes('process') || text.includes('control') ||
+                     text.includes('system') || text.includes('technology') || text.includes('restructuring') ||
+                     text.includes('implementation') || text.includes('migration') || text.includes('infrastructure') ||
+                     text.includes('segregation of duties') || text.includes('it general controls')) {
+                return { category: 'operational', label: 'Operational' };
+            }
+            // Financial (including credit, liquidity, capital, financial instruments)
+            else if (text.includes('financial') || text.includes('credit') || text.includes('liquidity') ||
+                     text.includes('capital') || text.includes('instrument') || text.includes('derivative') ||
+                     text.includes('investment') || text.includes('asset') || text.includes('liability')) {
+                return { category: 'financial', label: 'Financial' };
+            }
+            else {
+                return { category: 'other', label: 'Other' };
+            }
+        }
+
+        // Dynamic KAM data loading from external file
+        function loadKAMData() {
+            try {
+                // Check if external KAM data is available
+                if (typeof ACTUAL_KAM_DATA !== 'undefined' && ACTUAL_KAM_DATA.length > 0) {
+                    // Validate data structure
+                    validateKAMData(ACTUAL_KAM_DATA);
+                    kamData = ACTUAL_KAM_DATA;
+
+                    // Log data source information
+                    const sourceInfo = getDataSourceInfo();
+                    console.log('📊 KAM Data Source Information:', sourceInfo);
+
+                    filteredData = [...kamData];
+
+                    initializeFilters();
+                    updateStats();
+                    createCharts();
+                    updateCards();
+
+                    document.getElementById('loadingMessage').style.display = 'none';
+                    document.getElementById('dashboardContent').style.display = 'block';
+
+                    console.log(`✅ Loaded ${kamData.length} actual KAM records from external file: actual_kam_data.js`);
+
+                    // Update success message to reflect external loading
+                    const successMsg = document.querySelector('.success-message');
+                    if (successMsg) {
+                        successMsg.innerHTML = `
+                            ✅ <strong>External KAM Data Loaded!</strong> Successfully loaded all ${kamData.length} verified KAM records with auditor responses from <code>actual_kam_data.js</code>.
+                            Each card includes both the Key Audit Matter and the corresponding Auditor's Response from your tidied dataset.
+                        `;
+                    }
+
+                    // Update data source information display
+                    updateDataSourceDisplay(sourceInfo);
+                } else {
+                    throw new Error('External KAM data file not found or empty');
+                }
+            } catch (error) {
+                console.error('Error loading external KAM data:', error);
+                document.getElementById('loadingMessage').innerHTML = `
+                    <div class="error">
+                        ❌ Error loading KAM data from external file.<br>
+                        <small>Please ensure 'actual_kam_data.js' is in the same directory and contains valid data.</small><br>
+                        <button onclick="retryDataLoad()" style="margin-top: 10px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                            🔄 Retry Loading
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Retry function for failed data loading
+        function retryDataLoad() {
+            document.getElementById('loadingMessage').innerHTML = '📊 Retrying KAM data load...';
+            setTimeout(loadKAMData, 1000);
+        }
+
+        // Validate KAM data structure
+        function validateKAMData(data) {
+            if (!Array.isArray(data) || data.length === 0) {
+                throw new Error('KAM data must be a non-empty array');
+            }
+
+            const requiredFields = ['id', 'company', 'year', 'auditor', 'kamTitle', 'description', 'auditResponse'];
+            const sampleRecord = data[0];
+
+            for (const field of requiredFields) {
+                if (!(field in sampleRecord)) {
+                    throw new Error(`Missing required field: ${field}`);
+                }
+            }
+
+            // Check for data completeness
+            const incompleteRecords = data.filter(record =>
+                !record.kamTitle || !record.description || !record.auditResponse
+            );
+
+            if (incompleteRecords.length > 0) {
+                console.warn(`⚠️ Found ${incompleteRecords.length} records with missing data`);
+            }
+
+            return true;
+        }
+
+        // Get data source information
+        function getDataSourceInfo() {
+            const totalRecords = kamData.length;
+            const companies = [...new Set(kamData.map(item => item.company))];
+            const auditors = [...new Set(kamData.map(item => item.auditor))];
+            const years = [...new Set(kamData.map(item => item.year))].sort();
+
+            return {
+                totalRecords,
+                companies: companies.length,
+                auditors: auditors.length,
+                yearRange: `${Math.min(...years)}-${Math.max(...years)}`,
+                dataSource: 'actual_kam_data.js',
+                lastLoaded: new Date().toLocaleString()
+            };
+        }
+
+        // Update data source display
+        function updateDataSourceDisplay(sourceInfo) {
+            document.getElementById('recordCount').textContent = sourceInfo.totalRecords;
+            document.getElementById('companyCount').textContent = sourceInfo.companies;
+            document.getElementById('auditorCount').textContent = sourceInfo.auditors;
+            document.getElementById('yearRange').textContent = sourceInfo.yearRange;
+            document.getElementById('loadTime').textContent = sourceInfo.lastLoaded;
+            document.getElementById('dataSourceInfo').style.display = 'block';
+        }
+
+        // Refresh data from external file
+        function refreshData() {
+            // Clear current data
+            kamData = [];
+            filteredData = [];
+            selectedKAMs.clear();
+
+            // Show loading message
+            document.getElementById('dashboardContent').style.display = 'none';
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('loadingMessage').innerHTML = '🔄 Refreshing KAM data from external file...';
+
+            // Force reload of the script (this will reload the page to get fresh data)
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }
+
+        // Show detailed data information
+        function showDataInfo() {
+            if (kamData.length === 0) {
+                alert('No data loaded yet.');
+                return;
+            }
+
+            const sourceInfo = getDataSourceInfo();
+            const companies = [...new Set(kamData.map(item => item.company))].sort();
+            const auditors = [...new Set(kamData.map(item => item.auditor))].sort();
+
+            const infoMessage = `
+📊 KAM Dataset Information
+
+📁 Data Source: ${sourceInfo.dataSource}
+📈 Total Records: ${sourceInfo.totalRecords}
+🏢 Companies (${sourceInfo.companies}): ${companies.join(', ')}
+👥 Auditors (${sourceInfo.auditors}): ${auditors.join(', ')}
+📅 Year Range: ${sourceInfo.yearRange}
+🕒 Last Loaded: ${sourceInfo.lastLoaded}
+
+🔍 Data Quality:
+• All records have KAM titles: ${kamData.filter(r => r.kamTitle).length}/${kamData.length}
+• All records have descriptions: ${kamData.filter(r => r.description).length}/${kamData.length}
+• All records have auditor responses: ${kamData.filter(r => r.auditResponse).length}/${kamData.length}
+
+💡 The data is dynamically loaded from the external JavaScript file, making it easy to update without modifying the dashboard code.
+            `;
+
+            alert(infoMessage);
+        }
+
+        function initializeFilters() {
+            const companies = [...new Set(kamData.map(item => item.company))].sort();
+            const auditors = [...new Set(kamData.map(item => item.auditor))].sort();
+            const years = [...new Set(kamData.map(item => item.year))].sort((a, b) => b - a);
+
+            // Get unique risk categories from the data
+            const riskCategories = [...new Set(kamData.map(item => {
+                const risk = categorizeRisk(item.kamTitle, item.description);
+                return risk.label;
+            }))].sort();
+
+            populateSelect('companyFilter', companies);
+            populateSelect('auditorFilter', auditors);
+            populateSelect('yearFilter', years);
+            populateSelect('yearSelector', years);
+            populateSelect('riskCategoryFilter', riskCategories);
+
+            // Add event listeners
+            document.getElementById('companyFilter').addEventListener('change', applyFilters);
+            document.getElementById('auditorFilter').addEventListener('change', applyFilters);
+            document.getElementById('yearFilter').addEventListener('change', applyFilters);
+            document.getElementById('riskCategoryFilter').addEventListener('change', applyFilters);
+            document.getElementById('searchFilter').addEventListener('input', applyFilters);
+        }
+
+        function populateSelect(selectId, options) {
+            const select = document.getElementById(selectId);
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.textContent = option;
+                select.appendChild(optionElement);
+            });
+        }
+
+        // Enhanced search functions
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchFilter').value.toLowerCase();
+            updateSearchSuggestions(searchTerm);
+            applyFilters();
+        }
+
+        function updateSearchSuggestions(searchTerm) {
+            if (searchTerm.length < 2) {
+                hideSearchSuggestions();
+                return;
+            }
+
+            const suggestions = new Set();
+            kamData.forEach(item => {
+                // Add matching companies
+                if (item.company.toLowerCase().includes(searchTerm)) {
+                    suggestions.add(item.company);
+                }
+                // Add matching auditors
+                if (item.auditor.toLowerCase().includes(searchTerm)) {
+                    suggestions.add(item.auditor);
+                }
+                // Add matching KAM titles
+                if (item.kamTitle.toLowerCase().includes(searchTerm)) {
+                    suggestions.add(item.kamTitle);
+                }
+            });
+
+            displaySearchSuggestions(Array.from(suggestions).slice(0, 5));
+        }
+
+        function displaySearchSuggestions(suggestions) {
+            const container = document.getElementById('searchSuggestions');
+            if (suggestions.length === 0) {
+                hideSearchSuggestions();
+                return;
+            }
+
+            container.innerHTML = suggestions.map(suggestion =>
+                `<div class="suggestion-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`
+            ).join('');
+            container.style.display = 'block';
+        }
+
+        function selectSuggestion(suggestion) {
+            document.getElementById('searchFilter').value = suggestion;
+            hideSearchSuggestions();
+            applyFilters();
+        }
+
+        function showSearchSuggestions() {
+            const searchTerm = document.getElementById('searchFilter').value;
+            if (searchTerm.length >= 2) {
+                updateSearchSuggestions(searchTerm);
+            }
+        }
+
+        function hideSearchSuggestions() {
+            setTimeout(() => {
+                document.getElementById('searchSuggestions').style.display = 'none';
+            }, 200);
+        }
+
+        function highlightSearchTerms(text, searchTerm) {
+            if (!searchTerm || searchTerm.length < 2) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        function applyFilters() {
+            const companyFilter = document.getElementById('companyFilter').value;
+            const auditorFilter = document.getElementById('auditorFilter').value;
+            const yearFilter = document.getElementById('yearFilter').value;
+            const riskCategoryFilter = document.getElementById('riskCategoryFilter').value;
+            const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+
+            filteredData = kamData.filter(item => {
+                const searchMatch = !searchFilter ||
+                    item.kamTitle.toLowerCase().includes(searchFilter) ||
+                    item.description.toLowerCase().includes(searchFilter) ||
+                    item.auditResponse.toLowerCase().includes(searchFilter) ||
+                    item.company.toLowerCase().includes(searchFilter) ||
+                    item.auditor.toLowerCase().includes(searchFilter);
+
+                // Check risk category match
+                const riskInfo = categorizeRisk(item.kamTitle, item.description);
+                const riskCategoryMatch = !riskCategoryFilter || riskInfo.label === riskCategoryFilter;
+
+                return (!companyFilter || item.company === companyFilter) &&
+                       (!auditorFilter || item.auditor === auditorFilter) &&
+                       (!yearFilter || item.year.toString() === yearFilter) &&
+                       riskCategoryMatch &&
+                       searchMatch;
+            });
+
+            updateStats();
+            updateCharts();
+            updateCards();
+        }
+
+        function updateStats() {
+            const companies = new Set(filteredData.map(item => item.company));
+            const auditors = new Set(filteredData.map(item => item.auditor));
+            const years = filteredData.map(item => item.year);
+
+            document.getElementById('totalKAMs').textContent = filteredData.length;
+            document.getElementById('totalCompanies').textContent = companies.size;
+            document.getElementById('totalAuditors').textContent = auditors.size;
+            document.getElementById('yearRange').textContent = years.length > 0 ? 
+                `${Math.min(...years)}-${Math.max(...years)}` : '2015-2024';
+        }
+
+        function createCharts() {
+            createCompanyChart();
+            createYearChart();
+            createAuditorChart();
+            createTrendChart();
+            createRiskMatrixChart();
+            createRiskEvolutionChart();
+        }
+
+        function updateCharts() {
+            Object.values(charts).forEach(chart => chart.destroy());
+            createCharts();
+        }
+
+        function createCompanyChart() {
+            const ctx = document.getElementById('companyChart').getContext('2d');
+            const companyData = {};
+            
+            filteredData.forEach(item => {
+                companyData[item.company] = (companyData[item.company] || 0) + 1;
+            });
+
+            charts.company = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(companyData),
+                    datasets: [{
+                        data: Object.values(companyData),
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                            '#9966FF', '#FF9F40', '#FF6384'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createYearChart() {
+            const ctx = document.getElementById('yearChart').getContext('2d');
+            const yearData = {};
+            
+            filteredData.forEach(item => {
+                yearData[item.year] = (yearData[item.year] || 0) + 1;
+            });
+
+            const sortedYears = Object.keys(yearData).sort();
+
+            charts.year = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sortedYears,
+                    datasets: [{
+                        label: 'Number of KAMs',
+                        data: sortedYears.map(year => yearData[year]),
+                        backgroundColor: '#36A2EB'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function createAuditorChart() {
+            const ctx = document.getElementById('auditorChart').getContext('2d');
+            const auditorData = {};
+            
+            filteredData.forEach(item => {
+                auditorData[item.auditor] = (auditorData[item.auditor] || 0) + 1;
+            });
+
+            charts.auditor = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(auditorData),
+                    datasets: [{
+                        label: 'Number of KAMs',
+                        data: Object.values(auditorData),
+                        backgroundColor: '#FFCE56'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTrendChart() {
+            const ctx = document.getElementById('trendChart').getContext('2d');
+            const companies = [...new Set(filteredData.map(item => item.company))];
+            const years = [...new Set(filteredData.map(item => item.year))].sort();
+
+            const datasets = companies.map((company, index) => {
+                const data = years.map(year => {
+                    return filteredData.filter(item => item.company === company && item.year === year).length;
+                });
+
+                return {
+                    label: company,
+                    data: data,
+                    borderColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF6384'][index % 7],
+                    fill: false,
+                    tension: 0.1
+                };
+            });
+
+            charts.trend = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Enhanced Risk Assessment Matrix based on actual KAM data analysis
+        function createRiskMatrixChart() {
+            const ctx = document.getElementById('riskMatrixChart').getContext('2d');
+
+            // Analyze actual KAM data to create risk matrix
+            const riskAnalysis = analyzeRiskPatterns();
+
+            charts.riskMatrix = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Revenue Recognition',
+                        data: riskAnalysis.revenue,
+                        backgroundColor: 'rgba(25, 118, 210, 0.6)',
+                        borderColor: '#1976d2',
+                        pointRadius: 8
+                    }, {
+                        label: 'Valuation & Impairment',
+                        data: riskAnalysis.valuation,
+                        backgroundColor: 'rgba(123, 31, 162, 0.6)',
+                        borderColor: '#7b1fa2',
+                        pointRadius: 8
+                    }, {
+                        label: 'Compliance & Legal',
+                        data: riskAnalysis.compliance,
+                        backgroundColor: 'rgba(56, 142, 60, 0.6)',
+                        borderColor: '#388e3c',
+                        pointRadius: 8
+                    }, {
+                        label: 'Operational',
+                        data: riskAnalysis.operational,
+                        backgroundColor: 'rgba(245, 124, 0, 0.6)',
+                        borderColor: '#f57c00',
+                        pointRadius: 8
+                    }, {
+                        label: 'Financial',
+                        data: riskAnalysis.financial,
+                        backgroundColor: 'rgba(211, 47, 47, 0.6)',
+                        borderColor: '#d32f2f',
+                        pointRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Frequency (Number of KAMs)'
+                            },
+                            beginAtZero: true
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Impact Level (1-5 scale)'
+                            },
+                            min: 1,
+                            max: 5
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: Frequency ${context.parsed.x}, Impact ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createRiskEvolutionChart() {
+            const ctx = document.getElementById('riskEvolutionChart').getContext('2d');
+            const years = [...new Set(filteredData.map(item => item.year))].sort();
+
+            const riskCategories = ['revenue', 'valuation', 'compliance', 'operational', 'financial'];
+            const colors = ['#1976d2', '#7b1fa2', '#388e3c', '#f57c00', '#d32f2f'];
+
+            const datasets = riskCategories.map((category, index) => {
+                const data = years.map(year => {
+                    return filteredData.filter(item => {
+                        const risk = categorizeRisk(item.kamTitle, item.description);
+                        return item.year === year && risk.category === category;
+                    }).length;
+                });
+
+                return {
+                    label: category.charAt(0).toUpperCase() + category.slice(1),
+                    data: data,
+                    borderColor: colors[index],
+                    backgroundColor: colors[index] + '20',
+                    fill: true,
+                    tension: 0.4
+                };
+            });
+
+            charts.riskEvolution = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of KAMs'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCards() {
+            const container = document.getElementById('kamCardsContainer');
+            container.innerHTML = '';
+            const searchTerm = document.getElementById('searchFilter').value.toLowerCase();
+
+            const displayData = filteredData.slice(0, 100); // Show 100 cards to include more records
+
+            displayData.forEach((item, index) => {
+                const description = item.description || 'No description available';
+                const auditResponse = item.auditResponse || 'No auditor response available';
+                const riskInfo = categorizeRisk(item.kamTitle, description);
+
+                // Apply search highlighting
+                const highlightedTitle = highlightSearchTerms(item.kamTitle, searchTerm);
+                const highlightedDescription = description.length > 200 ?
+                    highlightSearchTerms(description.substring(0, 200), searchTerm) + '...' :
+                    highlightSearchTerms(description, searchTerm);
+                const highlightedAuditResponse = auditResponse.length > 200 ?
+                    highlightSearchTerms(auditResponse.substring(0, 200), searchTerm) + '...' :
+                    highlightSearchTerms(auditResponse, searchTerm);
+
+                const card = document.createElement('div');
+                card.className = 'kam-card';
+                card.setAttribute('data-kam-id', item.id);
+                card.innerHTML = `
+                    <input type="checkbox" class="card-checkbox" onchange="toggleKAMSelection(${item.id}, this.checked)">
+                    <div class="card-header">
+                        <h3 class="card-title">${highlightedTitle}
+                            <span class="risk-category risk-${riskInfo.category}">${riskInfo.label}</span>
+                        </h3>
+                        <div class="card-meta">
+                            <span class="company-tag">${item.company}</span>
+                            <span class="year-tag">${item.year}</span>
+                            <span class="auditor-tag">${item.auditor}</span>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        <strong>📋 Key Audit Matter:</strong>
+                        <div class="description-preview" id="desc-preview-${index}">
+                            ${highlightedDescription}
+                            ${description.length > 200 ?
+                                `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'desc')">📖 Show full description</span>` : ''}
+                        </div>
+                        <div class="description-full" id="desc-full-${index}" style="display: none;">
+                            ${highlightSearchTerms(description, searchTerm)}
+                            ${description.length > 200 ?
+                                `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'desc')">📖 Show less</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="audit-response">
+                        <div class="audit-response-header">🔍 Auditor's Response:</div>
+                        <div class="audit-response-content">
+                            <div class="description-preview" id="audit-preview-${index}">
+                                ${highlightedAuditResponse}
+                                ${auditResponse.length > 200 ?
+                                    `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'audit')">📖 Show full response</span>` : ''}
+                            </div>
+                            <div class="description-full" id="audit-full-${index}" style="display: none;">
+                                ${highlightSearchTerms(auditResponse, searchTerm)}
+                                ${auditResponse.length > 200 ?
+                                    `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'audit')">📖 Show less</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #f1f3f4; font-size: 0.9em; color: #6c757d;">
+                        💡 <strong>Related KAMs:</strong> <span id="related-${item.id}">Loading...</span>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                // Load related KAMs asynchronously
+                setTimeout(() => findRelatedKAMs(item.id), 100);
+            });
+
+            if (filteredData.length > 100) {
+                const paginationInfo = document.createElement('div');
+                paginationInfo.className = 'pagination-info';
+                paginationInfo.innerHTML = `
+                    Showing first 100 of ${filteredData.length} records. Use filters to narrow down results.
+                `;
+                container.appendChild(paginationInfo);
+            }
+
+            updateComparisonControls();
+        }
+
+        function toggleDescription(index, type) {
+            const preview = document.getElementById(`${type}-preview-${index}`);
+            const full = document.getElementById(`${type}-full-${index}`);
+
+            if (!preview || !full) {
+                console.error(`Elements not found for ${type}-${index}`);
+                return;
+            }
+
+            // Check current state and toggle
+            const isPreviewVisible = preview.style.display !== 'none';
+
+            if (isPreviewVisible) {
+                // Show full, hide preview
+                preview.style.display = 'none';
+                full.style.display = 'block';
+            } else {
+                // Show preview, hide full
+                preview.style.display = 'block';
+                full.style.display = 'none';
+            }
+        }
+
+        // Comparison functionality
+        function toggleKAMSelection(kamId, isSelected) {
+            if (isSelected) {
+                selectedKAMs.add(kamId);
+            } else {
+                selectedKAMs.delete(kamId);
+            }
+            updateComparisonControls();
+        }
+
+        function updateComparisonControls() {
+            const controls = document.getElementById('comparisonControls');
+            const count = selectedKAMs.size;
+
+            if (count > 0) {
+                controls.style.display = 'block';
+                document.getElementById('selectedCount').textContent = `${count} selected`;
+            } else {
+                controls.style.display = 'none';
+            }
+        }
+
+        function openComparison() {
+            if (selectedKAMs.size < 2) {
+                alert('Please select at least 2 KAMs to compare.');
+                return;
+            }
+
+            const modal = document.getElementById('comparisonModal');
+            const body = document.getElementById('comparisonBody');
+            body.innerHTML = '';
+
+            const selectedData = kamData.filter(item => selectedKAMs.has(item.id));
+
+            selectedData.forEach(item => {
+                const riskInfo = categorizeRisk(item.kamTitle, item.description);
+                const comparisonCard = document.createElement('div');
+                comparisonCard.className = 'comparison-card';
+                comparisonCard.innerHTML = `
+                    <h4>${item.kamTitle} <span class="risk-category risk-${riskInfo.category}">${riskInfo.label}</span></h4>
+                    <div style="margin-bottom: 15px;">
+                        <span class="company-tag">${item.company}</span>
+                        <span class="year-tag">${item.year}</span>
+                        <span class="auditor-tag">${item.auditor}</span>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <strong>📋 Key Audit Matter:</strong>
+                        <div style="margin-top: 8px; line-height: 1.5;">${item.description}</div>
+                    </div>
+                    <div class="audit-response">
+                        <div class="audit-response-header">🔍 Auditor's Response:</div>
+                        <div class="audit-response-content">${item.auditResponse}</div>
+                    </div>
+                `;
+                body.appendChild(comparisonCard);
+            });
+
+            modal.style.display = 'block';
+        }
+
+        function closeComparison() {
+            document.getElementById('comparisonModal').style.display = 'none';
+        }
+
+        function clearSelection() {
+            selectedKAMs.clear();
+            document.querySelectorAll('.card-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            updateComparisonControls();
+        }
+
+        // Smart recommendations
+        function findRelatedKAMs(kamId) {
+            const currentKAM = kamData.find(item => item.id === kamId);
+            if (!currentKAM) return;
+
+            const related = kamData
+                .filter(item => item.id !== kamId)
+                .map(item => {
+                    let score = 0;
+
+                    // Same company
+                    if (item.company === currentKAM.company) score += 3;
+
+                    // Same auditor
+                    if (item.auditor === currentKAM.auditor) score += 2;
+
+                    // Same risk category
+                    const currentRisk = categorizeRisk(currentKAM.kamTitle, currentKAM.description);
+                    const itemRisk = categorizeRisk(item.kamTitle, item.description);
+                    if (currentRisk.category === itemRisk.category) score += 4;
+
+                    // Similar keywords in title
+                    const currentWords = currentKAM.kamTitle.toLowerCase().split(' ');
+                    const itemWords = item.kamTitle.toLowerCase().split(' ');
+                    const commonWords = currentWords.filter(word =>
+                        word.length > 3 && itemWords.includes(word)
+                    );
+                    score += commonWords.length;
+
+                    return { item, score };
+                })
+                .filter(result => result.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 3);
+
+            const relatedElement = document.getElementById(`related-${kamId}`);
+            if (relatedElement) {
+                if (related.length > 0) {
+                    relatedElement.innerHTML = related.map(result =>
+                        `<span style="cursor: pointer; color: #007bff; text-decoration: underline;"
+                               onclick="scrollToKAM(${result.item.id})">${result.item.kamTitle.substring(0, 30)}...</span>`
+                    ).join(', ');
+                } else {
+                    relatedElement.textContent = 'No related KAMs found';
+                }
+            }
+        }
+
+        function scrollToKAM(kamId) {
+            const card = document.querySelector(`[data-kam-id="${kamId}"]`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.style.border = '2px solid #007bff';
+                setTimeout(() => {
+                    card.style.border = '1px solid #e9ecef';
+                }, 2000);
+            }
+        }
+
+        // Risk pattern analysis based on actual KAM data
+        function analyzeRiskPatterns() {
+            const riskData = {
+                revenue: [],
+                valuation: [],
+                compliance: [],
+                operational: [],
+                financial: []
+            };
+
+            // Analyze frequency and impact of each risk category
+            const riskCounts = {};
+            const riskImpacts = {
+                revenue: 4.2,      // High impact based on revenue recognition complexity
+                valuation: 4.8,    // Very high impact due to goodwill/impairment materiality
+                compliance: 3.5,   // Medium-high impact for legal/regulatory risks
+                operational: 3.2,  // Medium impact for operational risks
+                financial: 4.0     // High impact for financial risks
+            };
+
+            filteredData.forEach(item => {
+                const risk = categorizeRisk(item.kamTitle, item.description);
+                riskCounts[risk.category] = (riskCounts[risk.category] || 0) + 1;
+            });
+
+            // Create scatter plot data points
+            Object.keys(riskCounts).forEach(category => {
+                if (riskData[category] !== undefined) {
+                    riskData[category].push({
+                        x: riskCounts[category],
+                        y: riskImpacts[category] || 3.0
+                    });
+                }
+            });
+
+            return riskData;
+        }
+
+        // Year-based data update function
+        function updateYearBasedData() {
+            console.log('updateYearBasedData called');
+            const selectedYear = document.getElementById('yearSelector').value;
+            const headerElement = document.getElementById('auditorSectionHeader');
+
+            console.log('Selected year:', selectedYear);
+            console.log('Header element:', headerElement);
+
+            if (selectedYear) {
+                // Update section header with selected year
+                headerElement.textContent = `📋 Exchange Auditors for ${selectedYear}`;
+
+                // Show auditor table section
+                document.getElementById('auditorTableSection').style.display = 'block';
+                console.log('Calling createAuditorTable with year:', selectedYear);
+                createAuditorTable(selectedYear);
+            } else {
+                // Reset header to default text
+                headerElement.textContent = '📋 Exchange Auditors for Selected Year';
+
+                // Hide auditor table section
+                document.getElementById('auditorTableSection').style.display = 'none';
+            }
+        }
+
+        // Create dynamic auditor table for selected year
+        function createAuditorTable(year) {
+            console.log('createAuditorTable called with year:', year);
+            console.log('kamData length:', kamData.length);
+
+            const yearData = kamData.filter(item => item.year.toString() === year);
+            console.log('yearData length:', yearData.length);
+
+            const exchangeAuditorMap = {};
+
+            // Group by company (exchange) and count KAMs per auditor
+            yearData.forEach(item => {
+                if (!exchangeAuditorMap[item.company]) {
+                    exchangeAuditorMap[item.company] = {};
+                }
+                if (!exchangeAuditorMap[item.company][item.auditor]) {
+                    exchangeAuditorMap[item.company][item.auditor] = 0;
+                }
+                exchangeAuditorMap[item.company][item.auditor]++;
+            });
+
+            let tableHTML = `
+                <table class="auditor-table">
+                    <thead>
+                        <tr>
+                            <th>Exchange</th>
+                            <th>Auditor</th>
+                            <th>KAM Count</th>
+                            <th>Risk Categories</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            Object.keys(exchangeAuditorMap).sort().forEach(exchange => {
+                Object.keys(exchangeAuditorMap[exchange]).forEach(auditor => {
+                    const kamCount = exchangeAuditorMap[exchange][auditor];
+                    const exchangeYearData = yearData.filter(item =>
+                        item.company === exchange && item.auditor === auditor
+                    );
+
+                    // Analyze risk categories for this exchange-auditor combination
+                    const riskCategories = {};
+                    exchangeYearData.forEach(item => {
+                        const risk = categorizeRisk(item.kamTitle, item.description);
+                        riskCategories[risk.category] = (riskCategories[risk.category] || 0) + 1;
+                    });
+
+                    const riskCategoryTags = Object.keys(riskCategories)
+                        .map(category => `<span class="risk-category risk-${category}">${category} (${riskCategories[category]})</span>`)
+                        .join(' ');
+
+                    tableHTML += `
+                        <tr>
+                            <td class="exchange-name">${exchange}</td>
+                            <td class="auditor-name">${auditor}</td>
+                            <td><span class="kam-count">${kamCount}</span></td>
+                            <td>${riskCategoryTags}</td>
+                        </tr>
+                    `;
+                });
+            });
+
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+
+            console.log('Setting table HTML, length:', tableHTML.length);
+            document.getElementById('auditorTableContainer').innerHTML = tableHTML;
+            console.log('Table HTML set successfully');
+        }
+
+        // Export functionality
+        function exportToPDF() {
+            const printWindow = window.open('', '_blank');
+            const exportData = selectedKAMs.size > 0 ?
+                kamData.filter(item => selectedKAMs.has(item.id)) :
+                filteredData;
+
+            let htmlContent = `
+                <html>
+                <head>
+                    <title>KAM Analysis Report</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .kam-item { margin-bottom: 30px; page-break-inside: avoid; }
+                        .kam-title { font-size: 1.2em; font-weight: bold; color: #2c3e50; margin-bottom: 10px; }
+                        .meta-info { margin-bottom: 15px; }
+                        .tag { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8em; margin-right: 5px; }
+                        .company-tag { background: #007bff; color: white; }
+                        .year-tag { background: #28a745; color: white; }
+                        .auditor-tag { background: #6f42c1; color: white; }
+                        .section { margin-bottom: 15px; }
+                        .section-title { font-weight: bold; margin-bottom: 5px; }
+                        .audit-response { background: #f8f9fa; padding: 10px; border-left: 4px solid #007bff; }
+                        @media print { .kam-item { page-break-inside: avoid; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>Key Audit Matters Analysis Report</h1>
+                        <p>Generated on ${new Date().toLocaleDateString()}</p>
+                        <p>Total Records: ${exportData.length}</p>
+                    </div>
+            `;
+
+            exportData.forEach(item => {
+                const riskInfo = categorizeRisk(item.kamTitle, item.description);
+                htmlContent += `
+                    <div class="kam-item">
+                        <div class="kam-title">${item.kamTitle}</div>
+                        <div class="meta-info">
+                            <span class="tag company-tag">${item.company}</span>
+                            <span class="tag year-tag">${item.year}</span>
+                            <span class="tag auditor-tag">${item.auditor}</span>
+                            <span class="tag" style="background: #6c757d; color: white;">${riskInfo.label}</span>
+                        </div>
+                        <div class="section">
+                            <div class="section-title">📋 Key Audit Matter:</div>
+                            <div>${item.description}</div>
+                        </div>
+                        <div class="section">
+                            <div class="section-title">🔍 Auditor's Response:</div>
+                            <div class="audit-response">${item.auditResponse}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            htmlContent += '</body></html>';
+
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => printWindow.print(), 500);
+        }
+
+        function exportToExcel() {
+            const exportData = selectedKAMs.size > 0 ?
+                kamData.filter(item => selectedKAMs.has(item.id)) :
+                filteredData;
+
+            let csvContent = "Company,Year,Auditor,KAM Title,Risk Category,Description,Auditor Response\n";
+
+            exportData.forEach(item => {
+                const riskInfo = categorizeRisk(item.kamTitle, item.description);
+                const row = [
+                    `"${item.company}"`,
+                    item.year,
+                    `"${item.auditor}"`,
+                    `"${item.kamTitle}"`,
+                    `"${riskInfo.label}"`,
+                    `"${item.description.replace(/"/g, '""')}"`,
+                    `"${item.auditResponse.replace(/"/g, '""')}"`
+                ].join(',');
+                csvContent += row + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `kam_analysis_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', loadKAMData);
+    </script>
 </body>
 </html>

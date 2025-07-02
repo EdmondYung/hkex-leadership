@@ -268,6 +268,9 @@
 
         .description-full {
             display: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
         }
 
         .show-more-btn {
@@ -275,12 +278,18 @@
             cursor: pointer;
             font-size: 0.9em;
             text-decoration: underline;
-            margin-top: 5px;
+            margin-top: 8px;
+            margin-left: 8px;
             display: inline-block;
+            font-weight: 500;
         }
 
         .show-more-btn:hover {
             color: #0056b3;
+            text-decoration: none;
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
         }
 
         .pagination-info {
@@ -1450,12 +1459,12 @@
                         <div class="description-preview" id="desc-preview-${index}">
                             ${highlightedDescription}
                             ${description.length > 200 ?
-                                `<span class="show-more-btn" onclick="toggleDescription(${index}, 'desc')">Show more</span>` : ''}
+                                `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'desc')">📖 Show full description</span>` : ''}
                         </div>
                         <div class="description-full" id="desc-full-${index}" style="display: none;">
                             ${highlightSearchTerms(description, searchTerm)}
                             ${description.length > 200 ?
-                                `<span class="show-more-btn" onclick="toggleDescription(${index}, 'desc')">Show less</span>` : ''}
+                                `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'desc')">📖 Show less</span>` : ''}
                         </div>
                     </div>
                     <div class="audit-response">
@@ -1464,12 +1473,12 @@
                             <div class="description-preview" id="audit-preview-${index}">
                                 ${highlightedAuditResponse}
                                 ${auditResponse.length > 200 ?
-                                    `<span class="show-more-btn" onclick="toggleDescription(${index}, 'audit')">Show more</span>` : ''}
+                                    `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'audit')">📖 Show full response</span>` : ''}
                             </div>
                             <div class="description-full" id="audit-full-${index}" style="display: none;">
                                 ${highlightSearchTerms(auditResponse, searchTerm)}
                                 ${auditResponse.length > 200 ?
-                                    `<span class="show-more-btn" onclick="toggleDescription(${index}, 'audit')">Show less</span>` : ''}
+                                    `<br><span class="show-more-btn" onclick="toggleDescription(${index}, 'audit')">📖 Show less</span>` : ''}
                             </div>
                         </div>
                     </div>
@@ -1499,12 +1508,22 @@
             const preview = document.getElementById(`${type}-preview-${index}`);
             const full = document.getElementById(`${type}-full-${index}`);
 
-            if (preview.style.display === 'none') {
-                preview.style.display = 'block';
-                full.style.display = 'none';
-            } else {
+            if (!preview || !full) {
+                console.error(`Elements not found for ${type}-${index}`);
+                return;
+            }
+
+            // Check current state and toggle
+            const isPreviewVisible = preview.style.display !== 'none';
+
+            if (isPreviewVisible) {
+                // Show full, hide preview
                 preview.style.display = 'none';
                 full.style.display = 'block';
+            } else {
+                // Show preview, hide full
+                preview.style.display = 'block';
+                full.style.display = 'none';
             }
         }
 
