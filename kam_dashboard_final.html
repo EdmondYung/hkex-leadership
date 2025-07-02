@@ -264,13 +264,20 @@
 
         .description-preview {
             display: block;
+            text-indent: 0;
+            margin: 0;
+            padding: 0;
         }
 
         .description-full {
             display: none;
-            white-space: pre-wrap;
+            white-space: normal;
             word-wrap: break-word;
             line-height: 1.6;
+            text-align: left;
+            text-indent: 0;
+            margin: 0;
+            padding: 0;
         }
 
         .show-more-btn {
@@ -1091,9 +1098,9 @@
         }
 
         function highlightSearchTerms(text, searchTerm) {
-            if (!searchTerm || searchTerm.length < 2) return text;
+            if (!searchTerm || searchTerm.length < 2) return text.trim();
             const regex = new RegExp(`(${searchTerm})`, 'gi');
-            return text.replace(regex, '<span class="search-highlight">$1</span>');
+            return text.trim().replace(regex, '<span class="search-highlight">$1</span>');
         }
 
         function applyFilters() {
@@ -1426,8 +1433,8 @@
             const displayData = filteredData.slice(0, 100); // Show 100 cards to include more records
 
             displayData.forEach((item, index) => {
-                const description = item.description || 'No description available';
-                const auditResponse = item.auditResponse || 'No auditor response available';
+                const description = (item.description || 'No description available').trim();
+                const auditResponse = (item.auditResponse || 'No auditor response available').trim();
                 const riskInfo = categorizeRisk(item.kamTitle, description);
 
                 // Apply search highlighting
