@@ -1309,5 +1309,65 @@ const ACTUAL_KAM_DATA = [
     "description": "On January 2, 2024, the Entity completed the acquisition of the remaining 77.7% common units in VettaFi Holdings LLC and all its subsidiaries (collectively “VettaFi”) and VettaFi became a consolidated wholly-owned subsidiary of the Entity. The Entity’s identified acquired intangible assets include customer relationships, technology, and trade name for which the amounts estimated by the Entity are $599.7 million, $188.1 million, and $81.6 million respectively. The Entity estimated the fair value of customer relationships, technology, and trade name acquired based on the income approach. This valuation involves significant subjectivity and estimation uncertainty, and certain significant assumptions in respect of future revenues (including those attributable to the acquired customer relationships, trade name, or technology), customer attrition rates, discount rates, and royalty rate.",
     "auditResponse": "We evaluated the appropriateness of the future revenues (including those attributable to acquired customer relationships, trade name, or technology) and customer attrition rates by considering past performance of the acquired business and against new initiatives in the Entity’s long-term strategic plan. We involved valuation professionals with specialized skills, knowledge, and experience, who assisted in assessing the appropriateness of the discount rates and royalty rate by assessing against comparable entities and industry data.",
     "fileName": "Pages from TMX_Annual_2024.pdf"
+  },
+  {
+    "id": 132,
+    "company": "Japan Exchange Group (JPX)",
+    "year": 2020,
+    "auditor": "Deloitte Touche Tohmatsu LLC",
+    "kamTitle": "Evaluation of IT Controls Related to Revenue Recognition",
+    "description": "As described in Note 20 \"Operating Revenue\" of the consolidated financial statements, the transaction-related revenue for the current fiscal year was 53,171 million yen, and the liquidation-related revenue was 31,088 million yen. The Group's revenue is generated through automated systems, and the accuracy of revenue recognition depends on the effectiveness of IT controls. The IT systems process a large volume of transactions daily, and any system failures or control weaknesses could result in material misstatements in revenue recognition. The complexity of the IT environment and the high volume of automated transactions make this a key audit matter requiring specialized attention and testing procedures.",
+    "auditResponse": "The audit firm, in collaboration with IT specialists, understood the data flow, processing procedures, and automated internal controls within the IT system from the initiation of transactions to the recording of revenue. We evaluated the design and operating effectiveness of key IT controls, including system access controls, change management controls, and automated application controls. We performed detailed testing of the IT control environment, including testing of user access management, segregation of duties, and system interfaces. Additionally, we conducted substantive testing of revenue transactions and performed analytical procedures to validate the accuracy and completeness of revenue recognition.",
+    "fileName": "JPX KAM_ja2en.xlsx"
+  },
+  {
+    "id": 133,
+    "company": "Japan Exchange Group (JPX)",
+    "year": 2020,
+    "auditor": "Deloitte Touche Tohmatsu LLC",
+    "kamTitle": "Evaluation of Software and Software Prepaid Expenses",
+    "description": "As disclosed in Note to the Consolidated Financial Statements \"13. Goodwill and Intangible Assets,\" at the end of the current consolidated fiscal year, software was recorded at 27,116 million yen, and software provisional accounts were recorded at 4,847 million yen. The Group continuously invests in technology infrastructure and software development to maintain its competitive position in the financial markets. The valuation of software assets and the appropriate timing of capitalization versus expensing of software development costs require significant judgment. The assessment of software impairment and the determination of useful lives for software assets are critical areas that could materially impact the financial statements.",
+    "auditResponse": "The audit firm, in collaboration with IT specialists, evaluated the effectiveness of internal controls related to the assessment of software and software provisional accounts, and primarily implemented substantive procedures. We examined the Group's software capitalization policies and tested compliance with accounting standards. We reviewed the business rationale for major software investments and assessed the recoverability of capitalized software costs. Our procedures included testing the accuracy of software asset records, evaluating the appropriateness of useful life estimates, and performing impairment testing where indicators of impairment were identified.",
+    "fileName": "JPX KAM_ja2en.xlsx"
+  },
+  {
+    "id": 134,
+    "company": "Japan Exchange Group (JPX)",
+    "year": 2021,
+    "auditor": "Deloitte Touche Tohmatsu LLC",
+    "kamTitle": "Evaluation of Related Company Shares and Capital Contributions",
+    "description": "The company is a pure holding company, and the total amount of associated company shares and capital contributions (hereinafter referred to as \"associated company shares, etc.\") recorded on the balance sheet at the end of the current fiscal year was 434,762 million yen. As a holding company, JPX's primary assets consist of investments in its operating subsidiaries, including Tokyo Stock Exchange, Osaka Exchange, and other related entities. The valuation of these investments requires assessment of the underlying performance and prospects of each subsidiary. Any impairment in the value of these investments could have a material impact on JPX's financial position and results of operations.",
+    "auditResponse": "The audit firm evaluated the effectiveness of the internal control related to the valuation of shares and other interests in associated companies and examined the reasonableness of the company's valuation of shares and other interests in associated companies. We reviewed the financial performance of key subsidiaries and assessed whether there were any indicators of impairment. Our procedures included analyzing the business plans and forecasts of major subsidiaries, evaluating the appropriateness of valuation methodologies used, and testing the mathematical accuracy of impairment calculations where applicable.",
+    "fileName": "JPX KAM_ja2en.xlsx"
+  },
+  {
+    "id": 135,
+    "company": "Japan Exchange Group (JPX)",
+    "year": 2022,
+    "auditor": "Deloitte Touche Tohmatsu LLC",
+    "kamTitle": "Evaluation of Related Company Shares and Capital Contributions",
+    "description": "The company is a pure holding company, and the total amount of associated company shares and capital contributions (hereinafter referred to as \"associated company shares, etc.\") recorded on the balance sheet at the end of the current fiscal year was 434,762 million yen. The valuation of investments in subsidiaries remains a critical area due to the significant carrying amounts and the potential impact of market conditions and regulatory changes on the underlying businesses. The assessment requires consideration of both quantitative factors such as financial performance and qualitative factors such as strategic positioning and market outlook.",
+    "auditResponse": "The audit firm evaluated the effectiveness of the internal control related to the valuation of shares and other equity interests in associated companies and examined the reasonableness of the company's valuation of shares and other equity interests in associated companies. We performed detailed reviews of subsidiary performance, including analysis of key performance indicators and comparison with budget and prior year results. Our audit procedures included evaluation of management's impairment assessment process, testing of key assumptions used in valuation models, and consideration of external market factors that could impact subsidiary valuations.",
+    "fileName": "JPX KAM_ja2en.xlsx"
+  },
+  {
+    "id": 136,
+    "company": "Japan Exchange Group (JPX)",
+    "year": 2023,
+    "auditor": "Deloitte Touche Tohmatsu LLC",
+    "kamTitle": "Evaluation of Related Company Shares and Capital Contributions",
+    "description": "The company is a pure holding company, and the total amount of associated company shares and contributions to associated companies (hereinafter referred to as \"associated company shares, etc.\") recorded in the balance sheet at the end of the current fiscal year was 434,762 million yen. The investment portfolio represents the core value of JPX as a holding company, with significant exposure to the performance of Japan's financial markets infrastructure. The ongoing evaluation of these investments requires careful consideration of market dynamics, regulatory developments, and the competitive landscape affecting each subsidiary's operations and future prospects.",
+    "auditResponse": "The audit firm evaluated the effectiveness of the internal control related to the valuation of shares and other interests in associated companies and examined the reasonableness of the company's valuation of shares and other interests in associated companies. We conducted comprehensive reviews of each major subsidiary's financial performance and strategic position. Our audit approach included testing management's impairment assessment procedures, evaluating the appropriateness of discount rates and growth assumptions used in valuation models, and assessing the impact of market conditions and regulatory changes on subsidiary valuations.",
+    "fileName": "JPX KAM_ja2en.xlsx"
+  },
+  {
+    "id": 137,
+    "company": "Japan Exchange Group (JPX)",
+    "year": 2024,
+    "auditor": "Deloitte Touche Tohmatsu LLC",
+    "kamTitle": "Evaluation of Related Company Shares and Capital Contributions",
+    "description": "The company is a pure holding company, and the total amount of associated company shares and capital contributions (hereinafter referred to as \"associated company shares, etc.\") recorded in the balance sheet at the end of the current fiscal year was 434,762 million yen. As Japan's premier financial markets infrastructure provider, JPX's subsidiary investments represent critical national financial infrastructure. The valuation assessment must consider evolving market structures, technological innovations, regulatory reforms, and competitive pressures that could affect the long-term value and strategic positioning of these investments.",
+    "auditResponse": "The audit firm evaluated the effectiveness of the internal control related to the valuation of shares and other interests in associated companies and examined the reasonableness of the company's valuation of shares and other interests in associated companies. We performed extensive testing of management's valuation processes, including review of business plans, assessment of key value drivers, and evaluation of impairment indicators. Our procedures included analysis of market trends affecting the financial services industry, review of regulatory developments impacting exchange operations, and assessment of competitive positioning of JPX's subsidiaries in the evolving financial markets landscape.",
+    "fileName": "JPX KAM_ja2en.xlsx"
   }
 ];
